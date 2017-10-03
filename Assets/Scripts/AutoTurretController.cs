@@ -25,7 +25,7 @@ public class AutoTurretController : TurretController {
       Vector3 startRay = transform.position;
       
       //http://answers.unity3d.com/questions/1042247/how-to-make-a-simple-line-of-sight-in-a-2d-top-dow.html
-      foreach (Transform childPos in GameObject.Find("BulletHolder").transform) {
+      foreach (GameObject childPos in EnemySpawner.instance.pooledEnemies) {
          //precompute our ray settings
          Vector3 directionRay = (childPos.transform.position - startRay).normalized;
          float distanceRay = detectionRange;
