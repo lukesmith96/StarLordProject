@@ -31,11 +31,5 @@ public class BulletController : MonoBehaviour {
       if (other.gameObject.CompareTag("Player") && originPoint != Vector2.zero) {
          this.gameObject.SetActive(false);
       }
-      if (other.gameObject.CompareTag("Asteroid"))
-      {
-         other.gameObject.SetActive(false);
-         this.gameObject.SetActive(false);
-         // add mass to player
-      }
    }
 }

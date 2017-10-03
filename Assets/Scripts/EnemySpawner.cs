@@ -10,7 +10,8 @@ using UnityEngine;
  *    - ranges can be adjusted
  */
 public class EnemySpawner : MonoBehaviour {
-
+   public static EnemySpawner instance;
+   
    public List<GameObject> pooledEnemies;
    public GameObject enemyObject;
    public int count = 0;
@@ -21,6 +22,21 @@ public class EnemySpawner : MonoBehaviour {
    public float spawnRate = 2f;
    private float nextSpawn = 0.0f;
 
+   void Awake()
+   {
+      //If we don't currently have a game control...
+      if (instance == null)
+      {
+         //...set this one to be it...
+         instance = this;
+      }
+      else if (instance != this)
+      {
+         //...destroy this one because it is a duplicate.
+         Destroy(gameObject);
+      }
+   }
+   
    void Start() {
       for (int i = 0; i < poolSize; i++) {
          GameObject obj = (GameObject)Instantiate(enemyObject);
