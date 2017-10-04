@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class AutoTurretController : TurretController {
    public GameObject player;
-   public float detectionRange = 40f;
    
    private bool isDragged;  // Allows smooth dragging
    private bool isAttached;
    private bool isTouching;
    
-	// Use this for initialization
-	void Start () {
+   // Use this for initialization
+   new void Start () {
+      base.Start();
+      
       isDragged = false;
       isAttached = false;
       isTouching = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+   }
+   
+   // Update is called once per frame
+   new void Update () {
+      base.Update();
+      
       //target is closest enemy with line of sight
       RaycastHit2D closestEnemy = new RaycastHit2D();
       bool gotTarget = false;
@@ -26,9 +29,11 @@ public class AutoTurretController : TurretController {
       
       //http://answers.unity3d.com/questions/1042247/how-to-make-a-simple-line-of-sight-in-a-2d-top-dow.html
       foreach (GameObject childPos in EnemySpawner.instance.pooledEnemies) {
+         if (!childPos.activeInHierarchy) continue;
+         
          //precompute our ray settings
          Vector3 directionRay = (childPos.transform.position - startRay).normalized;
-         float distanceRay = detectionRange;
+         float distanceRay = maxRange;
 
          //draw the ray in the editor
          Debug.DrawRay(startRay, directionRay * distanceRay, Color.red);
@@ -61,12 +66,16 @@ public class AutoTurretController : TurretController {
       }
       
       if (gotTarget) {
-         Vector2 target = MouseControl.GetWorldPositionOnPlane(Input.mousePosition, 0f);
+         Vector2 target = closestEnemy.transform.position;
          Vector2 turret = transform.position;
          Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
          direction.Normalize();
         
          transform.up = direction;
+         
+         if (closestEnemy.distance <= maxRange && closestEnemy.distance >= minRange) {
+            FireBullet(direction);
+         }
       }
 
       // Only release turret when mouse button released
@@ -89,7 +98,7 @@ public class AutoTurretController : TurretController {
          transform.SetParent (null);
          isAttached = false;
       }
-	}
+   }
    
    void FixedUpdate() {
       Vector2 target = MouseControl.GetWorldPositionOnPlane(Input.mousePosition, 0f);

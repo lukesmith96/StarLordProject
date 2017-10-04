@@ -22,7 +22,6 @@ public class EnemyController : MonoBehaviour {
 	void FixedUpdate () {
       Vector2 origin = new Vector2 (0, 0);
       rb2d.AddForce(Vector2.MoveTowards (new Vector2 (-transform.position.x, -transform.position.y), origin, 3 * Time.deltaTime));
-
 	}
 
 	void Update() {
