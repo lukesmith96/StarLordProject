@@ -27,6 +27,12 @@ public class BulletController : MonoBehaviour {
    {
       if (other.gameObject.CompareTag("Enemy"))
       {
+         //trigger explosion
+         GameObject exe = EnemySpawner.GetPooledObject(EnemySpawner.instance.pooledExplosions);
+         exe.transform.position = transform.position;
+         exe.SetActive(true);
+         exe.GetComponent<ParticleSystem>().Play();
+         
          other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
       }

@@ -13,7 +13,9 @@ public class EnemySpawner : MonoBehaviour {
    public static EnemySpawner instance;
    
    public List<GameObject> pooledEnemies;
+   public List<GameObject> pooledExplosions;
    public GameObject enemyObject;
+   public GameObject explosionObject;
    public int count = 0;
    public int poolSize;
    public float radius = 30f;
@@ -21,7 +23,7 @@ public class EnemySpawner : MonoBehaviour {
    //spawn every n seconds
    public float spawnRate = 2f;
    private float nextSpawn = 0.0f;
-
+   
    void Awake()
    {
       //If we don't currently have a game control...
@@ -42,6 +44,10 @@ public class EnemySpawner : MonoBehaviour {
          GameObject obj = (GameObject)Instantiate(enemyObject);
          obj.SetActive (false);
          pooledEnemies.Add(obj);
+         
+         obj = (GameObject)Instantiate(explosionObject);
+         obj.SetActive(false);
+         pooledExplosions.Add(obj);
       }
    }
 
@@ -62,18 +68,18 @@ public class EnemySpawner : MonoBehaviour {
          spawnPos = new Vector2(r * Mathf.Sin(radians), r * Mathf.Cos(radians));
 
          //spawn enemy
-         GameObject tmp = GetPooledObject();
+         GameObject tmp = GetPooledObject(pooledEnemies);
          tmp.SetActive (true);
          tmp.transform.position = spawnPos;
          //Instantiate (tmp, spawnPos, Quaternion.identity);
          //count++;
       }
    }
-
-   public GameObject GetPooledObject() {
-      for (int i = 0; i < pooledEnemies.Count; i++) {
-         if (!pooledEnemies[i].activeInHierarchy) {
-            return pooledEnemies[i];
+   
+   public static GameObject GetPooledObject(List<GameObject> collection) {
+      for (int i = 0; i < collection.Count; i++) {
+         if (!collection[i].activeInHierarchy) {
+            return collection[i];
          }
       }
       return null;
