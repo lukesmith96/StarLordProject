@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour {
    public float maxRange = 20f;
+   public float minRange = 0f;
+   public float speed = 500f;
    public Vector2 originPoint = Vector2.zero;
    
    private Rigidbody2D rb2d;
@@ -15,11 +17,11 @@ public class BulletController : MonoBehaviour {
    }
    
    // Update is called once per frame
-	void Update () {
+   void Update () {
       if (Vector2.Distance(originPoint, transform.position) >= maxRange) {
          Destroy(gameObject);
       }
-	}
+   }
 
    private void OnTriggerEnter2D(Collider2D other)
    {

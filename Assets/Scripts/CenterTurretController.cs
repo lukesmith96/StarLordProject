@@ -5,13 +5,15 @@ using UnityEngine.EventSystems;
 
 public class CenterTurretController : TurretController {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+   // Use this for initialization
+   new void Start () {
+      base.Start();
+   }
+   
+   // Update is called once per frame
+   new void Update () {
+      base.Update();
+      
       Vector2 target = MouseControl.GetWorldPositionOnPlane(Input.mousePosition, 0f);
       Vector2 turret = transform.position;
       Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
@@ -20,7 +22,7 @@ public class CenterTurretController : TurretController {
       //make turret point towards mouse
       transform.up = direction;
       
-		// Check if player clicks mouse in game
+      // Check if player clicks mouse in game
       if (Input.GetMouseButtonDown(0))
       {
          if (EventSystem.current.IsPointerOverGameObject() == false)
@@ -28,5 +30,5 @@ public class CenterTurretController : TurretController {
             FireBullet(direction);
          }
       }
-	}
+   }
 }

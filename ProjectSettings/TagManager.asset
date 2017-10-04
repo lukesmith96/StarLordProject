@@ -8,6 +8,7 @@ TagManager:
   - Turret
   - Bullet
   - Asteroid
+  - IntegratedUI
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Bullets
+  - Particles
   - 
   - 
   - 
@@ -44,4 +45,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Bullets
+    uniqueID: 3122791157
+    locked: 0
+  - name: Particles
+    uniqueID: 2153438525
     locked: 0
