@@ -68,7 +68,19 @@ public class AutoTurretController : TurretController {
       if (gotTarget) {
          Vector2 target = closestEnemy.transform.position;
          Vector2 turret = transform.position;
-         Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
+         //Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
+
+         /* From https://forum.unity.com/threads/leading-a-target.193445/ */
+         float distance = Vector2.Distance (turret, target);
+         float travelTime = distance / 1000;
+         Vector2 newTarget = target + closestEnemy.rigidbody.velocity * travelTime;
+
+         float distance2 = Vector2.Distance (turret, target + (target-newTarget) / 2f);
+         float travelTime2 = distance2 / 1000;
+         Vector2 newTarget2 = target + closestEnemy.rigidbody.velocity * travelTime2;
+         Vector2 direction = newTarget - turret;
+
+
          direction.Normalize();
         
          transform.up = direction;
