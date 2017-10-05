@@ -72,11 +72,11 @@ public class AutoTurretController : TurretController {
 
          /* From https://forum.unity.com/threads/leading-a-target.193445/ */
          float distance = Vector2.Distance (turret, target);
-         float travelTime = distance / 1000;
+         float travelTime = distance / speed;
          Vector2 newTarget = target + closestEnemy.rigidbody.velocity * travelTime;
 
          float distance2 = Vector2.Distance (turret, target + (target-newTarget) / 2f);
-         float travelTime2 = distance2 / 1000;
+         float travelTime2 = distance2 / speed;
          Vector2 newTarget2 = target + closestEnemy.rigidbody.velocity * travelTime2;
          Vector2 direction = newTarget - turret;
 
