@@ -24,6 +24,7 @@ public class AutoTurretController : TurretController {
       
       //target is closest enemy with line of sight
       RaycastHit2D closestEnemy = new RaycastHit2D();
+
       bool gotTarget = false;
       Vector3 startRay = transform.position;
       
@@ -50,6 +51,7 @@ public class AutoTurretController : TurretController {
             
             if (!gotTarget) {
                closestEnemy = sightTest;
+
                gotTarget = true;
             } else {
                if (sightTest.distance < closestEnemy.distance) {
@@ -68,45 +70,43 @@ public class AutoTurretController : TurretController {
       if (gotTarget) {
          Vector2 target = closestEnemy.transform.position;
          Vector2 turret = transform.position;
-         //Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
-
+         
          /* From https://forum.unity.com/threads/leading-a-target.193445/ */
          float distance = Vector2.Distance (turret, target);
          float travelTime = distance / speed;
          Vector2 newTarget = target + closestEnemy.rigidbody.velocity * travelTime;
-
+         
          float distance2 = Vector2.Distance (turret, target + (target-newTarget) / 2f);
          float travelTime2 = distance2 / speed;
          Vector2 newTarget2 = target + closestEnemy.rigidbody.velocity * travelTime2;
          Vector2 direction = newTarget - turret;
-
-
+         
          direction.Normalize();
-        
+         
          transform.up = direction;
          
          if (closestEnemy.distance <= maxRange && closestEnemy.distance >= minRange) {
             FireBullet(direction);
          }
       }
-
+      
       // Only release turret when mouse button released
       if (isDragged && Input.GetMouseButtonUp (1)) 
       {
          isDragged = false;
       }
-
+      
       if (isTouching && Input.GetKeyDown ("a")) {
          Debug.Log ("ATTACHED");
-
+         
          transform.SetParent (player.transform);
          isAttached = true;
       }
-
+      
       // Debugging
       if (isTouching && Input.GetKeyDown ("d")) {
          Debug.Log ("DETACHED");
-
+         
          transform.SetParent (null);
          isAttached = false;
       }
@@ -131,14 +131,14 @@ public class AutoTurretController : TurretController {
          isDragged = true;
       }
    }
-
+   
    void OnCollisionEnter2D(Collision2D other) {
       if (other.gameObject.CompareTag ("Player")) 
       {
          isTouching = true;
       }
    }
-
+   
    void OnCollisionExit2D(Collision2D other) {
       if (other.gameObject.CompareTag ("Player")) 
       {
