@@ -9,18 +9,21 @@ using UnityEngine.EventSystems;
  * This class is the parent class to all Types of turrets.
  */
 public class TurretController : MonoBehaviour {
-   public Rigidbody2D bullet;
+   public GameObject bullet;
    
    public float speed = 100.0f;
    public float maxRange = 40f;
    public float minRange = 0f;
    public float reloadTime = 2.0f; //seconds
+   public int numBullets = 1;
+   public float spread = 0.0f; //inaccuracy
 
    protected CircleCollider2D collider;
    
    private GameObject firingArc;
    private float timeSinceFiring = 2.0f; //seconds
-
+   private List<GameObject> pooledBullets = new List<GameObject>();
+   
    // Use this for initialization
    public void Start () {
       collider = GetComponent<CircleCollider2D> ();
@@ -44,13 +47,43 @@ public class TurretController : MonoBehaviour {
    protected void FireBullet(Vector2 direction) {
       if (timeSinceFiring >= reloadTime) {
          timeSinceFiring = 0f;
+         transform.up = direction;
          
-         // Create instance of Bullet
-         Rigidbody2D clone = Instantiate(bullet, transform);
-         clone.transform.parent = GameObject.Find("BulletHolder").transform;
+         float theta = -spread / 2;
+         float incTheta = numBullets > 1 ? spread / (numBullets - 1) : 0f;
+         if (numBullets == 1) {
+            theta = 0f;
+         }
          
-         // Send bullet towards mouse pointer
-         clone.AddForce(direction * speed);
+         GameObject clone;
+         Rigidbody2D cloneRb2d;
+         for (int i = 0; i < numBullets; ++i, theta += incTheta) {
+            //Get instance of Bullet
+            clone = GetPooledObject(pooledBullets);
+            //if (clone == null) continue; //for graceful error
+            clone.SetActive(true);
+            cloneRb2d = clone.GetComponent<Rigidbody2D>();
+            
+            cloneRb2d.transform.position = transform.position;
+            cloneRb2d.velocity = Vector2.zero;
+            cloneRb2d.transform.up = transform.up;
+            cloneRb2d.transform.Rotate(0, 0, theta);
+            // Send bullet on its errand of destruction
+            cloneRb2d.AddForce(clone.transform.up * speed);
+         }
       }
+   }
+   
+   private GameObject GetPooledObject(List<GameObject> collection) {
+      for (int i = 0; i < collection.Count; i++) {
+         if (!collection[i].activeInHierarchy) {
+            return collection[i];
+         }
+      }
+      GameObject obj = (GameObject)Instantiate(bullet, transform);
+      obj.transform.parent = GameObject.Find("BulletHolder").transform;
+      obj.SetActive(false);
+      collection.Add(obj);
+      return obj;
    }
 }

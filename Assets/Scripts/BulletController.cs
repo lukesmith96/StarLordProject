@@ -6,6 +6,7 @@ public class BulletController : MonoBehaviour {
    public float maxRange = 20f;
    public float minRange = 0f;
    public float speed = 500f;
+   public float damage = 10f;
    public Vector2 originPoint = Vector2.zero;
    
    private Rigidbody2D rb2d;
@@ -19,7 +20,7 @@ public class BulletController : MonoBehaviour {
    // Update is called once per frame
    void Update () {
       if (Vector2.Distance(originPoint, transform.position) >= maxRange) {
-         Destroy(gameObject);
+         gameObject.SetActive(false);
       }
    }
 
