@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+ * @author: Luke Smith
+ * @since: 10.1.17 
+ */
 public class AsteroidController : MonoBehaviour {
    private Rigidbody2D rb2d;
    public float randomOffset;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * @author: Luke Smith
- * @since: 9.26.17
+ * @since: 10.1.17
  * 
  * This class controls random generation of astroids in game to increase player size and hp
  */
