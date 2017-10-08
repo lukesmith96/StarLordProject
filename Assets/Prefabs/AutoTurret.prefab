@@ -119,11 +119,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d900524e117b8f4fbeaaa8966cf183e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 50222322701617596, guid: 8726332ab83053e4791653dfb9f96e45, type: 2}
+  bullet: {fileID: 1921240523314220, guid: 8726332ab83053e4791653dfb9f96e45, type: 2}
   speed: 500
   maxRange: 40
   minRange: 0
   reloadTime: 2
+  numBullets: 1
+  spread: 0
   player: {fileID: 0}
 --- !u!212 &212182099213395982
 SpriteRenderer:

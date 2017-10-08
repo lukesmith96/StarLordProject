@@ -71,6 +71,8 @@ public class EnemySpawner : MonoBehaviour {
          GameObject tmp = GetPooledObject(pooledEnemies);
          tmp.SetActive (true);
          tmp.transform.position = spawnPos;
+         Vector2 direction = Vector2.zero - spawnPos;
+         tmp.GetComponent<Rigidbody2D>().AddForce(direction.normalized * 300f);
          //Instantiate (tmp, spawnPos, Quaternion.identity);
          //count++;
       }
