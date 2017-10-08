@@ -23,7 +23,7 @@ public class BulletController : MonoBehaviour {
          gameObject.SetActive(false);
       }
    }
-
+   
    private void OnTriggerEnter2D(Collider2D other)
    {
       if (other.gameObject.CompareTag("Enemy"))
@@ -34,8 +34,10 @@ public class BulletController : MonoBehaviour {
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();
          
-         other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
+         
+         //inflict damage
+         other.GetComponent<EnemyController>().InflictDamage(damage);
       }
       if (other.gameObject.CompareTag("Player") && originPoint != Vector2.zero) {
          this.gameObject.SetActive(false);
