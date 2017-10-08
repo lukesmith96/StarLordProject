@@ -16,6 +16,7 @@ public class MainMenuController : MonoBehaviour {
    }
    
    public void LoadStage(string target) {
+      Time.timeScale = 1f;
       SceneManager.LoadScene(target);
    }
    
