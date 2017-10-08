@@ -86,4 +86,17 @@ public class TurretController : MonoBehaviour {
       collection.Add(obj);
       return obj;
    }
+
+   void OnTriggerEnter2D(Collider2D other) {
+      if (other.gameObject.CompareTag("Enemy")) {
+         gameObject.SetActive(false);
+         other.gameObject.SetActive (false);
+
+         //trigger explosion
+         GameObject exe = EnemySpawner.GetPooledObject(EnemySpawner.instance.pooledExplosions);
+         exe.transform.position = transform.position;
+         exe.SetActive(true);
+         exe.GetComponent<ParticleSystem>().Play();
+      }
+   }
 }
