@@ -23,12 +23,17 @@ public class TurretController : MonoBehaviour {
    private GameObject firingArc;
    private float timeSinceFiring = 2.0f; //seconds
    private List<GameObject> pooledBullets = new List<GameObject>();
-   
+
+   public GameObject poolGameObject;
+   private DynamicObjectPool dynamicPool;
+
    // Use this for initialization
    public void Start () {
       collider = GetComponent<CircleCollider2D> ();
       firingArc = transform.Find("TurretFiringArc").gameObject;
-      
+
+      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
+
       maxRange = bullet.gameObject.GetComponent<BulletController>().maxRange;
       minRange = bullet.gameObject.GetComponent<BulletController>().minRange;
       speed = bullet.gameObject.GetComponent<BulletController>().speed;
@@ -59,7 +64,7 @@ public class TurretController : MonoBehaviour {
          Rigidbody2D cloneRb2d;
          for (int i = 0; i < numBullets; ++i, theta += incTheta) {
             //Get instance of Bullet
-            clone = GetPooledObject(pooledBullets);
+            clone = dynamicPool.GetPooledObject(bullet);
             //if (clone == null) continue; //for graceful error
             clone.SetActive(true);
             cloneRb2d = clone.GetComponent<Rigidbody2D>();
@@ -72,18 +77,5 @@ public class TurretController : MonoBehaviour {
             cloneRb2d.AddForce(clone.transform.up * speed);
          }
       }
-   }
-   
-   private GameObject GetPooledObject(List<GameObject> collection) {
-      for (int i = 0; i < collection.Count; i++) {
-         if (!collection[i].activeInHierarchy) {
-            return collection[i];
-         }
-      }
-      GameObject obj = (GameObject)Instantiate(bullet, transform);
-      obj.transform.parent = GameObject.Find("BulletHolder").transform;
-      obj.SetActive(false);
-      collection.Add(obj);
-      return obj;
    }
 }

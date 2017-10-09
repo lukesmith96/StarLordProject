@@ -11,7 +11,9 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
 
-   public List<GameObject> pooledEnemies;
+   //public List<GameObject> pooledEnemies;
+   public GameObject poolGameObject;
+   private DynamicObjectPool dynamicPool;
    public GameObject asteroidObject;
    public int count = 0;
    public int poolSize = 1;
@@ -23,12 +25,7 @@ public class AsteroidSpawner : MonoBehaviour
 
    void Start()
    {
-      for (int i = 0; i < poolSize; i++)
-      {
-         GameObject obj = (GameObject)Instantiate(asteroidObject);
-         obj.SetActive(false);
-         pooledEnemies.Add(obj);
-      }
+      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
    }
 
    void Update()
@@ -47,22 +44,9 @@ public class AsteroidSpawner : MonoBehaviour
          float radians = theta * Mathf.Deg2Rad;
          spawnPos = new Vector2(r * Mathf.Sin(radians), r * Mathf.Cos(radians));
 
-         //spawn enemy
-         GameObject tmp = GetPooledObject();
+         GameObject tmp = dynamicPool.GetPooledObject(asteroidObject);
          tmp.SetActive(true);
          tmp.transform.position = spawnPos;
       }
-   }
-
-   public GameObject GetPooledObject()
-   {
-      for (int i = 0; i < pooledEnemies.Count; i++)
-      {
-         if (!pooledEnemies[i].activeInHierarchy)
-         {
-            return pooledEnemies[i];
-         }
-      }
-      return null;
    }
 }

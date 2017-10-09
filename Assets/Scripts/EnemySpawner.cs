@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour {
    
    public List<GameObject> pooledEnemies;
    public List<GameObject> pooledExplosions;
+   public GameObject poolGameObject;
+   private DynamicObjectPool dynamicPool;
    public GameObject enemyObject;
    public GameObject explosionObject;
    public int count = 0;
@@ -40,12 +42,10 @@ public class EnemySpawner : MonoBehaviour {
    }
    
    void Start() {
+      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
+
       for (int i = 0; i < poolSize; i++) {
-         GameObject obj = (GameObject)Instantiate(enemyObject);
-         obj.SetActive (false);
-         pooledEnemies.Add(obj);
-         
-         obj = (GameObject)Instantiate(explosionObject);
+         GameObject obj = (GameObject)Instantiate(explosionObject);
          obj.SetActive(false);
          pooledExplosions.Add(obj);
       }
@@ -68,17 +68,15 @@ public class EnemySpawner : MonoBehaviour {
          spawnPos = new Vector2(r * Mathf.Sin(radians), r * Mathf.Cos(radians));
 
          //spawn enemy
-         GameObject tmp = GetPooledObject(pooledEnemies);
+         GameObject tmp = dynamicPool.GetPooledObject(enemyObject);
          tmp.SetActive (true);
          tmp.transform.position = spawnPos;
          Vector2 direction = Vector2.zero - spawnPos;
          tmp.GetComponent<EnemyController>().Reset();
          tmp.GetComponent<Rigidbody2D>().AddForce(direction.normalized * 300f);
-         //Instantiate (tmp, spawnPos, Quaternion.identity);
-         //count++;
       }
    }
-   
+
    public static GameObject GetPooledObject(List<GameObject> collection) {
       for (int i = 0; i < collection.Count; i++) {
          if (!collection[i].activeInHierarchy) {
