@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameUIController : MonoBehaviour {
+   public GameObject pauseButton;
+   public GameObject shopButton;
+
    public GameObject pauseMenu;
    public GameObject shopMenu;
    
@@ -23,6 +26,7 @@ public class GameUIController : MonoBehaviour {
    
    public void TogglePauseMenu(bool open) {
       pauseMenu.SetActive(open);
+
       Time.timeScale = open ? 0 : 1F;
       GameControl.instance.togglePauseGame(open);
    }
