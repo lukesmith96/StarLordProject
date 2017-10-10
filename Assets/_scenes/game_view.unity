@@ -703,7 +703,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 413002241}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -685.7, y: 184, z: 0}
+  m_LocalPosition: {x: -675.4, y: 249.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1809896489}
@@ -712,8 +712,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -685.7, y: 184}
-  m_SizeDelta: {x: 175, y: 50}
+  m_AnchoredPosition: {x: -675.4, y: 249.4}
+  m_SizeDelta: {x: 175, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &433330344
 GameObject:
@@ -918,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3247062cab7d7a747a362704056f87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 30
+  yOffset: 60
   tooltip: {fileID: 807597203}
 --- !u!1 &639008621
 GameObject:
@@ -1101,7 +1101,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 807597203}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -683, y: 0, z: 0}
+  m_LocalPosition: {x: -672, y: 19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1683159946}
@@ -1110,8 +1110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -683, y: 0}
-  m_SizeDelta: {x: 175, y: 50}
+  m_AnchoredPosition: {x: -672, y: 19}
+  m_SizeDelta: {x: 175, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &872279354
 GameObject:
@@ -1893,7 +1893,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Powerful, shotgun automatic turret.
+  m_Text: 'Powerful, shotgun automatic turret.
+
+
+    stats:
+
+    HEALTH - NA
+
+    Damage - NA'
 --- !u!222 &1069291276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2651,7 +2658,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1344480839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -684, y: 95, z: 0}
+  m_LocalPosition: {x: -677.5, y: 132.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1069291274}
@@ -2660,8 +2667,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -684, y: 95}
-  m_SizeDelta: {x: 175, y: 50}
+  m_AnchoredPosition: {x: -677.5, y: 132.4}
+  m_SizeDelta: {x: 175, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1374846508
 GameObject:
@@ -3005,7 +3012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3247062cab7d7a747a362704056f87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 30
+  yOffset: 60
   tooltip: {fileID: 413002241}
 --- !u!1 &1546313523
 GameObject:
@@ -3241,7 +3248,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Weak, but rapid-firing automatic turret
+  m_Text: 'Weak, but rapid-firing automatic turret.
+
+
+    stats:
+
+    HEALTH - NA
+
+    Damage - NA'
 --- !u!222 &1683159948
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3460,7 +3474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3247062cab7d7a747a362704056f87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 30
+  yOffset: 60
   tooltip: {fileID: 1344480839}
 --- !u!1 &1805834028
 GameObject:
@@ -3651,7 +3665,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Simple, single-shot automatic turret.
+  m_Text: 'Simple, single-shot automatic turret.
+
+
+    stats:
+
+    HEALTH - NA
+
+    Damage - NA'
 --- !u!222 &1809896491
 CanvasRenderer:
   m_ObjectHideFlags: 0

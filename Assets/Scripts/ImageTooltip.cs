@@ -10,7 +10,7 @@ public class ImageTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
   
    private bool onImage = false;
 
-   public float yOffset = 30;
+   public float yOffset = 60;
    public GameObject tooltip;
 
 	// Use this for initialization
