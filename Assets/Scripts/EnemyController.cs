@@ -45,6 +45,10 @@ public class EnemyController : MonoBehaviour {
       if (currentHealth <= 0f) {
          //add another type of explosion here?
          gameObject.SetActive(false);
+
+         // Increment score
+         GameControl.instance.score += 10;
+         GameControl.instance.SetScoreText ();
       } else {
          transform.localScale = new Vector3(currentHealth / maxHealth,
             currentHealth / maxHealth, 1);

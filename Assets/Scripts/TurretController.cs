@@ -23,6 +23,8 @@ public class TurretController : MonoBehaviour {
    private GameObject firingArc;
    private float timeSinceFiring = 2.0f; //seconds
    private List<GameObject> pooledBullets = new List<GameObject>();
+
+   private bool selected = false;
    
    // Use this for initialization
    public void Start () {
@@ -97,6 +99,8 @@ public class TurretController : MonoBehaviour {
          exe.transform.position = transform.position;
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();
+
+
       }
    }
 }

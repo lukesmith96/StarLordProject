@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour 
 {
    public static GameControl instance;
-   
+
+   public int score = 0;
+   public Text scoreText;
    public bool gameOver = false;
-   
+
    private bool gameIsPaused = false;
-   private int score = 0;
    
    void Awake()
    {
@@ -27,11 +28,21 @@ public class GameControl : MonoBehaviour
       }
    }
 
+   void Start() {
+      SetScoreText ();
+   }
+
    void Update()
    {
       
    }
-   
+
+   public void SetScoreText()
+   {
+      scoreText.text = "Score: " + GameControl.instance.score.ToString ();
+   }
+     
+
    public void togglePauseGame(bool paused) {
       gameIsPaused = paused;
    }

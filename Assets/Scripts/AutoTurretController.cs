@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class AutoTurretController : TurretController {
    public GameObject player;
-   
-   private bool isDragged;  // Allows smooth dragging
+
    private bool isAttached;
    private bool isTouching;
    
    // Use this for initialization
    new void Start () {
       base.Start();
-      
-      isDragged = false;
+
       isAttached = false;
       isTouching = false;
    }
@@ -91,10 +89,11 @@ public class AutoTurretController : TurretController {
       }
       
       // Only release turret when mouse button released
+      /*
       if (isDragged && Input.GetMouseButtonUp (1)) 
       {
          isDragged = false;
-      }
+      }*/
       
       if (isTouching && Input.GetKeyDown ("a")) {
          Debug.Log ("ATTACHED");
@@ -104,31 +103,22 @@ public class AutoTurretController : TurretController {
       }
       
       // Debugging
+      /*
       if (isTouching && Input.GetKeyDown ("d")) {
          Debug.Log ("DETACHED");
          
          transform.SetParent (null);
          isAttached = false;
-      }
+      }*/
    }
    
    void FixedUpdate() {
       Vector2 target = MouseControl.GetWorldPositionOnPlane(Input.mousePosition, 0f);
 
-      if (isDragged && !isAttached) 
+      if (!isAttached) 
       {
          transform.position = target;
-         GetComponent<Collider>().transform.position = target;
-      }
-   }
-   
-   void OnMouseOver() {
-      // Dragging only works while mouse is over turret.
-      // Sometimes mouse moves faster than the turret transform and drops it,
-      // so isDragged prevents this.
-      if (Input.GetMouseButton(1)) 
-      {   
-         isDragged = true;
+         GetComponent<CircleCollider2D>().transform.position = target;
       }
    }
    
@@ -144,5 +134,11 @@ public class AutoTurretController : TurretController {
       {
          isTouching = false;
       }
+   }
+
+   public void Reset() {
+      isAttached = isTouching = false;
+      transform.parent = null;
+      transform.position = Vector3.zero;
    }
 }
