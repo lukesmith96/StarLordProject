@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class AutoTurretController : TurretController {
    public GameObject player;
-
-   public GameObject poolObject;
-   private DynamicObjectPool pool;
    public GameObject enemy;
-   private bool isDragged;  // Allows smooth dragging
 
+   private DynamicObjectPool pool;
    private bool isAttached;
    private bool isTouching;
    

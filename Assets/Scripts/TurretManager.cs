@@ -5,11 +5,13 @@ using UnityEngine;
 public class TurretManager : MonoBehaviour {
 
    public static TurretManager instance;
-   public List<TurretController> pooledTurrets;
 
-   public AutoTurretController autoPrefab;
-   public AutoTurretController multiPrefab;
-   public AutoTurretController laserPrefab;
+   public GameObject poolGameObject;
+   public GameObject autoObject;
+   public GameObject multiObject;
+   public GameObject laserObject;
+
+   private DynamicObjectPool dynamicPool;
 
    void Awake() {
       if (instance == null)
@@ -20,8 +22,8 @@ public class TurretManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-      pooledTurrets = new List<TurretController> ();
-
+      //pooledTurrets = new List<TurretController> ();
+      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 	}
 	
 	// Update is called once per frame
@@ -30,36 +32,23 @@ public class TurretManager : MonoBehaviour {
 	}
 
    public void SpawnTurret(string tag) {
-      foreach (AutoTurretController turret in pooledTurrets) {
-         if (turret.CompareTag(tag) && !turret.gameObject.activeInHierarchy) {
-            turret.gameObject.SetActive (true);
-            Debug.Log ("Found existing turret in pool, using that instead");
-            // Also reset turret stats if upgraded
-            turret.Reset();
-
-            return;
-         }
-      }
-
-      AutoTurretController turretToSpawn;
+      GameObject turretToSpawn;
       switch (tag) {
       case "AutoTurret":
-         turretToSpawn = autoPrefab;
+         turretToSpawn = autoObject;
          break;
       case "LaserTurret":
-         turretToSpawn = laserPrefab;
+         turretToSpawn = laserObject;
          break;
       case "MultiShotTurret":
-         turretToSpawn = multiPrefab;
+         turretToSpawn = multiObject;
          break;
       default:
          return;
       }
 
-      AutoTurretController newTurret = Instantiate (turretToSpawn, Vector3.zero, Quaternion.identity);
-      newTurret.gameObject.SetActive (true);
+      GameObject tmp = dynamicPool.GetPooledObject(turretToSpawn);
+      tmp.SetActive(true);
 
-      pooledTurrets.Add (newTurret);
-      Debug.Log ("Created new Turret, size of list: " + pooledTurrets.Count);
    }
 }
