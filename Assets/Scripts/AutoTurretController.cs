@@ -6,6 +6,7 @@ public class AutoTurretController : TurretController {
    public GameObject player;
    public GameObject enemy;
 
+   private Rigidbody2D rb2d;
    private DynamicObjectPool pool;
    private bool isAttached;
    private bool isTouching;
@@ -14,6 +15,7 @@ public class AutoTurretController : TurretController {
    new void Start () {
       base.Start();
 
+      rb2d = GetComponent<Rigidbody2D> ();
       pool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 
       isAttached = false;
@@ -108,6 +110,8 @@ public class AutoTurretController : TurretController {
          
          transform.SetParent (player.transform);
          isAttached = true;
+
+         rb2d.isKinematic = true;
       }
       
       // Debugging
@@ -148,5 +152,7 @@ public class AutoTurretController : TurretController {
       isAttached = isTouching = false;
       transform.parent = null;
       transform.position = Vector3.zero;
+
+      rb2d.isKinematic = false;
    }
 }
