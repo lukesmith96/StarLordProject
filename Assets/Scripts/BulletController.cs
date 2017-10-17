@@ -40,7 +40,8 @@ public class BulletController : MonoBehaviour {
          exe.GetComponent<ParticleSystem>().Play();
          
          this.gameObject.SetActive(false);
-         
+
+         PlayerController.instance.startRotationPU();
          //inflict damage
          if (other.GetComponent<EnemyController>()) {
             other.GetComponent<EnemyController>().InflictDamage(damage);
@@ -51,9 +52,5 @@ public class BulletController : MonoBehaviour {
       if (other.gameObject.CompareTag("Player") && originPoint != Vector2.zero) {
          this.gameObject.SetActive(false);
       }
-   }
-   public void SetExplosionObject(GameObject explosion)
-   {
-      this.explosion = explosion;
    }
 }

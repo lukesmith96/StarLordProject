@@ -5,16 +5,20 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-	public float scaleValue = 2F;
-	
+   public float scaleValue = 2F;
+   public static PlayerController instance;
 
-	//private int score;
-	private bool isColliding;
+   //private int score;
+   private bool isColliding;
+   public float rotationTime = .5f;
+   private bool rotatePU;
+   private float currRotation;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+   // Use this for initialization
+   void Start () {
+      rotatePU = false;
+      instance = this;
+   }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,8 +33,19 @@ public class PlayerController : MonoBehaviour {
 		{
 			transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
 		}
-
-		isColliding = false;
+      if (rotatePU && currRotation < (Time.time - rotationTime))
+      {
+         rotatePU = false;
+      }
+      if (Input.GetKey(KeyCode.UpArrow) && rotatePU)
+      {
+         transform.Rotate(new Vector3(0, 0, 45) * (Time.deltaTime * transform.localScale.x));
+      }
+      if (Input.GetKey(KeyCode.DownArrow) && rotatePU)
+      {
+         transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
+      }
+      isColliding = false;
 	}
 
 	void FixedUpdate() {
@@ -47,6 +62,10 @@ public class PlayerController : MonoBehaviour {
          GameControl.instance.SetScoreText ();
       }
    }
+   public void startRotationPU()
+   {
+      rotatePU = true;
+      currRotation = Time.time;
+   }
 
-	
 }

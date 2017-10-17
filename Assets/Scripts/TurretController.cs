@@ -43,14 +43,12 @@ public class TurretController : MonoBehaviour {
       float arcScale = (maxRange * 2f) / firingArc.GetComponent<SpriteRenderer>().bounds.size.x;
       firingArc.transform.localScale = new Vector3(arcScale, arcScale, 1);
    }
-   
    // Update is called once per frame
    public void Update () {
       if (timeSinceFiring < reloadTime) {
          timeSinceFiring += Time.deltaTime;
       }
    }
-
    protected void FireBullet(Vector2 direction) {
       if (timeSinceFiring >= reloadTime) {
          timeSinceFiring = 0f;
@@ -79,19 +77,6 @@ public class TurretController : MonoBehaviour {
             cloneRb2d.AddForce(clone.transform.up * speed);
          }
       }
-   }
-   
-   private GameObject GetPooledObject(List<GameObject> collection) {
-      for (int i = 0; i < collection.Count; i++) {
-         if (!collection[i].activeInHierarchy) {
-            return collection[i];
-         }
-      }
-      GameObject obj = (GameObject)Instantiate(bullet, transform);
-      obj.transform.parent = GameObject.Find("BulletHolder").transform;
-      obj.SetActive(false);
-      collection.Add(obj);
-      return obj;
    }
 
    void OnTriggerEnter2D(Collider2D other) {
