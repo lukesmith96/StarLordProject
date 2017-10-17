@@ -24,6 +24,8 @@ public class TurretController : MonoBehaviour {
    private float timeSinceFiring = 2.0f; //seconds
    private List<GameObject> pooledBullets = new List<GameObject>();
 
+   private bool selected = false;
+   
    public GameObject poolGameObject;
    private DynamicObjectPool dynamicPool;
 
@@ -76,6 +78,34 @@ public class TurretController : MonoBehaviour {
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
          }
+      }
+   }
+   
+   private GameObject GetPooledObject(List<GameObject> collection) {
+      for (int i = 0; i < collection.Count; i++) {
+         if (!collection[i].activeInHierarchy) {
+            return collection[i];
+         }
+      }
+      GameObject obj = (GameObject)Instantiate(bullet, transform);
+      obj.transform.parent = GameObject.Find("BulletHolder").transform;
+      obj.SetActive(false);
+      collection.Add(obj);
+      return obj;
+   }
+
+   void OnTriggerEnter2D(Collider2D other) {
+      if (other.gameObject.CompareTag("Enemy")) {
+         gameObject.SetActive(false);
+         other.gameObject.SetActive (false);
+
+         //trigger explosion
+         GameObject exe = EnemySpawner.GetPooledObject(EnemySpawner.instance.pooledExplosions);
+         exe.transform.position = transform.position;
+         exe.SetActive(true);
+         exe.GetComponent<ParticleSystem>().Play();
+
+
       }
    }
 }

@@ -6,15 +6,14 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
 	public float scaleValue = 2F;
-	public Text scoreText;
+	
 
-	private int score;
+	//private int score;
 	private bool isColliding;
 
 	// Use this for initialization
 	void Start () {
-		scoreText.text = "Score: 0";
-		score = 0;
+		
 	}
 	
 	// Update is called once per frame
@@ -43,13 +42,11 @@ public class PlayerController : MonoBehaviour {
 			if (isColliding)
 				return;
 			isColliding = true;
-			score -= 10;
-			SetScoreText ();
+
+         GameControl.instance.score -= 10;
+         GameControl.instance.SetScoreText ();
       }
    }
 
-	void SetScoreText()
-	{
-		scoreText.text = "Score: " + score.ToString ();
-	}
+	
 }
