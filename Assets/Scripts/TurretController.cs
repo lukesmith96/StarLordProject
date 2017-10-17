@@ -26,11 +26,16 @@ public class TurretController : MonoBehaviour {
 
    private bool selected = false;
    
+   public GameObject poolGameObject;
+   private DynamicObjectPool dynamicPool;
+
    // Use this for initialization
    public void Start () {
       collider = GetComponent<CircleCollider2D> ();
       firingArc = transform.Find("TurretFiringArc").gameObject;
-      
+
+      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
+
       maxRange = bullet.gameObject.GetComponent<BulletController>().maxRange;
       minRange = bullet.gameObject.GetComponent<BulletController>().minRange;
       speed = bullet.gameObject.GetComponent<BulletController>().speed;
@@ -61,7 +66,7 @@ public class TurretController : MonoBehaviour {
          Rigidbody2D cloneRb2d;
          for (int i = 0; i < numBullets; ++i, theta += incTheta) {
             //Get instance of Bullet
-            clone = GetPooledObject(pooledBullets);
+            clone = dynamicPool.GetPooledObject(bullet);
             //if (clone == null) continue; //for graceful error
             clone.SetActive(true);
             cloneRb2d = clone.GetComponent<Rigidbody2D>();

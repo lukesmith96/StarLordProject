@@ -5,12 +5,19 @@ using UnityEngine;
 public class AutoTurretController : TurretController {
    public GameObject player;
 
+   public GameObject poolObject;
+   private DynamicObjectPool pool;
+   public GameObject enemy;
+   private bool isDragged;  // Allows smooth dragging
+
    private bool isAttached;
    private bool isTouching;
    
    // Use this for initialization
    new void Start () {
       base.Start();
+
+      pool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 
       isAttached = false;
       isTouching = false;
@@ -25,9 +32,13 @@ public class AutoTurretController : TurretController {
 
       bool gotTarget = false;
       Vector3 startRay = transform.position;
-      
+      List<GameObject> enemyList = pool.GetPoolList(enemy);
+      if (enemyList == null)
+      {
+         return;
+      }
       //http://answers.unity3d.com/questions/1042247/how-to-make-a-simple-line-of-sight-in-a-2d-top-dow.html
-      foreach (GameObject childPos in EnemySpawner.instance.pooledEnemies) {
+      foreach (GameObject childPos in enemyList) {
          if (!childPos.activeInHierarchy) continue;
          
          //precompute our ray settings
