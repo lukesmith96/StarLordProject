@@ -11,6 +11,7 @@ public class BulletController : MonoBehaviour {
    public GameObject explosion;
    
    private Rigidbody2D rb2d;
+   
    // Use this for initialization
    void Start()
    {
@@ -41,7 +42,11 @@ public class BulletController : MonoBehaviour {
          this.gameObject.SetActive(false);
          
          //inflict damage
-         other.GetComponent<EnemyController>().InflictDamage(damage);
+         if (other.GetComponent<EnemyController>()) {
+            other.GetComponent<EnemyController>().InflictDamage(damage);
+         } else if (other.gameObject.transform.parent.gameObject.GetComponent<TeleportingEnemy>()) {
+            other.gameObject.transform.parent.gameObject.GetComponent<TeleportingEnemy>().InflictDamage(damage);
+         }
       }
       if (other.gameObject.CompareTag("Player") && originPoint != Vector2.zero) {
          this.gameObject.SetActive(false);
