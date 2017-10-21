@@ -7,6 +7,7 @@ public class AutoTurretController : TurretController {
    public GameObject enemy;
    public bool isTouching;
 
+   private SpriteRenderer sprite;
    private Rigidbody2D rb2d;
    private bool isAttached;
    private DynamicObjectPool dynamicPool;
@@ -15,7 +16,9 @@ public class AutoTurretController : TurretController {
    new void Start () {
       base.Start();
 
+      sprite = GetComponent<SpriteRenderer> ();
       rb2d = GetComponent<Rigidbody2D> ();
+
       dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 
       isAttached = false;
@@ -99,6 +102,14 @@ public class AutoTurretController : TurretController {
             FireBullet(direction);
          }
       }
+
+      if (isAttached) {
+         sprite.color = Color.white;
+      } else if (isTouching) {
+         sprite.color = Color.green;
+      } else {
+         sprite.color = Color.red;
+      }
    }
    
    public void AttachToPlayer() {
@@ -115,6 +126,10 @@ public class AutoTurretController : TurretController {
       if (other.gameObject.CompareTag ("Player")) 
       {
          isTouching = true;
+
+      }
+      if (other.gameObject.CompareTag ("Turret")) {
+         isTouching = false;
       }
    }
    
