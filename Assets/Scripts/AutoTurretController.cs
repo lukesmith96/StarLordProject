@@ -55,10 +55,11 @@ public class AutoTurretController : TurretController {
          //now iterate over all results to work out what has happened
          for(int i = 0; i < sightTestResults.Length; i++) {
             RaycastHit2D sightTest = sightTestResults[i];
-            
+
             //check if this is the closest, but also check if the player is in the way
-            if (sightTest.transform.tag != "Player" && sightTest.transform.tag != "Enemy") continue;
-            
+            //sightTest.transform.tag != "Player" && 
+            if (sightTest.transform.tag != "Enemy") continue;
+
             if (!gotTarget) {
                closestEnemy = sightTest;
                gotTarget = true;
