@@ -94,6 +94,7 @@ MonoBehaviour:
   speed: 500
   damage: 1
   originPoint: {x: 0, y: 0}
+  explosion: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33, type: 2}
 --- !u!212 &212142396006728370
 SpriteRenderer:
   m_ObjectHideFlags: 1

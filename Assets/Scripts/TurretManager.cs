@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TurretManager : MonoBehaviour {
 
    public static TurretManager instance;
@@ -31,6 +32,14 @@ public class TurretManager : MonoBehaviour {
 		
 	}
 
+   public void SpawnTurret(GameObject turret) {
+
+   }
+
+
+
+
+
    public void SpawnTurret(string tag) {
       GameObject turretToSpawn;
       switch (tag) {
@@ -49,6 +58,7 @@ public class TurretManager : MonoBehaviour {
 
       GameObject tmp = dynamicPool.GetPooledObject(turretToSpawn);
       tmp.SetActive(true);
+      tmp.GetComponent<AutoTurretController> ().Reset ();
 
    }
 }

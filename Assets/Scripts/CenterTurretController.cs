@@ -25,10 +25,9 @@ public class CenterTurretController : TurretController {
       // Check if player clicks mouse in game
       if (Input.GetMouseButtonDown(0))
       {
-         if (EventSystem.current.IsPointerOverGameObject() == false)
-         {
+         //if (EventSystem.current.IsPointerOverGameObject() == false)
             FireBullet(direction);
-         }
+         
       }
    }
 }

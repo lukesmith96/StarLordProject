@@ -18,16 +18,18 @@ public class TurretController : MonoBehaviour {
    public int numBullets = 1;
    public float spread = 0.0f; //inaccuracy
 
+
    protected CircleCollider2D collider;
+   protected bool isInvincible;
    
    private GameObject firingArc;
    private float timeSinceFiring = 2.0f; //seconds
    private List<GameObject> pooledBullets = new List<GameObject>();
 
    private bool selected = false;
+   private DynamicObjectPool dynamicPool;
    
    public GameObject poolGameObject;
-   private DynamicObjectPool dynamicPool;
 
    // Use this for initialization
    public void Start () {
@@ -42,6 +44,8 @@ public class TurretController : MonoBehaviour {
       
       float arcScale = (maxRange * 2f) / firingArc.GetComponent<SpriteRenderer>().bounds.size.x;
       firingArc.transform.localScale = new Vector3(arcScale, arcScale, 1);
+
+      isInvincible = true;
    }
    
    // Update is called once per frame
@@ -95,7 +99,7 @@ public class TurretController : MonoBehaviour {
    }
 
    void OnTriggerEnter2D(Collider2D other) {
-      if (other.gameObject.CompareTag("Enemy")) {
+      if (other.gameObject.CompareTag("Enemy") && !isInvincible) {
          gameObject.SetActive(false);
          other.gameObject.SetActive (false);
 

@@ -34,8 +34,8 @@ public class GameUIController : MonoBehaviour {
 
    public void ToggleShopMenu(bool open) {
       shopMenu.SetActive (open);
-      Time.timeScale = open ? 0 : 1F;
-      GameControl.instance.togglePauseGame(open);
+      //Time.timeScale = open ? 0 : 1F;
+      //GameControl.instance.togglePauseGame(open);
    }
 
    public void ToggleUpgradeMenu(bool open) {

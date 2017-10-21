@@ -20,8 +20,6 @@ public class ImageTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	// Update is called once per frame
 	void Update () {
       if (onImage) {
-         Debug.Log ("ON IMAGE");
-         //Vector2 position = MouseControl.GetWorldPositionOnPlane(Input.mousePosition, 0f);
          tooltip.transform.position = Input.mousePosition + new Vector3(0, yOffset, 0);
       }
 	}
