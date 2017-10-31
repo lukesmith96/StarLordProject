@@ -10,8 +10,7 @@ using UnityEngine;
  */
 public class AsteroidSpawner : MonoBehaviour
 {
-
-   //public List<GameObject> pooledEnemies;
+   
    public GameObject poolGameObject;
    private DynamicObjectPool dynamicPool;
    public GameObject asteroidObject;
@@ -45,8 +44,8 @@ public class AsteroidSpawner : MonoBehaviour
          spawnPos = new Vector2(r * Mathf.Sin(radians), r * Mathf.Cos(radians));
 
          GameObject tmp = dynamicPool.GetPooledObject(asteroidObject);
-         tmp.SetActive(true);
          tmp.transform.position = spawnPos;
+         tmp.SetActive(true);
       }
    }
 }

@@ -62,6 +62,10 @@ public class PlayerController : MonoBehaviour {
          GameControl.instance.SetScoreText ();
       }
    }
+   public void addMass()
+   {
+      transform.localScale += (new Vector3(scaleValue, scaleValue, 0) * Time.deltaTime);
+   }
    public void startRotationPU()
    {
       rotatePU = true;

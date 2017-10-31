@@ -28,6 +28,12 @@ public class BulletController : MonoBehaviour {
    
    private void OnTriggerEnter2D(Collider2D other)
    {
+      if (other.gameObject.CompareTag("Asteroid"))
+      {
+         other.gameObject.SetActive(false);
+         this.gameObject.SetActive(false);
+         PlayerController.instance.addMass();
+      }
       if (other.gameObject.CompareTag("Enemy"))
       {
          /*
