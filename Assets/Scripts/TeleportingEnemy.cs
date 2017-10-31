@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeleportingEnemy : MonoBehaviour {
-   public const float maxHealth = 10f;
-   public float currentHealth = 10f;
-   
-   private Rigidbody2D rb2d;
+public class TeleportingEnemy : EnemyController {
    
    public GameObject solidImage;
    public GameObject ghostImage;
@@ -22,14 +18,13 @@ public class TeleportingEnemy : MonoBehaviour {
    public float teleportCountdown; //how long does it take to teleport
    public float closeToRange;
    
-   private Vector3 saveScale;
    private float nextSpawn = 0.0f;
    private float nextTeleport = 0.0f;
    private Vector2 telePos;
    private float currentTeleCountdown = 0.0f;
    // Use this for initialization
    void Start () {
-      saveScale = transform.localScale;
+      
       dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
       
       //teleport into battle
@@ -67,6 +62,7 @@ public class TeleportingEnemy : MonoBehaviour {
          currentTeleCountdown = teleportCountdown;
          
          //remove the force field
+         isInvincible = false;
          forceField.SetActive(false);
          teleportEffect.SetActive(true);
          return true;
@@ -86,6 +82,7 @@ public class TeleportingEnemy : MonoBehaviour {
             ghostImage.SetActive(false);
             
             //set up the force field (no damage)
+            isInvincible = true;
             forceField.SetActive(true);
             teleportEffect.SetActive(false);
          }
@@ -107,25 +104,6 @@ public class TeleportingEnemy : MonoBehaviour {
          Vector2 direction = Vector2.zero - spawnPos;
          tmp.GetComponent<EnemyController>().Reset();
          tmp.GetComponent<Rigidbody2D>().AddForce(direction.normalized * 300f);
-      }
-   }
-   
-   public void Reset() {
-      currentHealth = maxHealth;
-      transform.localScale = saveScale;
-   }
-   
-   public void InflictDamage(float dmg) {
-      if (currentTeleCountdown > 0.0f) { //can only damage when it is teleporting
-         currentHealth -= dmg;
-         if (currentHealth <= 0f) {
-            //add another type of explosion here?
-            gameObject.SetActive(false);
-            
-            // Increment score
-            GameControl.instance.score += 20;
-            GameControl.instance.SetScoreText();
-         }
       }
    }
 }

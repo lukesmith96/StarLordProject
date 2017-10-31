@@ -10,7 +10,6 @@ public class OrbitingTurretController : TurretController {
    public int orbitalSpeed = 50;
 
    private float angle;
-   private DynamicObjectPool dynamicPool;
 
 	void Start () {
       base.Start();
@@ -18,7 +17,6 @@ public class OrbitingTurretController : TurretController {
       // Place turret at random point on radius of player
       Vector2 startPos = GetRandPoint(player.transform.position, radius, out angle);
       transform.position = startPos;
-      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 
       isInvincible = false;
 	}

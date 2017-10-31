@@ -42,13 +42,6 @@ public class AutoTurretController : TurretController {
          sprite.color = Color.green;
       } else {
          sprite.color = Color.red;
-
-      bool gotTarget = false;
-      Vector3 startRay = transform.position;
-      List<GameObject> enemyList = dynamicPool.GetPoolList(enemy);
-      if (enemyList == null)
-      {
-         return;
       }
 
       if (isAttached) {

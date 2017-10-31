@@ -9,16 +9,18 @@ using UnityEngine;
  * v1 - basic mover for enemy (may rename or move code somewhere else)
  * 
  */
-public class EnemyController : MonoBehaviour {
-   public const float maxHealth = 10f;
-   public float currentHealth = 10f;
-   
+public class EnemyController : Destructable {
    private Rigidbody2D rb2d;
-   private float rotation;
 
+   public int addScoreAmount = 10;
+   private Vector3 saveScale;
+   
+   void Awake() {
+      saveScale = transform.localScale;
+   }
+   
    void Start() {
       rb2d = GetComponent<Rigidbody2D>();
-	   rotation = 45 * Random.value;
    }
 	
 	void FixedUpdate () {
@@ -26,7 +28,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void Update() {
-      transform.Rotate (new Vector3 (0, 0, rotation) * Time.deltaTime);
+      
 	}
    
    void OnTriggerEnter2D(Collider2D other) {
@@ -36,18 +38,20 @@ public class EnemyController : MonoBehaviour {
    }
    
    public void Reset() {
-      currentHealth = maxHealth;
-      transform.localScale = new Vector3(1, 1, 1);
+      base.Reset();
+      transform.localScale = saveScale;
    }
    
    public void InflictDamage(float dmg) {
+      if (isInvincible) return;
+      
       currentHealth -= dmg;
       if (currentHealth <= 0f) {
          //add another type of explosion here?
          gameObject.SetActive(false);
 
          // Increment score
-         GameControl.instance.score += 10;
+         GameControl.instance.score += addScoreAmount;
          GameControl.instance.SetScoreText ();
       } else {
          transform.localScale = new Vector3(currentHealth / maxHealth,
