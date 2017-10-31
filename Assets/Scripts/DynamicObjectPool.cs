@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-class DynamicObjectPool : MonoBehaviour
+public class DynamicObjectPool : MonoBehaviour
 {
    private List<List<GameObject>> pool;
 

@@ -27,9 +27,9 @@ public class TurretController : MonoBehaviour {
    private List<GameObject> pooledBullets = new List<GameObject>();
 
    private bool selected = false;
-   private DynamicObjectPool dynamicPool;
    
    public GameObject poolGameObject;
+   protected DynamicObjectPool dynamicPool;
 
    // Use this for initialization
    public void Start () {

@@ -11,6 +11,7 @@ public class TeleportingEnemy : MonoBehaviour {
    public GameObject solidImage;
    public GameObject ghostImage;
    public GameObject forceField; //when not teleporting
+   public GameObject teleportEffect; //when teleporting
    
    public GameObject poolGameObject;
    private DynamicObjectPool dynamicPool;
@@ -67,6 +68,7 @@ public class TeleportingEnemy : MonoBehaviour {
          
          //remove the force field
          forceField.SetActive(false);
+         teleportEffect.SetActive(true);
          return true;
       }
       nextTeleport += Time.deltaTime;
@@ -85,6 +87,7 @@ public class TeleportingEnemy : MonoBehaviour {
             
             //set up the force field (no damage)
             forceField.SetActive(true);
+            teleportEffect.SetActive(false);
          }
          return true;
       }
