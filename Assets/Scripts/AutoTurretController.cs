@@ -11,7 +11,7 @@ public class AutoTurretController : TurretController {
    private Rigidbody2D rb2d;
    private bool isAttached;
    private DynamicObjectPool dynamicPool;
-   private Vector3 scale = new Vector3(1, 1, 1);
+   private Vector3 defaultScale = new Vector3(1, 1, 0);
    
    // Use this for initialization
    new void Start () {
@@ -26,12 +26,14 @@ public class AutoTurretController : TurretController {
       isTouching = false;
       isInvincible = true;
 
-      scale = transform.localScale;
+      //scale = transform.localScale;
    }
    
    // Update is called once per frame
    new void Update () {
       base.Update();
+
+
 
       if (isAttached) {
          sprite.color = Color.white;
@@ -116,7 +118,11 @@ public class AutoTurretController : TurretController {
                FireBullet (direction);
             }
          }
+
       }
+
+      // Reset scale if attached to player
+      ResetScale();
    }
    
    public void AttachToPlayer() {
@@ -128,6 +134,12 @@ public class AutoTurretController : TurretController {
       isInvincible = false;
 
       rb2d.isKinematic = true;
+   }
+
+   private void ResetScale() {
+      transform.parent = null;
+      transform.localScale = defaultScale;
+      transform.SetParent (player.transform);
    }
    
    void OnCollisionEnter2D(Collision2D other) {
@@ -149,8 +161,9 @@ public class AutoTurretController : TurretController {
    public void Reset() {
       isAttached = isTouching = false;
       isInvincible = true;
-      transform.parent = null;
       transform.position = Vector3.zero;
+
+      ResetScale();
 
       rb2d.isKinematic = false;
    }
