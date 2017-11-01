@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
  * 
  * This class is the parent class to all Types of turrets.
  */
-public class TurretController : MonoBehaviour {
+public class TurretController : Destructable {
    public GameObject bullet;
    
    public float speed = 100.0f;
@@ -18,18 +18,16 @@ public class TurretController : MonoBehaviour {
    public int numBullets = 1;
    public float spread = 0.0f; //inaccuracy
 
-
    protected CircleCollider2D collider;
-   protected bool isInvincible;
    
    private GameObject firingArc;
    private float timeSinceFiring = 2.0f; //seconds
    private List<GameObject> pooledBullets = new List<GameObject>();
 
    private bool selected = false;
-   private DynamicObjectPool dynamicPool;
    
    public GameObject poolGameObject;
+   protected DynamicObjectPool dynamicPool;
 
    // Use this for initialization
    public void Start () {
@@ -85,16 +83,19 @@ public class TurretController : MonoBehaviour {
 
    void OnTriggerEnter2D(Collider2D other) {
       if (other.gameObject.CompareTag("Enemy") && !isInvincible) {
-         gameObject.SetActive(false);
-         other.gameObject.SetActive (false);
-
-         //trigger explosion
-         GameObject exe = EnemySpawner.GetPooledObject(EnemySpawner.instance.pooledExplosions);
-         exe.transform.position = transform.position;
-         exe.SetActive(true);
-         exe.GetComponent<ParticleSystem>().Play();
-
-
+         Destructable otherScript = null;
+         GameObject parent = other.gameObject;
+         while (true) {
+            if (parent.GetComponent<Destructable>()) {
+               otherScript = parent.GetComponent<Destructable>();
+               break;
+            }
+            
+            parent = parent.transform.parent.gameObject;
+         }
+         
+         otherScript.InflictDamage(collisionDamage);
+         InflictDamage(otherScript.GetCollisionDamage());
       }
    }
 }

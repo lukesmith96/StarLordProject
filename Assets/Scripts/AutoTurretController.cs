@@ -9,9 +9,12 @@ public class AutoTurretController : TurretController {
 
    private SpriteRenderer sprite;
    private Rigidbody2D rb2d;
+
    private bool isAttached;
-   private DynamicObjectPool dynamicPool;
+
    private Vector3 defaultScale = new Vector3(1, 1, 0);
+   
+   private Vector3 scale = new Vector3(1, 1, 1);
    
    // Use this for initialization
    new void Start () {
@@ -19,8 +22,6 @@ public class AutoTurretController : TurretController {
 
       sprite = GetComponent<SpriteRenderer> ();
       rb2d = GetComponent<Rigidbody2D> ();
-
-      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 
       isAttached = false;
       isTouching = false;
