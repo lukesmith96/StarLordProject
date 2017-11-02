@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - Asteroid
   - IntegratedUI
+  - LaserTurret
+  - Pool
   layers:
   - Default
   - TransparentFX

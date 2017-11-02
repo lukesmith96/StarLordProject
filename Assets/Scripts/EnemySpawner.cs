@@ -16,7 +16,8 @@ public class EnemySpawner : MonoBehaviour {
    public List<GameObject> pooledExplosions;
    public GameObject poolGameObject;
    private DynamicObjectPool dynamicPool;
-   public GameObject enemyObject;
+   public GameObject enemylevel1Object;
+   public GameObject enemylevel2Object;
    public GameObject explosionObject;
    public int count = 0;
    public int poolSize;
@@ -68,7 +69,7 @@ public class EnemySpawner : MonoBehaviour {
          spawnPos = new Vector2(r * Mathf.Sin(radians), r * Mathf.Cos(radians));
 
          //spawn enemy
-         GameObject tmp = dynamicPool.GetPooledObject(enemyObject);
+         GameObject tmp = dynamicPool.GetPooledObject(enemylevel2Object);
          tmp.SetActive (true);
          tmp.transform.position = spawnPos;
          Vector2 direction = Vector2.zero - spawnPos;

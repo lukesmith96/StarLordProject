@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 /*
  * @author: Luke Smith
  * @since: 10.1.17 
@@ -12,20 +10,6 @@ public class AsteroidController : MonoBehaviour {
    public float maxRange = 40f;
    public float randomOffset;
    public int speed;
-
-
-   /*void Start()
-   {
-      rb2d = GetComponent<Rigidbody2D>();
-      Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
-      Vector2 current = transform.position;
-      Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * speed;
-      vectorToOrigin.x += Random.Range(25, randomOffset);
-      vectorToOrigin.y += Random.Range(25, randomOffset);
-
-      rb2d.velocity = Vector2.zero;
-      rb2d.AddForce(vectorToOrigin);
-   }*/
 
    void OnEnable()
    {
