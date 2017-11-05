@@ -12,11 +12,13 @@ public class BulletController : MonoBehaviour {
    public bool isEnemyBullet = false;
    
    private Rigidbody2D rb2d;
+   private DynamicObjectPool dynamicPool;
    
    // Use this for initialization
    void Start()
    {
       rb2d = GetComponent<Rigidbody2D>();
+      dynamicPool = (DynamicObjectPool)EnemySpawner.instance.poolGameObject.GetComponent(typeof(DynamicObjectPool));
       originPoint = transform.position;
    }
 
@@ -35,13 +37,14 @@ public class BulletController : MonoBehaviour {
          this.gameObject.SetActive(false);
          PlayerController.instance.addMass();
       }
-      if ((other.gameObject.CompareTag("Enemy") && !isEnemyBullet) || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
+      if ((other.gameObject.CompareTag("Enemy") && !isEnemyBullet)
+         || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
          /*
           * We need to trigger explosion in enemySpawner not sure how to yet.
           */
          //trigger explosion
-         GameObject exe = EnemySpawner.GetPooledObject(EnemySpawner.instance.pooledExplosions);
+         GameObject exe = dynamicPool.GetPooledObject(explosion);
          exe.transform.position = transform.position;
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();

@@ -8,9 +8,14 @@ public class Destructable : MonoBehaviour {
    public const float maxHealth = 10f;
    protected float currentHealth = 0f;
    public float collisionDamage = 20f; //how much damage does this inflict when it collides with something
+   public GameObject explosionObject; //anything destructable can explode
+   
+   protected DynamicObjectPool dynamicPool;
 
    // Use this for initialization
    public void Start () {
+      dynamicPool = (DynamicObjectPool)EnemySpawner.instance.poolGameObject.GetComponent(typeof(DynamicObjectPool));
+      
       Reset();
    }
    
@@ -32,7 +37,7 @@ public class Destructable : MonoBehaviour {
          gameObject.SetActive(false);
          
          //trigger explosion
-         GameObject exe = EnemySpawner.GetPooledObject(EnemySpawner.instance.pooledExplosions);
+         GameObject exe = dynamicPool.GetPooledObject(explosionObject);
          exe.transform.position = transform.position;
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();

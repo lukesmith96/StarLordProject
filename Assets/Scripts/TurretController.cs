@@ -22,19 +22,15 @@ public class TurretController : Destructable {
    
    private GameObject firingArc;
    private float timeSinceFiring = 2.0f; //seconds
-   private List<GameObject> pooledBullets = new List<GameObject>();
 
    private bool selected = false;
-   
-   public GameObject poolGameObject;
-   protected DynamicObjectPool dynamicPool;
 
    // Use this for initialization
    public void Start () {
+      base.Start();
+      
       collider = GetComponent<CircleCollider2D> ();
       firingArc = transform.Find("TurretFiringArc").gameObject;
-
-      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
 
       maxRange = bullet.gameObject.GetComponent<BulletController>().maxRange;
       minRange = bullet.gameObject.GetComponent<BulletController>().minRange;

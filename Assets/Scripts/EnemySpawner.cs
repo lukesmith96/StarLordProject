@@ -12,8 +12,6 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
    public static EnemySpawner instance;
    
-   public List<GameObject> pooledEnemies;
-   public List<GameObject> pooledExplosions;
    public GameObject poolGameObject;
    private DynamicObjectPool dynamicPool;
    public GameObject enemylevel1Object;
@@ -44,12 +42,6 @@ public class EnemySpawner : MonoBehaviour {
    
    void Start() {
       dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
-
-      for (int i = 0; i < poolSize; i++) {
-         GameObject obj = (GameObject)Instantiate(explosionObject);
-         obj.SetActive(false);
-         pooledExplosions.Add(obj);
-      }
    }
 
    void Update() {
@@ -76,14 +68,5 @@ public class EnemySpawner : MonoBehaviour {
          tmp.GetComponent<EnemyController>().Reset();
          tmp.GetComponent<Rigidbody2D>().AddForce(direction.normalized * 300f);
       }
-   }
-
-   public static GameObject GetPooledObject(List<GameObject> collection) {
-      for (int i = 0; i < collection.Count; i++) {
-         if (!collection[i].activeInHierarchy) {
-            return collection[i];
-         }
-      }
-      return null;
    }
 }
