@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour {
 
    void Update() {
       //time to spawn an enemy
-      if (Time.time > nextSpawn) {
+      if (Time.time > nextSpawn && !GameControl.instance.gameIsPaused) {
          float randX, randY;
          Vector2 spawnPos;
 
