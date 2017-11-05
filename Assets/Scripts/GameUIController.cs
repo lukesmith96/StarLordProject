@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour {
    //public GameObject pauseButton;
    //public GameObject shopButton;
+   public const string OUR_TEXT_COLOR = "#ff8f8fff";
+   public const string ENEMY_TEXT_COLOR = "#ff0000ff";
+   
    public GameObject upgradeButton;
 
    public GameObject pauseMenu;
    public GameObject shopMenu;
    public GameObject upgradeMenu;
-
+   
+   public GameObject thoughtText;
+   public float thoughtTextSpeed = 0.1f; //# seconds until next character
+   private float timeUntilNextThoughtChar = 0.0f;
+   public GameObject introText;
+   private List<List<string>> thoughtQueue = new List<List<string>>();
+   
    // Use this for initialization
    void Start () {
       
@@ -19,7 +29,11 @@ public class GameUIController : MonoBehaviour {
    
    // Update is called once per frame
    void Update () {
-      
+      if (Input.GetMouseButtonDown(0)) {
+         DequeueThought(0.0f, true); //finish current thought. If it is already finished, then go to next thought if any
+      } else {
+         DequeueThought(Time.deltaTime, false);
+      }
    }
    
    public void LoadStage(string target) {
@@ -46,5 +60,58 @@ public class GameUIController : MonoBehaviour {
 
    public void ToggleUpgradeButton(bool open) {
       upgradeButton.SetActive (open);
+   }
+   
+   //cutscene stuff (intro text and word text)
+   //add the thought to a queue, then slowly dequeue based on time and user input
+   public void WriteThought(string speakerName, string msg, string hex_color, bool isIntro) {
+      //prefix, total msg, current msg
+      thoughtQueue.Add(new List<string>(new string [] {"<color=" + hex_color + ">" + speakerName + (speakerName.Length > 0 ? ": " : ""), msg, "", isIntro ? "intro" : "thought"}));
+   }
+   
+   void DequeueThought(float deltaTime, bool completeMsg) {
+      if (thoughtQueue.Count == 0) return;
+      //Debug.Log(thoughtQueue[0][0] + " / " + thoughtQueue[0][1] + " / " + thoughtQueue[0][2] + " / " + thoughtQueue[0][3]);
+      if (thoughtQueue[0][3] == "intro" || thoughtQueue[0][3] == "thought") {
+         
+         if (completeMsg) {
+            if (thoughtQueue[0][1] == thoughtQueue[0][2]) {
+               thoughtQueue.RemoveAt(0); //remove the first msg (all done)
+               thoughtText.GetComponent<Text>().text = "";
+               introText.SetActive(false);//GetComponent<TextMesh>().text = "";
+               return;
+            } else {
+               thoughtQueue[0][2] = thoughtQueue[0][1]; //display whole msg
+            }
+         } else {
+            if (thoughtQueue[0][1] == thoughtQueue[0][2]) return; //already displayed
+            if (timeUntilNextThoughtChar <= 0.0) {
+               timeUntilNextThoughtChar = thoughtTextSpeed;
+               thoughtQueue[0][2] += thoughtQueue[0][1][thoughtQueue[0][2].Length];
+            } else {
+               timeUntilNextThoughtChar -= deltaTime;
+            }
+         }
+         
+         if (thoughtQueue.Count == 0) {
+            thoughtText.GetComponent<Text>().text = "";
+            introText.SetActive(false);//GetComponent<TextMesh>().text = "";
+            return;
+         };
+         if (thoughtQueue[0][3] == "intro") {
+            thoughtText.GetComponent<Text>().text = "";
+            introText.GetComponent<TextMesh>().text = thoughtQueue[0][0] + thoughtQueue[0][2] + "</color>";
+         } else if (thoughtQueue[0][3] == "thought") {
+            introText.SetActive(false);//GetComponent<TextMesh>().text = "";
+            thoughtText.GetComponent<Text>().text = thoughtQueue[0][0] + thoughtQueue[0][2] + "</color>";
+         }
+      } else if (thoughtQueue[0][3] == "pause") {
+         GameControl.instance.togglePauseGame(thoughtQueue[0][0] == "true");
+         thoughtQueue.RemoveAt(0);
+      }
+   }
+   
+   public void TogglePause(bool enable) {
+      thoughtQueue.Add(new List<string>(new string [] {enable ? "true" : "false", "", "", "pause"}));
    }
 }

@@ -70,6 +70,7 @@ public class Level2EnemyController : EnemyController {
          cloneRb2d.transform.position = transform.position;
          cloneRb2d.velocity = Vector2.zero;
          cloneRb2d.transform.up = transform.up;
+         cloneRb2d.transform.gameObject.GetComponent<BulletController>().isEnemyBullet = true;
          // Send bullet on its errand of destruction
          cloneRb2d.AddForce(newDir * speed);
       }

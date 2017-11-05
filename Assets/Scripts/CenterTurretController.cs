@@ -26,8 +26,7 @@ public class CenterTurretController : TurretController {
       if (Input.GetMouseButtonDown(0))
       {
          //if (EventSystem.current.IsPointerOverGameObject() == false)
-            FireBullet(direction);
-         
+         FireBullet(direction);
       }
    }
 }
