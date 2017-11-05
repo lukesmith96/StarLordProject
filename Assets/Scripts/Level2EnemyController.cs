@@ -17,13 +17,10 @@ public class Level2EnemyController : EnemyController {
    public float speed = 25.0f;
    public float reloadTime = 4.0f; //seconds
    private float timeSinceFiring = 4.0f; //seconds
-   private DynamicObjectPool dynamicPool;
-   public GameObject poolGameObject;
 
    // Use this for initialization
    void Start () {
-      poolGameObject = GameObject.FindGameObjectWithTag("Pool");
-      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
+      base.Start();
    }
 	
 	// Update is called once per frame
@@ -58,7 +55,7 @@ public class Level2EnemyController : EnemyController {
       {
          timeSinceFiring = 0f;
          Vector2 newDir = -Vector2.MoveTowards(transform.position, direction, Time.deltaTime);
-         Debug.Log("Pos " + transform.position + " Direction: " + newDir);
+         
          GameObject clone;
          Rigidbody2D cloneRb2d;
          //Get instance of Bullet
@@ -92,5 +89,11 @@ public class Level2EnemyController : EnemyController {
       float y = origin.y + radius * Mathf.Sin(Mathf.Deg2Rad * angle);
 
       return new Vector2(x, y);
+   }
+   
+   void OnEnable() {
+      base.Reset();
+      transform.position = originPoint;
+      rotate = false;
    }
 }

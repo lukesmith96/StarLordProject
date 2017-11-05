@@ -119,6 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d900524e117b8f4fbeaaa8966cf183e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInvincible: 0
+  collisionDamage: 20
+  explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
+    type: 2}
   bullet: {fileID: 1006152285675640, guid: f0deb4c9e892b28489cc3deaa6454b23, type: 2}
   speed: 500
   maxRange: 30
@@ -127,6 +131,8 @@ MonoBehaviour:
   numBullets: 3
   spread: 15
   player: {fileID: 0}
+  enemy: {fileID: 0}
+  isTouching: 0
 --- !u!212 &212256564218055540
 SpriteRenderer:
   m_ObjectHideFlags: 1

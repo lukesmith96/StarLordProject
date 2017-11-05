@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58131779646127666}
   m_Layer: 0
   m_Name: bullet3
-  m_TagString: Untagged
+  m_TagString: Bullet3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   damage: 1
   originPoint: {x: 0, y: 0}
   explosion: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33, type: 2}
+  isEnemyBullet: 0
 --- !u!212 &212142396006728370
 SpriteRenderer:
   m_ObjectHideFlags: 1

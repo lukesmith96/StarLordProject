@@ -9,9 +9,6 @@ public class TeleportingEnemy : EnemyController {
    public GameObject forceField; //when not teleporting
    public GameObject teleportEffect; //when teleporting
    
-   public GameObject poolGameObject;
-   private DynamicObjectPool dynamicPool;
-   
    public GameObject spawnedObject;
    public float spawnRate;
    public float teleportRate;
@@ -24,8 +21,7 @@ public class TeleportingEnemy : EnemyController {
    private float currentTeleCountdown = 0.0f;
    // Use this for initialization
    void Start () {
-      
-      dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
+      base.Start();
       
       //teleport into battle
       nextTeleport = teleportRate;
