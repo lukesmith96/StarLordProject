@@ -75,6 +75,7 @@ public class TurretController : Destructable {
             cloneRb2d.velocity = Vector2.zero;
             cloneRb2d.transform.up = transform.up;
             cloneRb2d.transform.Rotate(0, 0, theta);
+            cloneRb2d.transform.gameObject.GetComponent<BulletController>().isEnemyBullet = false;
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
          }

@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour {
    public float damage = 10f;
    public Vector2 originPoint = Vector2.zero;
    public GameObject explosion;
+   public bool isEnemyBullet = false;
    
    private Rigidbody2D rb2d;
    
@@ -28,13 +29,13 @@ public class BulletController : MonoBehaviour {
    
    private void OnTriggerEnter2D(Collider2D other)
    {
-      if (other.gameObject.CompareTag("Asteroid"))
+      if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
       {
          other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
          PlayerController.instance.addMass();
       }
-      if (other.gameObject.CompareTag("Enemy"))
+      if ((other.gameObject.CompareTag("Enemy") && !isEnemyBullet) || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
          /*
           * We need to trigger explosion in enemySpawner not sure how to yet.
@@ -49,14 +50,16 @@ public class BulletController : MonoBehaviour {
 
          PlayerController.instance.startRotationPU();
          //inflict damage
-         if (other.GetComponent<EnemyController>()) {
-            other.GetComponent<EnemyController>().InflictDamage(damage);
+         if (other.GetComponent<Destructable>()) {
+            other.GetComponent<Destructable>().InflictDamage(damage);
          } else if (other.gameObject.transform.parent.gameObject.GetComponent<TeleportingEnemy>()) {
             other.gameObject.transform.parent.gameObject.GetComponent<TeleportingEnemy>().InflictDamage(damage);
          }
       }
+      /*
       if (other.gameObject.CompareTag("Player") && originPoint != Vector2.zero) {
          this.gameObject.SetActive(false);
       }
+      */
    }
 }
