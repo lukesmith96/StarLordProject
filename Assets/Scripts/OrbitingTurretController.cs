@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbitingTurretController : TurretController {
+public class OrbitingTurretController : AutoTurretController {
    public float radius = 10;
    public int orbitalSpeed = 50;
 
    private float angle;
 
-	void Start () {
+	new void Start () {
       base.Start();
 
       // Place turret at random point on radius of player
@@ -19,17 +19,30 @@ public class OrbitingTurretController : TurretController {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-      
-
+	new void Update () {
       // Orbit around player
       angle += orbitalSpeed * Time.deltaTime;
       transform.position = GetPoint (player.transform.position, radius, angle);
 
       base.Update ();
-
-      AutoFire ();
 	}
+
+   new public void AttachToPlayer() {
+      Debug.Log ("ATTACHED");
+
+      isAttached = true;
+      isInvincible = false;
+   } 
+
+   new protected void ColorSprite() {
+      if (isAttached) {
+         sprite.color = Color.white;
+      } else if (isTouching) {
+         sprite.color = Color.red;
+      } else {
+         sprite.color = Color.green;
+      }
+   }
 
    private Vector2 GetRandPoint (Vector2 origin, float radius, out float angle) {
       angle = Random.Range (0, 360);
