@@ -19,6 +19,7 @@ public class InstructionsController : MonoBehaviour {
       
       addHeaderAndInstr("Firing", "You can control your central turret with the mouse (click to fire at the mouse position).");
       addHeaderAndInstr("Enemies", "Enemies will attack your planet in waves, defend yourself using your central turret and auto turrets.");
+      addHeaderAndInstr("Asteroids", "Destroying or tractoring in asteroids gives you points and increases your mass.");
       
       displayCurrentHeaderInstr();
    }

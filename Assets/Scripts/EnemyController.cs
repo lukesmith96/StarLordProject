@@ -20,6 +20,8 @@ public class EnemyController : Destructable {
    }
    
    void Start() {
+      base.Start();
+      
       rb2d = GetComponent<Rigidbody2D>();
    }
 	
