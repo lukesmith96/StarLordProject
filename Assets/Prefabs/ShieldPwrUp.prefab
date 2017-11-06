@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4761929947880216}
   - component: {fileID: 212638394856921642}
-  - component: {fileID: 114296492767907808}
   - component: {fileID: 50646418164512390}
   - component: {fileID: 60878844577261456}
+  - component: {fileID: 114237031960892916}
   m_Layer: 0
   m_Name: ShieldPwrUp
   m_TagString: Untagged
@@ -50,7 +50,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1872727310328200}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -170,7 +170,7 @@ PolygonCollider2D:
       - {x: 1.4399999, y: -2.29}
       - {x: 1.5, y: -2.28}
       - {x: 1.53, y: -2.25}
---- !u!114 &114296492767907808
+--- !u!114 &114237031960892916
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -178,9 +178,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1872727310328200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa17a9660ba8cb4889f0d851726f7fb, type: 3}
+  m_Script: {fileID: 11500000, guid: e95bd76bffeb9214781ad4e56bd648d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shield: {fileID: 0}
+  thrust: 0.15
 --- !u!212 &212638394856921642
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -215,7 +217,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 06b7188901063044ab514c2b97e40bb3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c27ff5116f90b141afaa3394856f59d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -52,15 +52,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
    void OnTriggerEnter2D(Collider2D other) {
-      if (other.gameObject.CompareTag ("Enemy")) {
-         other.gameObject.SetActive (false);
+		if (other.gameObject.CompareTag ("Enemy")) {
+			other.gameObject.SetActive (false);
+			if (isColliding)
+				return;
+			isColliding = true;
+			//transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+
+			GameControl.instance.score -= 10;
+			GameControl.instance.SetScoreText ();
+		} else if (other.gameObject.CompareTag ("Asteroid")) {
+			other.gameObject.SetActive (false);
 			if (isColliding)
 				return;
 			isColliding = true;
 
-         GameControl.instance.score -= 10;
-         GameControl.instance.SetScoreText ();
-      }
+			transform.localScale += (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+		}
    }
    public void addMass()
    {

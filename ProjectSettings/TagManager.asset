@@ -12,6 +12,7 @@ TagManager:
   - LaserTurret
   - Pool
   - NoEvents
+  - Beam
   layers:
   - Default
   - TransparentFX

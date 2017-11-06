@@ -10,6 +10,7 @@ public class AsteroidController : MonoBehaviour {
    public float maxRange = 40f;
    public float randomOffset;
    public int speed;
+   public float thrust = 2f;
 
    void OnEnable()
    {
@@ -35,4 +36,22 @@ public class AsteroidController : MonoBehaviour {
          gameObject.SetActive(false);
       }
    }
+
+	void OnTriggerStay2D (Collider2D other){
+		if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+			Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
+			Vector2 current = transform.position;
+			Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * thrust;
+			rb2d.AddForce(vectorToOrigin);
+		}
+	}
+
+	void OnTriggerExit2D (Collider other){
+		if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+			rb2d.velocity -= new Vector2 (2f, 2f);
+			if (rb2d.velocity.x < 0f && rb2d.velocity.y < 0f) {
+				rb2d.velocity = Vector2.zero;
+			}
+		}
+	}
 }
