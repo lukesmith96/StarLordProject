@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour {
    public float scaleValue = 2F;
    public static PlayerController instance;
 
-   //private int score;
    private bool isColliding;
    public float rotationTime = .5f;
    private bool rotatePU;
@@ -22,17 +21,19 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		// Joshua King
 		// Pressing '=' increases the scale of the player
 		if (Input.GetKeyDown("="))
 		{
 			transform.localScale += (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
 		}
+		//Joshua King
 		// Pressing '-' decreases the scale of the player
 		if (Input.GetKeyDown("-"))
 		{
 			transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
 		}
+
       if (rotatePU && currRotation < (Time.time - rotationTime))
       {
          rotatePU = false;
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
    void OnTriggerEnter2D(Collider2D other) {
+		// Joshua King
+		// If an enemy collides with the player, the player loses score
 		if (other.gameObject.CompareTag ("Enemy")) {
 			other.gameObject.SetActive (false);
 			if (isColliding)
@@ -62,12 +65,14 @@ public class PlayerController : MonoBehaviour {
 			GameControl.instance.score -= 10;
 			GameControl.instance.SetScoreText ();
 		} else if (other.gameObject.CompareTag ("Asteroid")) {
+			// Joshua King
+			// If an asteroid comes in contact with the player, the player gains mass
 			other.gameObject.SetActive (false);
 			if (isColliding)
 				return;
 			isColliding = true;
 
-			transform.localScale += (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+			addMass ();
 		}
    }
    public void addMass()

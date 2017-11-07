@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * @author: Joshua King
+ * @since: 11.5.17
+ * 
+ * Shield powerup that absorbs enemy attacks for the player
+ * and shrinks after every hit.
+ */
+
 public class Shield : MonoBehaviour {
 	public const float shieldHealth = 50f;
 	public float curShieldHealth = 50f;

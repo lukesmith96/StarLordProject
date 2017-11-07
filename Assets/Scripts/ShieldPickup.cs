@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * @author: Joshua King
+ * @since: 11.5.17
+ * 
+ * Shield pickup that can be pulled in by the tractor beam, spawns a temporary
+ * shield on top of the player that absorbs enemy attacks.
+ */
+
 public class ShieldPickup : MonoBehaviour {
 
 	public GameObject Shield;
