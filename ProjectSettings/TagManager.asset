@@ -15,6 +15,7 @@ TagManager:
   - Bullet2
   - Bullet3
   - Explosion
+  - Explosion1
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1318369883
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

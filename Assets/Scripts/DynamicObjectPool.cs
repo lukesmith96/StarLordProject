@@ -55,4 +55,14 @@ public class DynamicObjectPool : MonoBehaviour
       return obj;
    }
 
+   public int ActiveCount(GameObject objectToGet) {
+      List<GameObject> tmp = GetPoolList (objectToGet);
+      int count = 0;
+      for (int i = 0; i < tmp.Count; i++) {
+         if (tmp [i].activeSelf) {
+            count++;
+         }
+      }
+      return count;
+   }
 }

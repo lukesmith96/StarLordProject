@@ -34,13 +34,14 @@ public class Destructable : MonoBehaviour {
       currentHealth -= dmg;
       if (currentHealth <= 0) {
          currentHealth = 0;
-         gameObject.SetActive(false);
          
          //trigger explosion
          GameObject exe = dynamicPool.GetPooledObject(explosionObject);
          exe.transform.position = transform.position;
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();
+         
+         gameObject.SetActive(false);
       }
    }
    

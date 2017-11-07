@@ -34,6 +34,10 @@ public class GameUIController : MonoBehaviour {
       } else {
          DequeueThought(Time.deltaTime, false);
       }
+
+      if (EnemySpawner.instance.spawnMode && shopMenu.activeSelf) {
+         shopMenu.SetActive (false);
+      }
    }
    
    public void LoadStage(string target) {
@@ -47,7 +51,9 @@ public class GameUIController : MonoBehaviour {
    }
 
    public void ToggleShopMenu(bool open) {
-      shopMenu.SetActive (open);
+      if (!EnemySpawner.instance.spawnMode) {
+         shopMenu.SetActive (open);
+      }
       //Time.timeScale = open ? 0 : 1F;
       //GameControl.instance.togglePauseGame(open);
    }
@@ -70,7 +76,7 @@ public class GameUIController : MonoBehaviour {
    }
    
    void DequeueThought(float deltaTime, bool completeMsg) {
-      if (thoughtQueue.Count == 0) return;
+      if (thoughtQueue.Count == 0 || Time.timeScale == 0.0f) return;
       //Debug.Log(thoughtQueue[0][0] + " / " + thoughtQueue[0][1] + " / " + thoughtQueue[0][2] + " / " + thoughtQueue[0][3]);
       if (thoughtQueue[0][3] == "intro" || thoughtQueue[0][3] == "thought") {
          
