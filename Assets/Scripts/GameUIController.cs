@@ -76,7 +76,7 @@ public class GameUIController : MonoBehaviour {
    }
    
    void DequeueThought(float deltaTime, bool completeMsg) {
-      if (thoughtQueue.Count == 0) return;
+      if (thoughtQueue.Count == 0 || Time.timeScale == 0.0f) return;
       //Debug.Log(thoughtQueue[0][0] + " / " + thoughtQueue[0][1] + " / " + thoughtQueue[0][2] + " / " + thoughtQueue[0][3]);
       if (thoughtQueue[0][3] == "intro" || thoughtQueue[0][3] == "thought") {
          

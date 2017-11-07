@@ -15,6 +15,7 @@ TagManager:
   - Bullet2
   - Bullet3
   - Explosion
+  - Explosion1
   layers:
   - Default
   - TransparentFX

@@ -58,7 +58,7 @@ public class GameControl : MonoBehaviour
          + "pretium.\n"
          + "Aliquam erat volutpat.\n"
          + "Vivamus vitae convallis sapien,\n"
-         + "in tristique dolor.\n"
+         + "Wednesday is lit\n"
          + "Nunc eget erat tempor,\n"
          + "aliquet justo vel, auctor libero.\n"
          + "Morbi mattis lacus felis, non iaculis\n"
