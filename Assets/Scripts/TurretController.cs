@@ -26,7 +26,7 @@ public class TurretController : Destructable {
    private bool selected = false;
 
    // Use this for initialization
-   public void Start () {
+   public virtual void Start () {
       base.Start();
       
       collider = GetComponent<CircleCollider2D> ();
@@ -41,12 +41,14 @@ public class TurretController : Destructable {
 
       isInvincible = true;
    }
+
    // Update is called once per frame
-   public void Update () {
+   public virtual void Update () {
       if (timeSinceFiring < reloadTime) {
          timeSinceFiring += Time.deltaTime;
       }
    }
+      
    protected void FireBullet(Vector2 direction) {
       if (timeSinceFiring >= reloadTime) {
          timeSinceFiring = 0f;
