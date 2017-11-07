@@ -73,8 +73,9 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
    public void GetTurret() {
       turretToSpawn = dynamicPool.GetPooledObject(turretType);
-      turretToSpawn.SetActive (true);
-      if (turretToSpawn != null)
+      if (turretToSpawn != null) {
+         turretToSpawn.SetActive (true);
          turretToSpawn.GetComponent<AutoTurretController> ().Reset ();
+      }
    }
 }
