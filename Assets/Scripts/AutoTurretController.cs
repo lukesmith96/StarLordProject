@@ -36,10 +36,10 @@ public class AutoTurretController : TurretController {
       if (isAttached) {
          AutoFire ();
       }
-
-      Debug.Log ("UPDATING");
+         
       // Reset scale if attached to player
-      //ResetScale();
+      if (!CompareTag("OrbitingTurret"))
+         ResetScale();
    }
    
    virtual public void AttachToPlayer() {
