@@ -50,7 +50,6 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
          newTurret.AttachToPlayer ();
 
-
          GameControl.instance.score -= turretCost;
          GameControl.instance.SetScoreText ();
 
@@ -78,23 +77,4 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
       if (turretToSpawn != null)
          turretToSpawn.GetComponent<AutoTurretController> ().Reset ();
    }
-
-   /*
-   public void PurchaseAutoTurret() {
-      TurretManager.instance.SpawnTurret ("AutoTurret");
-      GameControl.instance.score -= AutoTurretCost;
-      GameControl.instance.SetScoreText ();
-   }
-
-   public void PurchaseMultiTurret() {
-      TurretManager.instance.SpawnTurret ("MultiShotTurret");
-      GameControl.instance.score -= MultiTurretCost;
-      GameControl.instance.SetScoreText ();
-   }
-
-   public void PurchaseLaserTurret() {
-      TurretManager.instance.SpawnTurret ("LaserTurret");
-      GameControl.instance.score -= LaserTurretCost;
-      GameControl.instance.SetScoreText ();
-   }*/
 }

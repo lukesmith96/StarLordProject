@@ -14,7 +14,7 @@ public class AutoTurretController : TurretController {
    private Vector3 defaultScale = new Vector3(1, 1, 0);
    
    // Use this for initialization
-   new void Start () {
+   public override void Start () {
       base.Start();
 
       sprite = GetComponent<SpriteRenderer> ();
@@ -28,7 +28,7 @@ public class AutoTurretController : TurretController {
    }
    
    // Update is called once per frame
-   new void Update () {
+   public override void Update () {
       base.Update();
 
       ColorSprite ();
@@ -37,11 +37,12 @@ public class AutoTurretController : TurretController {
          AutoFire ();
       }
 
+      Debug.Log ("UPDATING");
       // Reset scale if attached to player
       //ResetScale();
    }
    
-   public void AttachToPlayer() {
+   virtual public void AttachToPlayer() {
       Debug.Log ("ATTACHED");
 
       transform.SetParent (player.transform);
@@ -52,7 +53,7 @@ public class AutoTurretController : TurretController {
       rb2d.isKinematic = true;
    }
 
-   protected void ColorSprite() {
+   virtual protected void ColorSprite() {
       if (isAttached) {
          sprite.color = Color.white;
       } else if (isTouching) {
@@ -130,7 +131,8 @@ public class AutoTurretController : TurretController {
 
          direction.Normalize ();
 
-         transform.up = direction;
+         if (!CompareTag("OrbitalTurret"))
+            transform.up = direction;
 
          if (closestEnemy.distance <= maxRange && closestEnemy.distance >= minRange) {
             FireBullet (direction);
@@ -161,7 +163,7 @@ public class AutoTurretController : TurretController {
       }
    }
 
-   public void Reset() {
+   virtual public void Reset() {
       isAttached = isTouching = false;
       isInvincible = true;
       transform.position = Vector3.zero;
