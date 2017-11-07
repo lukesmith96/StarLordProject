@@ -34,6 +34,10 @@ public class GameUIController : MonoBehaviour {
       } else {
          DequeueThought(Time.deltaTime, false);
       }
+
+      if (EnemySpawner.instance.spawnMode && shopMenu.activeSelf) {
+         shopMenu.SetActive (false);
+      }
    }
    
    public void LoadStage(string target) {
@@ -47,7 +51,9 @@ public class GameUIController : MonoBehaviour {
    }
 
    public void ToggleShopMenu(bool open) {
-      shopMenu.SetActive (open);
+      if (!EnemySpawner.instance.spawnMode) {
+         shopMenu.SetActive (open);
+      }
       //Time.timeScale = open ? 0 : 1F;
       //GameControl.instance.togglePauseGame(open);
    }
