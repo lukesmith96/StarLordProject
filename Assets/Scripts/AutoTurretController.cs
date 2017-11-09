@@ -38,7 +38,7 @@ public class AutoTurretController : TurretController {
       }
          
       // Reset scale if attached to player
-      if (!CompareTag("OrbitingTurret"))
+      if (!CompareTag("OrbitalTurret"))
          ResetScale();
    }
    
@@ -170,6 +170,7 @@ public class AutoTurretController : TurretController {
 
       ResetScale();
 
+      rb2d = GetComponent<Rigidbody2D> ();
       rb2d.isKinematic = false;
    }
 }

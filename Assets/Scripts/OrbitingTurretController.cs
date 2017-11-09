@@ -58,6 +58,7 @@ public class OrbitingTurretController : AutoTurretController {
    override public void Reset() {
       isAttached = false;
       isTouching = isInvincible = true;
+      trailRenderer = GetComponent<TrailRenderer> ();
       trailRenderer.enabled = false;
 
       transform.position = Vector3.zero;
