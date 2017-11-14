@@ -57,6 +57,7 @@ public class DynamicObjectPool : MonoBehaviour
 
    public int ActiveCount(GameObject objectToGet) {
       List<GameObject> tmp = GetPoolList (objectToGet);
+      if (tmp == null) return 0;
       int count = 0;
       for (int i = 0; i < tmp.Count; i++) {
          if (tmp [i].activeSelf) {

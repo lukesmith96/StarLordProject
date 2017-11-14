@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 114536248778393236}
   m_Layer: 0
   m_Name: TeleportingEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +621,6 @@ MonoBehaviour:
   ghostImage: {fileID: 1503073779454792}
   forceField: {fileID: 1898154610860246}
   teleportEffect: {fileID: 1408575334822438}
-  poolGameObject: {fileID: 0}
   spawnedObject: {fileID: 1935026177306656, guid: 4fd429c9f798c40bcb5b61b325070461,
     type: 2}
   spawnRate: 2

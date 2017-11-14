@@ -16,6 +16,12 @@ TagManager:
   - Bullet3
   - Explosion
   - Explosion1
+  - OrbitalTurret
+  - Beam
+  - AutoTurret
+  - MultiTurret
+  - Enemy2
+  - TeleportingEnemy
   layers:
   - Default
   - TransparentFX

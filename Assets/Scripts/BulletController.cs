@@ -43,7 +43,7 @@ public class BulletController : MonoBehaviour {
          this.gameObject.SetActive(false);
          PlayerController.instance.addMass();
       }
-      if ((other.gameObject.CompareTag("Enemy") && !isEnemyBullet)
+      if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
          /*
