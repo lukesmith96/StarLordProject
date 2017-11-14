@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4164032354982400}
-  - component: {fileID: 212522491258850376}
-  - component: {fileID: 114179291687835566}
-  - component: {fileID: 50712953778867936}
-  - component: {fileID: 58882582772422514}
+  - component: {fileID: 212595810229558624}
+  - component: {fileID: 114445635424011464}
+  - component: {fileID: 50364746198641226}
+  - component: {fileID: 58984352327376338}
   m_Layer: 0
   m_Name: Level2Enemy
   m_TagString: Enemy
@@ -36,14 +36,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1370501377038410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50712953778867936
+--- !u!50 &50364746198641226
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -63,7 +63,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58882582772422514
+--- !u!58 &58984352327376338
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -78,7 +78,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.56
---- !u!114 &114179291687835566
+--- !u!114 &114445635424011464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   minRange: 0
   speed: 25
   reloadTime: 2
---- !u!212 &212522491258850376
+--- !u!212 &212595810229558624
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
