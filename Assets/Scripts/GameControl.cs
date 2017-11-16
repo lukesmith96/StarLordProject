@@ -11,8 +11,12 @@ public class GameControl : MonoBehaviour
    public Text scoreText;
    public bool gameOver = false;
    public GameUIController uiController;
+   public bool godmode = false;
 
-   public bool gameIsPaused = false;
+   public bool gameIsPaused = false; //soft pause, not actually pausing time, just waves
+   
+   public GameObject beamObject;
+   public GameObject centerTurretObject;
    
    void Awake()
    {
@@ -30,6 +34,9 @@ public class GameControl : MonoBehaviour
    }
 
    void Start() {
+      beamObject.SetActive(false);
+      centerTurretObject.SetActive(false);
+      
       SetScoreText();
       RunIntroCutscene();
    }
@@ -68,5 +75,11 @@ public class GameControl : MonoBehaviour
       uiController.WriteThought("", "Hello?", GameUIController.OUR_TEXT_COLOR, false);
       uiController.WriteThought("", "World?", GameUIController.OUR_TEXT_COLOR, false);
       uiController.TogglePause(false);
+      uiController.FadeIn("player");
+      uiController.ShowPopup("AsteroidsInstructions");
+      uiController.FadeIn("background");
+      uiController.FadeIn("full");
+      uiController.EnableObject("beam");
+      uiController.EnableObject("center_turret");
    }
 }

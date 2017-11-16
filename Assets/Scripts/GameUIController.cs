@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour {
-   //public GameObject pauseButton;
-   //public GameObject shopButton;
+   
    public const string OUR_TEXT_COLOR = "#ff8f8fff";
    public const string ENEMY_TEXT_COLOR = "#ff0000ff";
    
    public GameObject upgradeButton;
+   public GameObject shopButton;
+   public GameObject pauseButton;
+   public GameObject waveStuff;
+   public GameObject scoreText;
 
    public GameObject pauseMenu;
    public GameObject shopMenu;
@@ -20,11 +23,34 @@ public class GameUIController : MonoBehaviour {
    public float thoughtTextSpeed = 0.1f; //# seconds until next character
    private float timeUntilNextThoughtChar = 0.0f;
    public GameObject introText;
+   public SpriteRenderer backgroundImg;
+   public SpriteRenderer playerImg;
+   public GameObject popupListObject;
+   
+   public GameObject beamObject;
+   public GameObject centerTurretObject;
+   
    private List<List<string>> thoughtQueue = new List<List<string>>();
    
    // Use this for initialization
    void Start () {
+      //disable everything, burn it all. Even if it's dead already, kill it again
+      upgradeButton.SetActive(false);
+      pauseMenu.SetActive(false);
+      shopMenu.SetActive(false);
+      upgradeMenu.SetActive(false);
+      shopButton.SetActive(false);
+      waveStuff.SetActive(false);
+      scoreText.SetActive(false);
+      pauseButton.SetActive(false);
       
+      Color tmp = backgroundImg.color;
+      tmp.a = 1.0f;
+      backgroundImg.color = tmp;
+      
+      tmp = playerImg.color;
+      tmp.a = 0.0f;
+      playerImg.color = tmp;
    }
    
    // Update is called once per frame
@@ -114,10 +140,66 @@ public class GameUIController : MonoBehaviour {
       } else if (thoughtQueue[0][3] == "pause") {
          GameControl.instance.togglePauseGame(thoughtQueue[0][0] == "true");
          thoughtQueue.RemoveAt(0);
+      } else if (thoughtQueue[0][3] == "fade") {
+         SpriteRenderer targetImg = backgroundImg;
+         if (thoughtQueue[0][0] == "player") {
+            targetImg = playerImg;
+            
+            Color tmp = targetImg.color;
+            tmp.a += deltaTime;
+            if (tmp.a >= 1.0f) {
+               tmp.a = 1.0f;
+               thoughtQueue.RemoveAt(0);
+            }
+            targetImg.color = tmp;
+         } else if (thoughtQueue[0][0] == "background") {
+            Color tmp = targetImg.color;
+            tmp.a -= deltaTime;
+            if (tmp.a <= 0.0f) {
+               tmp.a = 0.0f;
+               thoughtQueue.RemoveAt(0);
+            }
+            targetImg.color = tmp;
+         } else {
+            //just reenable the ui
+            shopButton.SetActive(true);
+            waveStuff.SetActive(true);
+            scoreText.SetActive(true);
+            pauseButton.SetActive(true);
+            thoughtQueue.RemoveAt(0);
+         }
+      } else if (thoughtQueue[0][3] == "popup") {
+         GameObject popup = popupListObject.transform.Find(thoughtQueue[0][0]).gameObject;
+         if (popup) {
+            popup.SetActive(true);
+            TogglePause(true); //the popup must send back TogglePause(false)
+            thoughtQueue.RemoveAt(0);
+         } else {
+            Debug.Log("no popup: " + thoughtQueue[0][0]);
+         }
+      } else if (thoughtQueue[0][3] == "enable") {
+         if (thoughtQueue[0][0] == "beam") {
+            beamObject.SetActive(true);
+         } else if (thoughtQueue[0][0] == "center_turret") {
+            centerTurretObject.SetActive(true);
+         }
+         thoughtQueue.RemoveAt(0);
       }
    }
    
    public void TogglePause(bool enable) {
       thoughtQueue.Add(new List<string>(new string [] {enable ? "true" : "false", "", "", "pause"}));
+   }
+   
+   public void FadeIn(string target) {
+      thoughtQueue.Add(new List<string>(new string [] {target, "", "", "fade"}));
+   }
+   
+   public void ShowPopup(string target) {
+      thoughtQueue.Add(new List<string>(new string [] {target, "", "", "popup"}));
+   }
+   
+   public void EnableObject(string target) {
+      thoughtQueue.Add(new List<string>(new string [] {target, "", "", "enable"}));
    }
 }
