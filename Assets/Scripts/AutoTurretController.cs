@@ -153,7 +153,6 @@ public class AutoTurretController : TurretController {
       } else if (other.gameObject.CompareTag ("Player")) {
          isTouching = true;
       }
-
    }
    
    void OnCollisionExit2D(Collision2D other) {

@@ -54,13 +54,12 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
          GameControl.instance.SetScoreText ();
 
          isDragged = false;
-         //turretToSpawn = null;
+         turretToSpawn = null;
       }
 
       // Otherwise, remove turret
       if (turretToSpawn != null && !turretToSpawn.GetComponent<AutoTurretController> ().isTouching) {
-         turretToSpawn.SetActive (false);
-         isDragged = false;
+         RemoveTurret ();
       }
    }
 
@@ -76,6 +75,14 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
       if (turretToSpawn != null) {
          turretToSpawn.SetActive (true);
          turretToSpawn.GetComponent<AutoTurretController> ().Reset ();
+      }
+   }
+
+   public void RemoveTurret() {
+      if (turretToSpawn != null) {
+         turretToSpawn.SetActive (false);
+         isDragged = false;
+         turretToSpawn = null;
       }
    }
 }
