@@ -36,6 +36,8 @@ public class GameUIController : MonoBehaviour {
       }
 
       if (EnemySpawner.instance.spawnMode && shopMenu.activeSelf) {
+         foreach (ShopController s in shopMenu.GetComponentsInChildren<ShopController>())
+            s.RemoveTurret ();
          shopMenu.SetActive (false);
       }
    }
