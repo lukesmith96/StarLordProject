@@ -803,6 +803,7 @@ MonoBehaviour:
   gameIsPaused: 0
   beamObject: {fileID: 975636038}
   centerTurretObject: {fileID: 582911755}
+  centerTurretControl: {fileID: 582911756}
 --- !u!1 &221814665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,6 +1920,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1401896445752226, guid: f4da689a79407b84d855b0753b23075c,
     type: 2}
   m_PrefabInternal: {fileID: 1233566653}
+--- !u!114 &582911756 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114416363220667408, guid: f4da689a79407b84d855b0753b23075c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1233566653}
+  m_Script: {fileID: 11500000, guid: da56ea5833e2e0b4289d702337e0a0eb, type: 3}
 --- !u!1 &613069894
 GameObject:
   m_ObjectHideFlags: 0
