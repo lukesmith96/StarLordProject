@@ -17,6 +17,7 @@ public class GameControl : MonoBehaviour
    
    public GameObject beamObject;
    public GameObject centerTurretObject;
+   public CenterTurretController centerTurretControl;
    
    void Awake()
    {
@@ -43,7 +44,9 @@ public class GameControl : MonoBehaviour
 
    void Update()
    {
-      
+      if (Input.GetKeyDown("space")) {
+         ActivateGodmode();
+      }
    }
 
    public void SetScoreText()
@@ -81,5 +84,11 @@ public class GameControl : MonoBehaviour
       uiController.FadeIn("full");
       uiController.EnableObject("beam");
       uiController.EnableObject("center_turret");
+   }
+   
+   public void ActivateGodmode() {
+      godmode = true;
+      
+      centerTurretControl.isInvincible = true;
    }
 }
