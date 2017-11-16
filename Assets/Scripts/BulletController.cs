@@ -44,6 +44,9 @@ public class BulletController : MonoBehaviour {
       {
          other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
+
+         GameControl.instance.score += 10;
+         GameControl.instance.SetScoreText();
          PlayerController.instance.addMass();
       }
       if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)

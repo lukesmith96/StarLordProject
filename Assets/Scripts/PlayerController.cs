@@ -10,35 +10,37 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-   public float scaleValue = 2F;
+   public float scaleValue = .01F;
    public static PlayerController instance;
 
    private bool isColliding;
    public float rotationTime = .5f;
    private bool rotatePU;
    private float currRotation;
+   public float mass;
 
    // Use this for initialization
    void Start () {
       rotatePU = false;
       instance = this;
+      mass = 100;
    }
 
    // Update is called once per frame
    void Update () {
-      // Joshua King
       // Pressing '=' increases the scale of the player
       if (Input.GetKeyDown("="))
       {
-         transform.localScale += (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+         // add to total mass and mass based on that
+         addMass();
       }
-      //Joshua King
-      // Pressing '-' decreases the scale of the player
+      // Pressing '-' decreases the mass of the player
       if (Input.GetKeyDown("-"))
       {
-         transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+         reduceMass();
       }
 
+      // rotation controls:
       if (rotatePU && currRotation < (Time.time - rotationTime))
       {
          rotatePU = false;
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour {
          transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
       }
       isColliding = false;
+      transform.localScale = new Vector3((scaleValue * mass), (scaleValue * mass), 1);
    }
 
    void FixedUpdate() {
@@ -68,8 +71,7 @@ public class PlayerController : MonoBehaviour {
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
          
          if (!GameControl.instance.godmode) {
-            GameControl.instance.score -= 10;
-            GameControl.instance.SetScoreText();
+            reduceMass();
          }
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King
@@ -79,12 +81,18 @@ public class PlayerController : MonoBehaviour {
             return;
          isColliding = true;
 
-         addMass ();
+         GameControl.instance.score += 10;
+         GameControl.instance.SetScoreText();
+         addMass();
       }
    }
    public void addMass()
    {
-      transform.localScale += (new Vector3(scaleValue, scaleValue, 0) * Time.deltaTime);
+      mass += 10;
+   }
+   public void reduceMass()
+   {
+      mass -= 10;
    }
    public void startRotationPU()
    {
