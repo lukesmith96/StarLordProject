@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class CenterTurretController : TurretController {
 
+   public GameObject reloadIcon;
+
    // Use this for initialization
    new void Start () {
       base.Start();
@@ -27,6 +29,12 @@ public class CenterTurretController : TurretController {
       {
          //if (EventSystem.current.IsPointerOverGameObject() == false)
          FireBullet(direction);
+      }
+      
+      if (timeSinceFiring >= reloadTime) {
+         reloadIcon.SetActive(false);
+      } else {
+         reloadIcon.SetActive(true);
       }
    }
 }
