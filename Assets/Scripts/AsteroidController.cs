@@ -44,6 +44,10 @@ public class AsteroidController : MonoBehaviour {
 			Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * thrust;
 			rb2d.AddForce(vectorToOrigin);
 		}
+
+      if (other.gameObject.CompareTag ("Player")) {
+
+      }
 	}
 
 	void OnTriggerExit2D (Collider2D other){

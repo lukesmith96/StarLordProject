@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class TractorBeam : MonoBehaviour {
 	private Rigidbody2D rb2d;
+   private Renderer sprite;
 
 	public float thrust = 50f;
 
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
-		gameObject.GetComponent<Renderer> ().enabled = false;
+      sprite = GetComponent<Renderer> ();
+		sprite.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -23,13 +25,12 @@ public class TractorBeam : MonoBehaviour {
 
 
 		if (Input.GetMouseButtonDown (1)) {
-			gameObject.GetComponent<Renderer> ().enabled = true;
+         sprite.enabled = true;
 		} 
 		else if (Input.GetMouseButtonUp (1)){
-			gameObject.GetComponent<Renderer> ().enabled = false;
+         sprite.enabled = false;
 		}
 
 	}
-
 
 }

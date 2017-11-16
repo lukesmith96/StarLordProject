@@ -34,10 +34,12 @@ public class GameUIController : MonoBehaviour {
       } else {
          DequeueThought(Time.deltaTime, false);
       }
-
+         
       if (EnemySpawner.instance.spawnMode && shopMenu.activeSelf) {
+         // If a turret is being dragged, remove it
          foreach (ShopController s in shopMenu.GetComponentsInChildren<ShopController>())
             s.RemoveTurret ();
+         
          shopMenu.SetActive (false);
       }
    }

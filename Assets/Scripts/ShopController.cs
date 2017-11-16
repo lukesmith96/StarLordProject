@@ -54,7 +54,7 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
          GameControl.instance.SetScoreText ();
 
          isDragged = false;
-         //turretToSpawn = null;
+         turretToSpawn = null;
       }
 
       // Otherwise, remove turret

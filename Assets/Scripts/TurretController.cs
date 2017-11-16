@@ -96,5 +96,12 @@ public class TurretController : Destructable {
          otherScript.InflictDamage(collisionDamage);
          InflictDamage(otherScript.GetCollisionDamage());
       }
+
+      if (other.gameObject.CompareTag ("Asteroid") && transform.parent.CompareTag ("Player")) {
+         PlayerController player = transform.parent.GetComponent<PlayerController> ();
+         player.addMass ();
+
+         other.gameObject.SetActive (false);
+      }
    }
 }

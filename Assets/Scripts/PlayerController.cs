@@ -69,14 +69,11 @@ public class PlayerController : MonoBehaviour {
 
 			GameControl.instance.score -= 10;
 			GameControl.instance.SetScoreText ();
+
 		} else if (other.gameObject.CompareTag ("Asteroid")) {
 			// Joshua King
 			// If an asteroid comes in contact with the player, the player gains mass
 			other.gameObject.SetActive (false);
-			if (isColliding)
-				return;
-			isColliding = true;
-
 			addMass ();
 		}
 	}
