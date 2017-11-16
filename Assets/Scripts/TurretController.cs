@@ -21,7 +21,7 @@ public class TurretController : Destructable {
    protected CircleCollider2D collider;
    
    private GameObject firingArc;
-   private float timeSinceFiring = 2.0f; //seconds
+   protected float timeSinceFiring = 2.0f; //seconds
 
    private bool selected = false;
 
@@ -62,18 +62,19 @@ public class TurretController : Destructable {
          
          GameObject clone;
          Rigidbody2D cloneRb2d;
+         BulletController bulletC;
          for (int i = 0; i < numBullets; ++i, theta += incTheta) {
             //Get instance of Bullet
             clone = dynamicPool.GetPooledObject(bullet);
             //if (clone == null) continue; //for graceful error
+            clone.SetActive(false);
             clone.SetActive(true);
             cloneRb2d = clone.GetComponent<Rigidbody2D>();
+            bulletC = clone.GetComponent<BulletController>();
             
-            cloneRb2d.transform.position = transform.position;
+            bulletC.ResetBullet(transform.position, transform.up, theta, false);
+            
             cloneRb2d.velocity = Vector2.zero;
-            cloneRb2d.transform.up = transform.up;
-            cloneRb2d.transform.Rotate(0, 0, theta);
-            cloneRb2d.transform.gameObject.GetComponent<BulletController>().isEnemyBullet = false;
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
          }
