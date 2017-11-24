@@ -8,7 +8,7 @@ public class FT_LineHitPoint : MonoBehaviour {
 	public Transform target;
 
 	void Update () {
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 		if (Physics.Raycast (ray, out hit, 500f)) {
 			if (freezeHeightPosition == false) {

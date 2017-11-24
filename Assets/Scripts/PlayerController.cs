@@ -11,18 +11,23 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
    public float scaleValue = .01F;
+   //public float scaleValue = 2F;
    public static PlayerController instance;
+   public float rotationTime = .5f;
+   public Vector3 newScale;
+   public float mass;
 
    private bool isColliding;
-   public float rotationTime = .5f;
    private bool rotatePU;
    private float currRotation;
-   public float mass;
+   private Vector3 currScale;
+
 
    // Use this for initialization
    void Start () {
       rotatePU = false;
       instance = this;
+      currScale = newScale = transform.localScale;
       mass = 100;
    }
 
@@ -40,26 +45,31 @@ public class PlayerController : MonoBehaviour {
          reduceMass();
       }
 
-      // rotation controls:
-      if (rotatePU && currRotation < (Time.time - rotationTime))
-      {
-         rotatePU = false;
-      }
-      if (Input.GetKey(KeyCode.UpArrow) && rotatePU)
-      {
-         transform.Rotate(new Vector3(0, 0, 45) * (Time.deltaTime * transform.localScale.x));
-      }
-      if (Input.GetKey(KeyCode.DownArrow) && rotatePU)
-      {
-         transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
-      }
-      isColliding = false;
-      transform.localScale = new Vector3((scaleValue * mass), (scaleValue * mass), 1);
-   }
+		if (rotatePU && currRotation < (Time.time - rotationTime))
+		{
+			rotatePU = false;
+		}
+		if (Input.GetKey(KeyCode.UpArrow) && rotatePU)
+		{
+			transform.Rotate(new Vector3(0, 0, 45) * (Time.deltaTime * transform.localScale.x));
+		}
+		if (Input.GetKey(KeyCode.DownArrow) && rotatePU)
+		{
+			transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
+		}
+		isColliding = false;
+
+      scalePlayer ();
+      // Interpolate to newScale
+      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
+      transform.localScale = actualScale;
+      currScale = actualScale;
+	}
+
 
    void FixedUpdate() {
    }
-
+      
    void OnTriggerEnter2D(Collider2D other) {
       // Joshua King
       // If an enemy collides with the player, the player loses score
@@ -86,14 +96,21 @@ public class PlayerController : MonoBehaviour {
          addMass();
       }
    }
+
+   public void scalePlayer() {
+      newScale = new Vector3(scaleValue * mass, scaleValue * mass, 0);
+   }
+
    public void addMass()
    {
       mass += 10;
    }
+
    public void reduceMass()
    {
       mass -= 10;
    }
+
    public void startRotationPU()
    {
       rotatePU = true;

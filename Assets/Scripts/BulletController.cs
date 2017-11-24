@@ -21,11 +21,11 @@ public class BulletController : MonoBehaviour {
       dynamicPool = (DynamicObjectPool)EnemySpawner.instance.poolGameObject.GetComponent(typeof(DynamicObjectPool));
    }
    
+
    // Update is called once per frame
    void Update () {
 	  
       if (Vector2.Distance(originPoint, transform.position) >= maxRange) {
-		  Debug.Log("Origin: " + originPoint + " Position: " + transform.position);
          gameObject.SetActive(false);
       }
    }

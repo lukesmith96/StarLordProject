@@ -9,19 +9,24 @@ using UnityEngine.EventSystems;
  * This class is the parent class to all Types of turrets.
  */
 public class TurretController : Destructable {
+   public GameObject player;
    public GameObject bullet;
    
    public float speed = 100.0f;
-   public float maxRange = 40f;
+   public float maxRange = 20f;
    public float minRange = 0f;
    public float reloadTime = 2.0f; //seconds
    public int numBullets = 1;
    public float spread = 0.0f; //inaccuracy
 
    protected CircleCollider2D collider;
-   
+
+   private float arcScale;
    private GameObject firingArc;
+
    protected float timeSinceFiring = 2.0f; //seconds
+   private float initMaxRange;
+   private float initArcScale;
 
    private bool selected = false;
 
@@ -32,11 +37,14 @@ public class TurretController : Destructable {
       collider = GetComponent<CircleCollider2D> ();
       firingArc = transform.Find("TurretFiringArc").gameObject;
 
-      maxRange = bullet.gameObject.GetComponent<BulletController>().maxRange;
-      minRange = bullet.gameObject.GetComponent<BulletController>().minRange;
+      //maxRange = bullet.gameObject.GetComponent<BulletController>().maxRange;
+      //minRange = bullet.gameObject.GetComponent<BulletController>().minRange;
+      initMaxRange = maxRange;
       speed = bullet.gameObject.GetComponent<BulletController>().speed;
       
-      float arcScale = (maxRange * 2f) / firingArc.GetComponent<SpriteRenderer>().bounds.size.x;
+      arcScale = (maxRange * 2f) / firingArc.GetComponent<SpriteRenderer>().bounds.size.x;
+      initArcScale = arcScale;
+
       firingArc.transform.localScale = new Vector3(arcScale, arcScale, 1);
 
       isInvincible = true;
@@ -47,6 +55,18 @@ public class TurretController : Destructable {
       if (timeSinceFiring < reloadTime) {
          timeSinceFiring += Time.deltaTime;
       }
+
+      float newMaxRange = initMaxRange * player.transform.localScale.x;
+
+      if (newMaxRange > maxRange) {
+         //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
+         maxRange = newMaxRange;
+
+         arcScale = initArcScale * player.transform.localScale.x;
+         firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
+      }
+
+      bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
    }
       
    protected void FireBullet(Vector2 direction) {
@@ -69,11 +89,17 @@ public class TurretController : Destructable {
             //if (clone == null) continue; //for graceful error
             clone.SetActive(false);
             clone.SetActive(true);
+
             cloneRb2d = clone.GetComponent<Rigidbody2D>();
+
+            //clone.GetComponent<BulletController> ().originPoint = transform.position;
+            //cloneRb2d.transform.position = transform.position;
+            clone.GetComponent<BulletController> ().maxRange = maxRange;
+
             bulletC = clone.GetComponent<BulletController>();
             
             bulletC.ResetBullet(transform.position, transform.up, theta, false);
-            
+
             cloneRb2d.velocity = Vector2.zero;
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
@@ -98,11 +124,12 @@ public class TurretController : Destructable {
          InflictDamage(otherScript.GetCollisionDamage());
       }
 
-      if (other.gameObject.CompareTag ("Asteroid") && transform.parent.CompareTag ("Player")) {
-         PlayerController player = transform.parent.GetComponent<PlayerController> ();
-         player.addMass ();
+      if (other.gameObject.CompareTag ("Asteroid")) {
+         if (this is AutoTurretController && !(this is OrbitingTurretController) && ((AutoTurretController)this).isAttached) {
+            player.GetComponent<PlayerController>().addMass ();
 
-         other.gameObject.SetActive (false);
+            other.gameObject.SetActive (false);
+         }
       }
    }
 }
