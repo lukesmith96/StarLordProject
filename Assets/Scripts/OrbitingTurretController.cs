@@ -6,7 +6,7 @@ public class OrbitingTurretController : AutoTurretController {
    public float radius = 0;
    public int orbitalSpeed = 50;
 
-   private float angle = 0;
+   //private float angle = 0;
    private float currentRadius = 0;
    private float localScale = 0; // Keep a local scale independent of player's local scale for proper turret placement
    private float lastPlayerScale = 0;
@@ -61,12 +61,7 @@ public class OrbitingTurretController : AutoTurretController {
       localScale = 1.0f;
       lastPlayerScale = player.transform.localScale.x;
 
-      Vector3 dir = transform.position;
-      dir = transform.InverseTransformDirection(dir);
-      float ang = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-      angle = ang;
-      //Debug.Log ("ANGLE: " + angle);
+      angle = GetAngle ();
 
       isAttached = true;
       isInvincible = false;
@@ -97,13 +92,6 @@ public class OrbitingTurretController : AutoTurretController {
    private Vector2 GetRandPoint (Vector2 origin, float radius, out float angle) {
       angle = Random.Range (0, 360);
        
-      float x = origin.x + radius * Mathf.Cos (Mathf.Deg2Rad * angle);
-      float y = origin.y + radius * Mathf.Sin (Mathf.Deg2Rad * angle);
-
-      return new Vector2 (x, y);
-   }
-
-   private Vector2 GetPoint (Vector2 origin, float radius, float angle) {
       float x = origin.x + radius * Mathf.Cos (Mathf.Deg2Rad * angle);
       float y = origin.y + radius * Mathf.Sin (Mathf.Deg2Rad * angle);
 

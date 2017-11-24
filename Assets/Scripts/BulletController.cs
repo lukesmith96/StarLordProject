@@ -30,7 +30,6 @@ public class BulletController : MonoBehaviour {
    void Update () {
 	  
       if (Vector2.Distance(originPoint, transform.position) >= maxRange) {
-		  Debug.Log("Origin: " + originPoint + " Position: " + transform.position);
          gameObject.SetActive(false);
       }
    }

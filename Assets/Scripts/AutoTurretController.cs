@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoTurretController : TurretController {
-   //public GameObject player;
    public GameObject enemy;
    public bool isTouching;
+   public bool isAttached;
 
+   protected float angle;
    protected float currentScale;
-   protected bool isAttached;
+
    protected SpriteRenderer sprite;
 
    private Rigidbody2D rb2d;
    private Vector3 defaultScale = new Vector3(1, 1, 0);
+
    
    // Use this for initialization
    public override void Start () {
@@ -24,9 +26,6 @@ public class AutoTurretController : TurretController {
       isAttached = false;
       isTouching = false;
       isInvincible = true;
-
-      //scale = transform.localScale;
-      currentScale = 0;
    }
    
    // Update is called once per frame
@@ -37,24 +36,26 @@ public class AutoTurretController : TurretController {
 
       if (isAttached) {
          AutoFire ();
+
+         // Reset position according to scaling player
+         if (!CompareTag ("OrbitalTurret")) {
+            float newRadius = GetComponent<CircleCollider2D> ().radius + player.GetComponent<CircleCollider2D> ().radius * player.transform.localScale.x;
+            Vector2 newPos = GetPoint (Vector2.zero, newRadius, angle);
+            transform.position = newPos;
+         }
       }
-         
-      // Reset scale if attached to player
-      if (!CompareTag("OrbitalTurret"))
-         ResetScale();
+
+      if (Input.GetMouseButtonDown (1))
+         gameObject.SetActive (false);
    }
    
    virtual public void AttachToPlayer() {
-      Debug.Log ("ATTACHED");
-
-      transform.SetParent (player.transform);
+      angle = GetAngle ();
 
       isAttached = true;
       isInvincible = false;
 
       rb2d.isKinematic = true;
-
-      currentScale = player.GetComponent<PlayerController> ().scaleValue;
    }
 
    virtual protected void ColorSprite() {
@@ -65,6 +66,20 @@ public class AutoTurretController : TurretController {
       } else {
          sprite.color = Color.red;
       }
+   }
+
+   public float GetAngle() {
+      Vector3 dir = transform.position;
+      //Debug.Log ("Angle pos: " + dir);
+      //dir = transform.InverseTransformDirection(dir);
+      return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+   }
+
+   protected Vector2 GetPoint (Vector2 origin, float radius, float angle) {
+      float x = origin.x + radius * Mathf.Cos (Mathf.Deg2Rad * angle);
+      float y = origin.y + radius * Mathf.Sin (Mathf.Deg2Rad * angle);
+
+      return new Vector2 (x, y);
    }
 
    protected void AutoFire() {
@@ -100,6 +115,7 @@ public class AutoTurretController : TurretController {
             //check if this is the closest, but also check if the player is in the way
             //sightTest.transform.tag != "Player" && 
             if (sightTest.transform.tag != "Enemy")
+            //if (sightTest.transform.tag != "Player" && sightTest.transform.tag != "Enemy")
                continue;
 
             if (!gotTarget) {
@@ -143,13 +159,6 @@ public class AutoTurretController : TurretController {
          }
       }
    }
-
-
-   private void ResetScale() {
-      transform.parent = null;
-      transform.localScale = defaultScale;
-      transform.SetParent (player.transform);
-   }
    
    void OnCollisionEnter2D(Collision2D other) {
       if (other.gameObject.CompareTag ("Turret")) {
@@ -170,11 +179,9 @@ public class AutoTurretController : TurretController {
       isAttached = isTouching = false;
       isInvincible = true;
       transform.position = Vector3.zero;
-
-      ResetScale();
+      angle = GetAngle ();
 
       rb2d = GetComponent<Rigidbody2D> ();
       rb2d.isKinematic = false;
-      currentScale = 0;
    }
 }
