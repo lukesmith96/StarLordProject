@@ -28,10 +28,14 @@ public class OrbitingTurretController : AutoTurretController {
    public override void Update () {
       base.Update ();
 
+
+
       if (isAttached) {
+         float currentRadius = radius * player.transform.localScale.x;
+
          // Orbit around player
          angle += orbitalSpeed * Time.deltaTime;
-         transform.position = GetPoint (player.transform.position, radius, angle);
+         transform.position = GetPoint (player.transform.position, currentRadius, angle);
       }
          
 	}
@@ -47,7 +51,7 @@ public class OrbitingTurretController : AutoTurretController {
       float ang = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
       angle = ang;
-      Debug.Log ("ANGLE: " + angle);
+      //Debug.Log ("ANGLE: " + angle);
 
       isAttached = true;
       isInvincible = false;

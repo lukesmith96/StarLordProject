@@ -7,6 +7,7 @@ public class AutoTurretController : TurretController {
    public GameObject enemy;
    public bool isTouching;
 
+   protected float currentScale;
    protected bool isAttached;
    protected SpriteRenderer sprite;
 
@@ -25,6 +26,7 @@ public class AutoTurretController : TurretController {
       isInvincible = true;
 
       //scale = transform.localScale;
+      currentScale = 0;
    }
    
    // Update is called once per frame
@@ -51,6 +53,8 @@ public class AutoTurretController : TurretController {
       isInvincible = false;
 
       rb2d.isKinematic = true;
+
+      currentScale = player.GetComponent<PlayerController> ().scaleValue;
    }
 
    virtual protected void ColorSprite() {
@@ -171,5 +175,6 @@ public class AutoTurretController : TurretController {
 
       rb2d = GetComponent<Rigidbody2D> ();
       rb2d.isKinematic = false;
+      currentScale = 0;
    }
 }
