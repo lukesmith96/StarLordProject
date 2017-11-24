@@ -8,6 +8,8 @@ public class OrbitingTurretController : AutoTurretController {
 
    private float angle = 0;
    private float currentRadius = 0;
+   private float localScale = 0; // Keep a local scale independent of player's local scale for proper turret placement
+   private float lastPlayerScale = 0;
 
    private TrailRenderer trailRenderer;
 
@@ -29,12 +31,17 @@ public class OrbitingTurretController : AutoTurretController {
    public override void Update () {
       base.Update ();
 
-
+      // Add to local scale if player scale changes
+      if (lastPlayerScale != player.GetComponent<PlayerController>().newScale.x) {
+         localScale += player.GetComponent<PlayerController> ().scaleValue * Time.deltaTime;
+         lastPlayerScale = player.GetComponent<PlayerController> ().newScale.x;
+      }
 
       if (isAttached) {
-         float newRadius = radius * player.transform.localScale.x;
+         //float newRadius = radius * player.transform.localScale.x;
+         float newRadius = radius * localScale;
 
-         float lerpRadius = Mathf.Lerp (currentRadius, newRadius, 0.1f);
+         float lerpRadius = Mathf.Lerp (currentRadius, newRadius, 1.0f * Time.deltaTime);
          currentRadius = lerpRadius;
 
          // Orbit around player
@@ -50,6 +57,9 @@ public class OrbitingTurretController : AutoTurretController {
 
       radius = Mathf.Sqrt (Mathf.Pow (transform.position.x, 2) + Mathf.Pow (transform.position.y, 2));
       currentRadius = radius;
+
+      localScale = 1.0f;
+      lastPlayerScale = player.transform.localScale.x;
 
       Vector3 dir = transform.position;
       dir = transform.InverseTransformDirection(dir);

@@ -22,9 +22,9 @@ public class BulletController : MonoBehaviour {
       originPoint = transform.position;
    }
    
-   void OnEnable() {
+   /*void OnEnable() {
 	   originPoint = transform.position;
-   }
+   }*/
 
    // Update is called once per frame
    void Update () {

@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour {
 	public float scaleValue = 2F;
 	public static PlayerController instance;
 	public float rotationTime = .5f;
+   public Vector3 newScale;
 
    private bool isColliding;
 	private bool rotatePU;
 	private float currRotation;
    private Vector3 currScale;
-   private Vector3 newScale;
+
 
 	// Use this for initialization
 	void Start () {
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour {
 		isColliding = false;
 
       // Interpolate to newScale
-      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 0.1f);
+      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
       transform.localScale = actualScale;
       currScale = actualScale;
 	}

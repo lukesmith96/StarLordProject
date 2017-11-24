@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoTurretController : TurretController {
-   public GameObject player;
+   //public GameObject player;
    public GameObject enemy;
    public bool isTouching;
 

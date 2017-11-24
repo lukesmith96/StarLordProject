@@ -4026,6 +4026,12 @@ Prefab:
       propertyPath: m_TagString
       value: LaserTurret
       objectReference: {fileID: 0}
+    - target: {fileID: 114557944354069194, guid: c151b428721f205459b4bcd1bb9b1396,
+        type: 2}
+      propertyPath: explosionObject
+      value: 
+      objectReference: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c151b428721f205459b4bcd1bb9b1396, type: 2}
   m_IsPrefabParent: 0
@@ -4121,6 +4127,16 @@ Prefab:
         type: 2}
       propertyPath: isInvincible
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114416363220667408, guid: f4da689a79407b84d855b0753b23075c,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1817282239}
+    - target: {fileID: 114416363220667408, guid: f4da689a79407b84d855b0753b23075c,
+        type: 2}
+      propertyPath: maxRange
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4da689a79407b84d855b0753b23075c, type: 2}
@@ -6697,7 +6713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beebb00c727ea3d4996c3be24b96a3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleValue: 2
+  scaleValue: 1
   rotationTime: 0.5
 --- !u!58 &1817282243
 CircleCollider2D:
