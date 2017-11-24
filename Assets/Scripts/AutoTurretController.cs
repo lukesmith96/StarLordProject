@@ -45,8 +45,9 @@ public class AutoTurretController : TurretController {
          }
       }
 
-      if (Input.GetMouseButtonDown (1))
-         gameObject.SetActive (false);
+      if (Input.GetMouseButtonDown (1)) {
+      }
+         //gameObject.SetActive (false);
    }
    
    virtual public void AttachToPlayer() {
