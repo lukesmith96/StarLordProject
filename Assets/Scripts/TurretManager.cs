@@ -36,10 +36,6 @@ public class TurretManager : MonoBehaviour {
 
    }
 
-
-
-
-
    public void SpawnTurret(string tag) {
       GameObject turretToSpawn;
       switch (tag) {

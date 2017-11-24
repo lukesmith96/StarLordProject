@@ -40,7 +40,9 @@ public class Destructable : MonoBehaviour {
          exe.transform.position = transform.position;
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();
-         
+
+         GameControl.instance.score += 10;
+         GameControl.instance.SetScoreText();
          gameObject.SetActive(false);
       }
    }

@@ -30,7 +30,7 @@ public class EnemyController : Destructable {
 	}
 
 	void Update() {
-      
+      transform.up = (-transform.position).normalized;
 	}
    
    void OnTriggerEnter2D(Collider2D other) {

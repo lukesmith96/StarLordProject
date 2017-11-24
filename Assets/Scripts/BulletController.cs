@@ -19,12 +19,8 @@ public class BulletController : MonoBehaviour {
    {
       rb2d = GetComponent<Rigidbody2D>();
       dynamicPool = (DynamicObjectPool)EnemySpawner.instance.poolGameObject.GetComponent(typeof(DynamicObjectPool));
-      originPoint = transform.position;
    }
    
-   /*void OnEnable() {
-	   originPoint = transform.position;
-   }*/
 
    // Update is called once per frame
    void Update () {
@@ -34,12 +30,23 @@ public class BulletController : MonoBehaviour {
       }
    }
    
+   public void ResetBullet(Vector3 startPoint, Vector3 up, float theta, bool isEnemy) {
+      originPoint = startPoint;
+      gameObject.transform.position = startPoint;
+      gameObject.transform.up = up;
+      gameObject.transform.Rotate(0, 0, theta);
+      isEnemyBullet = isEnemy;
+   }
+   
    private void OnTriggerEnter2D(Collider2D other)
    {
       if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
       {
          other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
+
+         GameControl.instance.score += 10;
+         GameControl.instance.SetScoreText();
          PlayerController.instance.addMass();
       }
       if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
