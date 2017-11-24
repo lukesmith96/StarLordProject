@@ -12,16 +12,19 @@ public class PlayerController : MonoBehaviour {
 
 	public float scaleValue = 2F;
 	public static PlayerController instance;
-
-	private bool isColliding;
 	public float rotationTime = .5f;
+
+   private bool isColliding;
 	private bool rotatePU;
 	private float currRotation;
+   private Vector3 currScale;
+   private Vector3 newScale;
 
 	// Use this for initialization
 	void Start () {
 		rotatePU = false;
 		instance = this;
+      currScale = newScale = transform.localScale;
 	}
 
 	// Update is called once per frame
@@ -52,6 +55,11 @@ public class PlayerController : MonoBehaviour {
 			transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
 		}
 		isColliding = false;
+
+      // Interpolate to newScale
+      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 0.1f);
+      transform.localScale = actualScale;
+      currScale = actualScale;
 	}
 
 	void FixedUpdate() {
@@ -80,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void addMass()
 	{
-		transform.localScale += (new Vector3(scaleValue, scaleValue, 0) * Time.deltaTime);
+      newScale += (new Vector3(scaleValue, scaleValue, 0) * Time.deltaTime);
 	}
 
 	public void startRotationPU()

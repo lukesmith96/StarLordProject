@@ -7,6 +7,7 @@ public class OrbitingTurretController : AutoTurretController {
    public int orbitalSpeed = 50;
 
    private float angle = 0;
+   private float currentRadius = 0;
 
    private TrailRenderer trailRenderer;
 
@@ -31,7 +32,10 @@ public class OrbitingTurretController : AutoTurretController {
 
 
       if (isAttached) {
-         float currentRadius = radius * player.transform.localScale.x;
+         float newRadius = radius * player.transform.localScale.x;
+
+         float lerpRadius = Mathf.Lerp (currentRadius, newRadius, 0.1f);
+         currentRadius = lerpRadius;
 
          // Orbit around player
          angle += orbitalSpeed * Time.deltaTime;
@@ -45,6 +49,7 @@ public class OrbitingTurretController : AutoTurretController {
       Debug.Log ("ATTACHED");
 
       radius = Mathf.Sqrt (Mathf.Pow (transform.position.x, 2) + Mathf.Pow (transform.position.y, 2));
+      currentRadius = radius;
 
       Vector3 dir = transform.position;
       dir = transform.InverseTransformDirection(dir);
