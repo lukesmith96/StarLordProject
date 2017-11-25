@@ -7,9 +7,17 @@ public class CenterTurretController : TurretController {
 
    public GameObject reloadIcon;
 
+   public float initDmgMult;
+   public float initReloadMult;
+   public int initNumMult;
+
    // Use this for initialization
    new void Start () {
       base.Start();
+
+      initDmgMult = collisionDamage;
+      initReloadMult = reloadTime;
+      initNumMult = numBullets;
    }
    
    // Update is called once per frame

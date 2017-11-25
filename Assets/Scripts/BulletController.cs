@@ -40,14 +40,21 @@ public class BulletController : MonoBehaviour {
    
    private void OnTriggerEnter2D(Collider2D other)
    {
-      if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
+      // Player shouldn't score if their bullets hit asteroid, right?
+      //if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
+      if (other.gameObject.CompareTag("Asteroid"))
       {
+         GameObject exe = dynamicPool.GetPooledObject(explosion);
+         exe.transform.position = transform.position;
+         exe.SetActive(true);
+         exe.GetComponent<ParticleSystem>().Play();
+
          other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
 
-         GameControl.instance.score += 10;
-         GameControl.instance.SetScoreText();
-         PlayerController.instance.addMass();
+         //GameControl.instance.score += 10;
+         //GameControl.instance.SetScoreText();
+         //PlayerController.instance.addMass();
       }
       if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))

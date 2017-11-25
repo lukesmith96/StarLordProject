@@ -64,6 +64,10 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    }
 
    public void OnPointerDown(PointerEventData eventData) {
+      if (GameControl.instance.score - turretCost < 0) {
+         return;
+      }
+
       if (onImage && !isDragged) {
          isDragged = true;
          GetTurret ();
