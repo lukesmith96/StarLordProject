@@ -123,10 +123,10 @@ public class TurretController : Destructable {
          otherScript.InflictDamage(collisionDamage);
          InflictDamage(otherScript.GetCollisionDamage());
       }
-
+      
       if (other.gameObject.CompareTag ("Asteroid")) {
          if (this is AutoTurretController && !(this is OrbitingTurretController) && ((AutoTurretController)this).isAttached) {
-            player.GetComponent<PlayerController>().addMass ();
+            player.GetComponent<PlayerController>().addMass (10);
 
             other.gameObject.SetActive (false);
          }

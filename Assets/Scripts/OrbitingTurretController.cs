@@ -53,7 +53,6 @@ public class OrbitingTurretController : AutoTurretController {
       }
          
 	}
-
    // Angle calculation from: https://answers.unity.com/questions/728680/how-to-get-the-angle-between-two-objects-with-ontr.html
    override public void AttachToPlayer() {
       Debug.Log ("ATTACHED");

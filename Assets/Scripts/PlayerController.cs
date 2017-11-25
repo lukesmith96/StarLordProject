@@ -11,24 +11,23 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
    public float scaleValue = .01F;
-   //public float scaleValue = 2F;
    public static PlayerController instance;
    public float rotationTime = .5f;
    public Vector3 newScale;
-   public float mass;
 
    private bool isColliding;
    private bool rotatePU;
    private float currRotation;
    private Vector3 currScale;
-
+   public int mass;// -100 is min value at that point die
 
    // Use this for initialization
    void Start () {
       rotatePU = false;
       instance = this;
       currScale = newScale = transform.localScale;
-      mass = 100;
+      mass = 0;
+      GameControl.instance.SetMassText();
    }
 
    // Update is called once per frame
@@ -37,35 +36,36 @@ public class PlayerController : MonoBehaviour {
       if (Input.GetKeyDown("="))
       {
          // add to total mass and mass based on that
-         addMass();
+         addMass(10);
       }
       // Pressing '-' decreases the mass of the player
       if (Input.GetKeyDown("-"))
       {
-         reduceMass();
+         reduceMass(10);
       }
-
-		if (rotatePU && currRotation < (Time.time - rotationTime))
-		{
-			rotatePU = false;
-		}
-		if (Input.GetKey(KeyCode.UpArrow) && rotatePU)
-		{
-			transform.Rotate(new Vector3(0, 0, 45) * (Time.deltaTime * transform.localScale.x));
-		}
-		if (Input.GetKey(KeyCode.DownArrow) && rotatePU)
-		{
-			transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
-		}
-		isColliding = false;
-
-      scalePlayer ();
+      
+      //scalePlayer ();
       // Interpolate to newScale
-      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
-      transform.localScale = actualScale;
-      currScale = actualScale;
-	}
+      //Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
+      //transform.localScale = actualScale;
+      //currScale = actualScale;
 
+      // rotation controls:
+      if (rotatePU && currRotation < (Time.time - rotationTime))
+      {
+         rotatePU = false;
+      }
+      if (Input.GetKey(KeyCode.UpArrow) && rotatePU)
+      {
+         transform.Rotate(new Vector3(0, 0, 45) * (Time.deltaTime * transform.localScale.x));
+      }
+      if (Input.GetKey(KeyCode.DownArrow) && rotatePU)
+      {
+         transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
+      }
+      isColliding = false;
+      transform.localScale = new Vector3((scaleValue * (mass + 100)), (scaleValue * (mass + 100)), 1);
+   }
 
    void FixedUpdate() {
    }
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour {
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
          
          if (!GameControl.instance.godmode) {
-            reduceMass();
+            reduceMass(10);
          }
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 
          GameControl.instance.score += 10;
          GameControl.instance.SetScoreText();
-         addMass();
+         addMass(10);
       }
    }
 
@@ -101,14 +101,19 @@ public class PlayerController : MonoBehaviour {
       newScale = new Vector3(scaleValue * mass, scaleValue * mass, 0);
    }
 
-   public void addMass()
+   public void addMass(int add)
    {
-      mass += 10;
+      mass += add;
+      GameControl.instance.SetMassText();
    }
 
-   public void reduceMass()
+   public bool reduceMass(int reduce)
    {
-      mass -= 10;
+      if (mass - reduce <= -100)
+         return false;
+      mass -= reduce;
+      GameControl.instance.SetMassText();
+      return true;
    }
 
    public void startRotationPU()
