@@ -28,6 +28,11 @@ public class AutoTurretController : TurretController {
       isInvincible = true;
    }
    
+   public virtual int turretCost()
+   {
+      return 25;
+   }
+
    // Update is called once per frame
    public override void Update () {
       base.Update();

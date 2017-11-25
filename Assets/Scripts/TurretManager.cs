@@ -11,6 +11,8 @@ public class TurretManager : MonoBehaviour {
    public GameObject autoObject;
    public GameObject multiObject;
    public GameObject laserObject;
+   private Dictionary<int, int> turretLimitLevels;
+   public Dictionary<string, int> turretCostLevels;
 
    private DynamicObjectPool dynamicPool;
 
@@ -25,15 +27,58 @@ public class TurretManager : MonoBehaviour {
 	void Start () {
       //pooledTurrets = new List<TurretController> ();
       dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
-	}
-	
-	// Update is called once per frame
-	void Update () {
+      instance = this;
+      turretLimitLevels = new Dictionary<int, int>();
+      turretLimitLevels.Add(0, 1);
+      turretLimitLevels.Add(100, 3);
+      turretLimitLevels.Add(200, 5);
+      turretLimitLevels.Add(300, 10);
+      turretCostLevels = new Dictionary<string, int>();
+      turretCostLevels.Add("AutoTurret", 25);
+      turretCostLevels.Add("LaserTurret", 75);
+      turretCostLevels.Add("MultiTurret", 50);
+      turretCostLevels.Add("OrbitalTurret", 100);
+   }
+
+   // Update is called once per frame
+   void Update () {
 		
 	}
 
    public void SpawnTurret(GameObject turret) {
 
+   }
+   public bool canPlaceTurret(GameObject turretToAdd)
+   {
+      if (turretToAdd.tag != "OrbitalTurret")
+      {
+         int count = 0;
+         // Count all of the turrets on the player
+         if (GameObject.FindGameObjectWithTag("AutoTurret") != null)
+            count += dynamicPool.ActiveCount(GameObject.FindGameObjectWithTag("AutoTurret"));
+         if (GameObject.FindGameObjectWithTag("LaserTurret") != null)
+            count += dynamicPool.ActiveCount(GameObject.FindGameObjectWithTag("LaserTurret"));
+         if (GameObject.FindGameObjectWithTag("MultiTurret") != null)
+            count += dynamicPool.ActiveCount(GameObject.FindGameObjectWithTag("MultiTurret"));
+         // find limit associated with mass - massLoss
+         int massLoss = turretCostLevels[turretToAdd.tag];
+         int endMass = PlayerController.instance.mass - massLoss;
+         int key = endMass - (endMass % 100);
+         if (key > 300)
+            key = 300;
+         if (turretLimitLevels.ContainsKey(key))
+         {
+            int value = turretLimitLevels[key];
+            if (count <= value && PlayerController.instance.reduceMass(massLoss))
+            {
+               GameControl.instance.SetMassText();
+               // can be added to the pool and already reduced mass
+               return true;
+            }
+         }
+         return false;
+      }
+      return true;
    }
 
    public void SpawnTurret(string tag) {

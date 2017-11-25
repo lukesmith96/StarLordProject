@@ -54,7 +54,8 @@ public class BulletController : MonoBehaviour {
 
          //GameControl.instance.score += 10;
          //GameControl.instance.SetScoreText();
-         //PlayerController.instance.addMass();
+         //PlayerController.instance.addMass(10);
+
       }
       if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
@@ -78,10 +79,5 @@ public class BulletController : MonoBehaviour {
             other.gameObject.transform.parent.gameObject.GetComponent<TeleportingEnemy>().InflictDamage(damage);
          }
       }
-      /*
-      if (other.gameObject.CompareTag("Player") && originPoint != Vector2.zero) {
-         this.gameObject.SetActive(false);
-      }
-      */
    }
 }

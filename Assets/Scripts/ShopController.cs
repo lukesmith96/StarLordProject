@@ -44,21 +44,23 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    }
 
    public void OnPointerUp(PointerEventData eventData) {
+      // Calc the amount of turrents relative to mass of 
       // Place turret if touching player
-      if (turretToSpawn != null && turretToSpawn.GetComponent<AutoTurretController> ().isTouching) {
+      if (turretToSpawn != null && turretToSpawn.GetComponent<AutoTurretController>().isTouching && 
+         TurretManager.instance.canPlaceTurret(turretToSpawn.gameObject)) {
          AutoTurretController newTurret = turretToSpawn.GetComponent<AutoTurretController> ();
+         newTurret.AttachToPlayer();
 
-         newTurret.AttachToPlayer ();
-
-         GameControl.instance.score -= turretCost;
-         GameControl.instance.SetScoreText ();
+         GameControl.instance.SetScoreText();
+         GameControl.instance.SetMassText();
 
          isDragged = false;
          turretToSpawn = null;
       }
 
       // Otherwise, remove turret
-      if (turretToSpawn != null && !turretToSpawn.GetComponent<AutoTurretController> ().isTouching) {
+      if (turretToSpawn != null && (!turretToSpawn.GetComponent<AutoTurretController>().isTouching ||
+            !TurretManager.instance.canPlaceTurret(turretToSpawn.gameObject))) {
          RemoveTurret ();
       }
    }
@@ -77,8 +79,8 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    public void GetTurret() {
       turretToSpawn = dynamicPool.GetPooledObject(turretType);
       if (turretToSpawn != null) {
-         turretToSpawn.SetActive (true);
-         turretToSpawn.GetComponent<AutoTurretController> ().Reset ();
+         turretToSpawn.SetActive(true);
+         turretToSpawn.GetComponent<AutoTurretController> ().Reset();
       }
    }
 

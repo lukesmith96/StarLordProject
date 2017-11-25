@@ -15,6 +15,7 @@ public class GameUIController : MonoBehaviour {
 
    public GameObject waveStuff;
    public GameObject scoreText;
+   public GameObject massText;
 
    public GameObject pauseMenu;
    public GameObject shopMenu;
@@ -43,6 +44,7 @@ public class GameUIController : MonoBehaviour {
       shopButton.SetActive(false);
       waveStuff.SetActive(false);
       scoreText.SetActive(false);
+      massText.SetActive(false);
       pauseButton.SetActive(false);
       
       Color tmp = backgroundImg.color;
@@ -169,6 +171,9 @@ public class GameUIController : MonoBehaviour {
 
             waveStuff.SetActive(true);
             scoreText.SetActive(true);
+
+            massText.SetActive(true);
+
             thoughtQueue.RemoveAt(0);
          }
       } else if (thoughtQueue[0][3] == "popup") {

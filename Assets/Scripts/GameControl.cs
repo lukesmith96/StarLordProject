@@ -9,6 +9,7 @@ public class GameControl : MonoBehaviour
 
    public int score = 0;
    public Text scoreText;
+   public Text massText;
    public bool gameOver = false;
    public GameUIController uiController;
    public bool godmode = false;
@@ -52,6 +53,10 @@ public class GameControl : MonoBehaviour
    public void SetScoreText()
    {
       scoreText.text = "Score: " + GameControl.instance.score.ToString ();
+   }
+   public void SetMassText()
+   {
+      massText.text = "Mass: " + PlayerController.instance.mass.ToString();
    }
      
 
