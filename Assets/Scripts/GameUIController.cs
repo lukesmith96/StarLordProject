@@ -12,6 +12,7 @@ public class GameUIController : MonoBehaviour {
    public GameObject upgradeButton;
    public GameObject shopButton;
    public GameObject pauseButton;
+
    public GameObject waveStuff;
    public GameObject scoreText;
 
@@ -94,10 +95,6 @@ public class GameUIController : MonoBehaviour {
       GameControl.instance.togglePauseGame(open);
    }
 
-   public void ToggleUpgradeButton(bool open) {
-      upgradeButton.SetActive (open);
-   }
-   
    //cutscene stuff (intro text and word text)
    //add the thought to a queue, then slowly dequeue based on time and user input
    public void WriteThought(string speakerName, string msg, string hex_color, bool isIntro) {
@@ -167,9 +164,11 @@ public class GameUIController : MonoBehaviour {
          } else {
             //just reenable the ui
             shopButton.SetActive(true);
+            pauseButton.SetActive(true);
+            upgradeButton.SetActive (true);
+
             waveStuff.SetActive(true);
             scoreText.SetActive(true);
-            pauseButton.SetActive(true);
             thoughtQueue.RemoveAt(0);
          }
       } else if (thoughtQueue[0][3] == "popup") {
