@@ -84,6 +84,7 @@ public class GameControl : MonoBehaviour
       uiController.WriteThought("", "World?", GameUIController.OUR_TEXT_COLOR, false);
       uiController.TogglePause(false);
       uiController.FadeIn("player");
+      uiController.Sleep(3.0f);
       uiController.ShowPopup("AsteroidsInstructions");
       uiController.FadeIn("background");
       uiController.FadeIn("full");

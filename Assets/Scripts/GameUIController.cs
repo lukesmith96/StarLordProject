@@ -33,6 +33,7 @@ public class GameUIController : MonoBehaviour {
    public GameObject centerTurretObject;
    
    private List<List<string>> thoughtQueue = new List<List<string>>();
+   private float sleepTime = 0.0f;
    
    // Use this for initialization
    void Start () {
@@ -106,6 +107,11 @@ public class GameUIController : MonoBehaviour {
    
    void DequeueThought(float deltaTime, bool completeMsg) {
       if (thoughtQueue.Count == 0 || Time.timeScale == 0.0f) return;
+      if (sleepTime > 0.0f) {
+         sleepTime -= deltaTime;
+         if (sleepTime > 0.0f) return;
+         sleepTime = 0.0f;
+      }
       //Debug.Log(thoughtQueue[0][0] + " / " + thoughtQueue[0][1] + " / " + thoughtQueue[0][2] + " / " + thoughtQueue[0][3]);
       if (thoughtQueue[0][3] == "intro" || thoughtQueue[0][3] == "thought") {
          
@@ -192,6 +198,9 @@ public class GameUIController : MonoBehaviour {
             centerTurretObject.SetActive(true);
          }
          thoughtQueue.RemoveAt(0);
+      } else if (thoughtQueue[0][3] == "sleep") {
+         sleepTime = float.Parse(thoughtQueue[0][0]);
+         thoughtQueue.RemoveAt(0);
       }
    }
    
@@ -209,5 +218,9 @@ public class GameUIController : MonoBehaviour {
    
    public void EnableObject(string target) {
       thoughtQueue.Add(new List<string>(new string [] {target, "", "", "enable"}));
+   }
+   
+   public void Sleep(float time) {
+      thoughtQueue.Add(new List<string>(new string [] {time.ToString(), "", "", "sleep"}));
    }
 }

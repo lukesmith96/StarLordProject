@@ -123,6 +123,7 @@ MonoBehaviour:
   collisionDamage: 20
   explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
     type: 2}
+  player: {fileID: 0}
   bullet: {fileID: 1921240523314220, guid: 8726332ab83053e4791653dfb9f96e45, type: 2}
   speed: 500
   maxRange: 40
@@ -130,9 +131,9 @@ MonoBehaviour:
   reloadTime: 2
   numBullets: 1
   spread: 0
-  player: {fileID: 0}
   enemy: {fileID: 0}
   isTouching: 0
+  isAttached: 0
 --- !u!212 &212182099213395982
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -164,8 +165,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2021869793
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: edee9570037d9cd43a28b572103be192, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
