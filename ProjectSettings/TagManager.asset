@@ -62,12 +62,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Bullets
+  - name: Player
     uniqueID: 3122791157
     locked: 0
-  - name: Particles
+  - name: Bullets
     uniqueID: 2153438525
     locked: 0
-  - name: Turrets
+  - name: Particles
     uniqueID: 2393885227
+    locked: 0
+  - name: Turrets
+    uniqueID: 2021869793
     locked: 0
