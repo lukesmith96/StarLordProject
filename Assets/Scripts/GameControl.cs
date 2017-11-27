@@ -48,6 +48,11 @@ public class GameControl : MonoBehaviour
       if (Input.GetKeyDown("space")) {
          ActivateGodmode();
       }
+      if (PlayerController.instance.mass <= -100)
+      { // Player is Dead run death sequence
+         gameOver = true;
+         Debug.Log("Game Over");
+      }
    }
 
    public void SetScoreText()
@@ -94,7 +99,8 @@ public class GameControl : MonoBehaviour
    
    public void ActivateGodmode() {
       godmode = true;
-      
+      PlayerController.instance.invokeGodMode();
+
       centerTurretControl.isInvincible = true;
    }
 }

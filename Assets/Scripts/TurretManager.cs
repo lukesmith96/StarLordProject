@@ -50,6 +50,10 @@ public class TurretManager : MonoBehaviour {
    }
    public bool canPlaceTurret(GameObject turretToAdd)
    {
+      if (GameControl.instance.godmode)
+      {
+         return true;
+      }
       if (turretToAdd.tag != "OrbitalTurret")
       {
          int count = 0;
@@ -66,7 +70,7 @@ public class TurretManager : MonoBehaviour {
          int key = endMass - (endMass % 100);
          if (key > 300)
             key = 300;
-         if (turretLimitLevels.ContainsKey(key))
+         if (turretLimitLevels.ContainsKey(key) && endMass >= 0)
          {
             int value = turretLimitLevels[key];
             if (count <= value && PlayerController.instance.reduceMass(massLoss))

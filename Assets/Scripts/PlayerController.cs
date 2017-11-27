@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerController : MonoBehaviour {
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour {
    private float currRotation;
    private Vector3 currScale;
    public int mass;// -100 is min value at that point die
+   private bool god = false;
 
    // Use this for initialization
    void Start () {
@@ -79,10 +81,7 @@ public class PlayerController : MonoBehaviour {
             return;
          isColliding = true;
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
-         
-         if (!GameControl.instance.godmode) {
-            reduceMass(10);
-         }
+         reduceMass(10);
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King
          // If an asteroid comes in contact with the player, the player gains mass
@@ -97,6 +96,11 @@ public class PlayerController : MonoBehaviour {
       }
    }
 
+   public void invokeGodMode()
+   {
+      
+   }
+
    public void scalePlayer() {
       newScale = new Vector3(scaleValue * mass, scaleValue * mass, 0);
    }
@@ -109,7 +113,7 @@ public class PlayerController : MonoBehaviour {
 
    public bool reduceMass(int reduce)
    {
-      if (mass - reduce <= -100)
+      if (mass - reduce < -100)
          return false;
       mass -= reduce;
       GameControl.instance.SetMassText();
