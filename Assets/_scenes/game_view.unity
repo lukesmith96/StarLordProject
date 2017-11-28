@@ -226,7 +226,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49930319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -297.5, z: 0}
+  m_LocalPosition: {x: 0, y: -374, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 846030856}
@@ -1506,7 +1506,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 355065799}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 120, y: 297.5, z: 0}
+  m_LocalPosition: {x: 342, y: 374, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1436122956}
@@ -2020,7 +2020,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 475327352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 257.5, z: 0}
+  m_LocalPosition: {x: 0, y: 334, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1893639276}
@@ -2434,7 +2434,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 596199359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -195, y: 252.5, z: 0}
+  m_LocalPosition: {x: -417, y: 329, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160506688}
@@ -2660,7 +2660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
-  turretType: {fileID: 0}
+  turretType: {fileID: 1217396037280630, guid: c151b428721f205459b4bcd1bb9b1396, type: 2}
   turretCost: 50
 --- !u!1 &639008621
 GameObject:
@@ -2915,7 +2915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
-  turretType: {fileID: 0}
+  turretType: {fileID: 1613204749817050, guid: aa5bf3f52be892c45bbd3e7ff5aa1cc8, type: 2}
   turretCost: 50
 --- !u!114 &683098783
 MonoBehaviour:
@@ -3545,7 +3545,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 877072380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 257.5, z: 0}
+  m_LocalPosition: {x: 0, y: 334, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1136513136}
@@ -3621,7 +3621,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 882553070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 200, y: 297.5, z: 0}
+  m_LocalPosition: {x: 422, y: 374, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1890887718}
@@ -5078,7 +5078,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1160506683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 290, y: 307.5, z: 0}
+  m_LocalPosition: {x: 512, y: 384, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 221814668}
@@ -7097,7 +7097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
-  turretType: {fileID: 0}
+  turretType: {fileID: 1824250361902316, guid: 50d8cb8189c710e408879acfc663b819, type: 2}
   turretCost: 50
 --- !u!1 &1544817569
 GameObject:
@@ -7799,7 +7799,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1732906950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -275, y: 292.5, z: 0}
+  m_LocalPosition: {x: -497, y: 369, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160506688}
@@ -7991,7 +7991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
-  turretType: {fileID: 0}
+  turretType: {fileID: 1151081500716798, guid: 217dbccbfbeed6641bd6339e66c133f1, type: 2}
   turretCost: 50
 --- !u!1 &1761100509
 GameObject:
@@ -8338,7 +8338,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1805834028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 280, y: 297.5, z: 0}
+  m_LocalPosition: {x: 502, y: 374, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1865971460}

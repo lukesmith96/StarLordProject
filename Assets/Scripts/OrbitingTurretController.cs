@@ -31,6 +31,8 @@ public class OrbitingTurretController : AutoTurretController {
    public override void Update () {
       base.Update ();
 
+      PlayerController player = PlayerController.instance;
+
       // Add to local scale if player scale changes
       if (lastPlayerScale != player.GetComponent<PlayerController>().newScale.x) {
          localScale += 
@@ -61,7 +63,7 @@ public class OrbitingTurretController : AutoTurretController {
       currentRadius = radius;
 
       localScale = 1.0f;
-      lastPlayerScale = player.transform.localScale.x;
+      lastPlayerScale = PlayerController.instance.transform.localScale.x;
 
       angle = GetAngle ();
 
