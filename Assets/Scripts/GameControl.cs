@@ -52,6 +52,7 @@ public class GameControl : MonoBehaviour
       RunIntroCutscene();
    }
 
+   //John Bradbury
    void Update()
    {
       if (Input.GetKeyDown("space")) {
@@ -102,6 +103,7 @@ public class GameControl : MonoBehaviour
       gameIsPaused = paused;
    }
    
+   //John Bradbury
    //probably should have cutscene files or something, but here goes
    void RunIntroCutscene() {
       uiController.TogglePause(true);
@@ -137,6 +139,7 @@ public class GameControl : MonoBehaviour
       centerTurretControl.isInvincible = true;
    }
 
+   //John Bradbury
    public void ShopPopup(string type)
    {
       if (type == "AsteroidsInstructions")
@@ -151,6 +154,7 @@ public class GameControl : MonoBehaviour
       }
    }
    
+   //John Bradbury
    //this is for the main menu on start
    public static void ReadStats() {
       if (!Stat_init) {
@@ -165,6 +169,7 @@ public class GameControl : MonoBehaviour
       }
    }
    
+   //John Bradbury
    public void UpdateStats(int currentScore, int currentEnemiesKilled) {
       if (currentScore > Stat_HighScore) {
          Stat_HighScore = currentScore;
@@ -182,6 +187,7 @@ public class GameControl : MonoBehaviour
       sw.Close();
    }
    
+   //John Bradbury
    public static void ExitGame() {
       if (!GameControl.instance.gameOver) {
          GameControl.instance.gameOver = true;

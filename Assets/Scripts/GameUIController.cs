@@ -39,6 +39,7 @@ public class GameUIController : MonoBehaviour {
    private List<List<string>> thoughtQueue = new List<List<string>>();
    private float sleepTime = 0.0f;
    
+   //John Bradbury
    // Use this for initialization
    void Start () {
       //disable everything, burn it all. Even if it's dead already, kill it again
@@ -112,6 +113,7 @@ public class GameUIController : MonoBehaviour {
       GameControl.instance.togglePauseGame(open);
    }
 
+   //John Bradbury
    //cutscene stuff (intro text and word text)
    //add the thought to a queue, then slowly dequeue based on time and user input
    public void WriteThought(string speakerName, string msg, string hex_color, bool isIntro) {
@@ -119,6 +121,7 @@ public class GameUIController : MonoBehaviour {
       thoughtQueue.Add(new List<string>(new string [] {"<color=" + hex_color + ">" + speakerName + (speakerName.Length > 0 ? ": " : ""), msg, "", isIntro ? "intro" : "thought"}));
    }
    
+   //John Bradbury
    void DequeueThought(float deltaTime, bool completeMsg) {
       if (thoughtQueue.Count == 0 || Time.timeScale == 0.0f) return;
       if (sleepTime > 0.0f) {
@@ -218,26 +221,32 @@ public class GameUIController : MonoBehaviour {
       }
    }
    
+   //John Bradbury
    public void TogglePause(bool enable) {
       thoughtQueue.Add(new List<string>(new string [] {enable ? "true" : "false", "", "", "pause"}));
    }
    
+   //John Bradbury
    public void FadeIn(string target) {
       thoughtQueue.Add(new List<string>(new string [] {target, "", "", "fade"}));
    }
    
+   //John Bradbury
    public void ShowPopup(string target) {
       thoughtQueue.Add(new List<string>(new string [] {target, "", "", "popup"}));
    }
    
+   //John Bradbury
    public void EnableObject(string target) {
       thoughtQueue.Add(new List<string>(new string [] {target, "", "", "enable"}));
    }
    
+   //John Bradbury
    public void Sleep(float time) {
       thoughtQueue.Add(new List<string>(new string [] {time.ToString(), "", "", "sleep"}));
    }
    
+   //John Bradbury
    public void DisplayGameOver(int finalScore, int enemiesKilled) {
       gameOverPopup.SetActive(true);
       statScore.text = "Final Score: " + finalScore.ToString();

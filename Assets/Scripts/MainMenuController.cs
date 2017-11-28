@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//John Bradbury
 public class MainMenuController : MonoBehaviour {
 
    private bool statsOpen = false;

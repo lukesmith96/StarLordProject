@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//John Bradbury
 public class InstructionsController : MonoBehaviour {
 
    public GameUIController uiController;
