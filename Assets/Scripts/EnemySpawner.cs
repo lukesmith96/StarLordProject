@@ -177,7 +177,7 @@ public class EnemySpawner : MonoBehaviour {
 
       case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
          case 13: case 14: case 15: case 16: case 17: case 18://planned wave
-            if (spawnMode)
+         if (spawnMode)
          {
             if (wavespawncount < maxWaveCount && Time.time > nextSpawn)
             {
@@ -209,6 +209,8 @@ public class EnemySpawner : MonoBehaviour {
             else if (dynamicPool.ActiveCount(orbiter) == 0 && dynamicPool.ActiveCount(diveBomber) == 0)
             {
                spawnMode = false;
+               shopTimer = 0;
+
                GameControl.instance.uiController.WriteThought("", "I'm ready for a real challenge!", GameUIController.OUR_TEXT_COLOR, false);
             }
          }
@@ -220,7 +222,7 @@ public class EnemySpawner : MonoBehaviour {
                spawnMode = true;
                //next wave
                waveCount++;
-               maxWaveCount += 4;
+               maxWaveCount += 2;
                wavespawncount = 0;
                nextSpawn = Time.time;
             }
