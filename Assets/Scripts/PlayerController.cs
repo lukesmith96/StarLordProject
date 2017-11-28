@@ -35,17 +35,6 @@ public class PlayerController : MonoBehaviour {
 
    // Update is called once per frame
    void Update () {
-      // Pressing '=' increases the scale of the player
-      if (Input.GetKeyDown("="))
-      {
-         // add to total mass and mass based on that
-         addMass(10);
-      }
-      // Pressing '-' decreases the mass of the player
-      if (Input.GetKeyDown("-"))
-      {
-         reduceMass(10);
-      }
       
       //scalePlayer ();
       // Interpolate to newScale
