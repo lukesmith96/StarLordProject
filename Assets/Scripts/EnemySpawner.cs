@@ -149,8 +149,8 @@ public class EnemySpawner : MonoBehaviour {
             dynamicPool.ClearEnemies(diveBomber);
 
             //Shop Introduction popup
-            GameControl.instance.ShopPopup ();
-
+            GameControl.instance.ShopPopup ("ShopInstructions");
+            
             GameControl.instance.uiController.WriteThought("", "What's this? A new enemy?", GameUIController.OUR_TEXT_COLOR, false);
          }
 

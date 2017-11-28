@@ -104,7 +104,17 @@ public class GameControl : MonoBehaviour
       centerTurretControl.isInvincible = true;
    }
 
-   public void ShopPopup() {
-      uiController.ShowPopup("AsteroidsInstructions");
+   public void ShopPopup(string type)
+   {
+      if (type == "AsteroidsInstructions")
+      {
+         uiController.TogglePause(true);
+         uiController.ShowPopup("AsteroidsInstructions");
+      }
+      if (type == "ShopInstructions")
+      {
+         uiController.TogglePause(true);
+         uiController.ShowPopup("ShopInstructions");
+      }
    }
 }
