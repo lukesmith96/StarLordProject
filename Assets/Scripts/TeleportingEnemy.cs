@@ -75,7 +75,7 @@ public class TeleportingEnemy : EnemyController {
             currentTeleCountdown = 0.0f;
             //finish teleporting
             transform.position = telePos;
-            solidImage.transform.up = (Vector3.zero - solidImage.transform.position).normalized;
+            solidImage.transform.up = (Vector3.zero - transform.position).normalized;
             ghostImage.SetActive(false);
             
             //set up the force field (no damage)
