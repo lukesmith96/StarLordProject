@@ -25,6 +25,7 @@ public class Level2EnemyController : EnemyController {
       base.Start();
       rb2d = GetComponent<Rigidbody2D>();
    }
+      
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,17 +45,22 @@ public class Level2EnemyController : EnemyController {
          // Orbit around player
          angle += (orbitalSpeed * Time.deltaTime * dir);
          transform.position = GetPoint(PlayerController.instance.transform.position, radius, angle, dir);
-         FireBullet(new Vector2(0, 0));
-
+         if (isBeingPulled == false) {
+            FireBullet (new Vector2 (0, 0));
+         }
          if (timeSinceFiring < reloadTime)
          {
             timeSinceFiring += Time.deltaTime;
          }
       }
+
+      if (isBeingPulled) {
+         radius -= 0.5f;
+      }
    }
    protected void FireBullet(Vector2 direction)
    {
-      if (timeSinceFiring >= reloadTime && isBeingPulled == false)
+      if (timeSinceFiring >= reloadTime)
       {
          timeSinceFiring = 0f;
          Vector2 newDir = -Vector2.MoveTowards(transform.position, direction, Time.deltaTime);
@@ -98,15 +104,14 @@ public class Level2EnemyController : EnemyController {
       base.Reset();
       transform.position = originPoint;
       rotate = false;
+      radius = 12;
    }
 
    void OnTriggerStay2D (Collider2D other){
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
-         Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
-         Vector2 current = transform.position;
-         Vector2 vectorToOrigin = Vector2.MoveTowards (current, -target, 3 * Time.deltaTime) * 5f;
-         rb2d.AddForce (vectorToOrigin);
          isBeingPulled = true;
+      } else {
+         isBeingPulled = false;
       }
    }
 
