@@ -23,12 +23,7 @@ public class PlayerController : MonoBehaviour {
    public int mass;// -100 is min value at that point die
    private bool god = false;
    public bool beenHit = false;
-   private Material _mat;
 
-   void Awake()
-   {
-      this._mat = GetComponent<MeshRenderer> ().material;
-   }
 
    // Use this for initialization
    void Start () {
@@ -87,7 +82,6 @@ public class PlayerController : MonoBehaviour {
          if (isColliding)
             return;
          isColliding = true;
-         StartCoroutine (Flasher());
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
          reduceMass(10);
          beenHit = true;
@@ -106,16 +100,7 @@ public class PlayerController : MonoBehaviour {
          addMass(10);
       }
    }
-      
-   IEnumerator Flasher()
-   {
-      for (int i = 0; i < 5; i++) {
-         _mat.color = Color.red;
-         yield return new WaitForSeconds (.1f);
-         _mat.color = Color.white;
-         yield return new WaitForSeconds (.1f);
-      }
-   }
+
 
    public void invokeGodMode()
    {

@@ -65,7 +65,7 @@ public class EnemyController : Destructable {
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
          Vector2 current = transform.position;
-         Vector2 vectorToOrigin = Vector2.MoveTowards (-current, target, 3 * Time.deltaTime) * 0.01f;
+         Vector2 vectorToOrigin = Vector2.MoveTowards (current, -target, 3 * Time.deltaTime) * .05f;
          rb2d.AddForce (vectorToOrigin);
       }
    }

@@ -104,7 +104,7 @@ public class Level2EnemyController : EnemyController {
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
          Vector2 current = transform.position;
-         Vector2 vectorToOrigin = Vector2.MoveTowards (-current, target, 3 * Time.deltaTime) * .5f;
+         Vector2 vectorToOrigin = Vector2.MoveTowards (current, -target, 3 * Time.deltaTime) * 5f;
          rb2d.AddForce (vectorToOrigin);
          isBeingPulled = true;
       }
