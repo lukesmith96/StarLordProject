@@ -13,7 +13,7 @@ public class GameUIController : MonoBehaviour {
    public GameObject shopButton;
    public GameObject pauseButton;
 
-   public GameObject waveStuff;
+   //public GameObject waveStuff;
    public GameObject scoreText;
    public GameObject massText;
 
@@ -43,7 +43,7 @@ public class GameUIController : MonoBehaviour {
       shopMenu.SetActive(false);
       upgradeMenu.SetActive(false);
       shopButton.SetActive(false);
-      waveStuff.SetActive(false);
+      //waveStuff.SetActive(false);
       scoreText.SetActive(false);
       massText.SetActive(false);
       pauseButton.SetActive(false);
@@ -175,7 +175,7 @@ public class GameUIController : MonoBehaviour {
             pauseButton.SetActive(true);
             upgradeButton.SetActive (true);
 
-            waveStuff.SetActive(true);
+            //waveStuff.SetActive(true);
             scoreText.SetActive(true);
 
             massText.SetActive(true);

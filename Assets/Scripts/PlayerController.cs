@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
    private Vector3 currScale;
    public int mass;// -100 is min value at that point die
    private bool god = false;
+   public bool beenHit = false;
 
    // Use this for initialization
    void Start () {
@@ -82,6 +83,8 @@ public class PlayerController : MonoBehaviour {
          isColliding = true;
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
          reduceMass(10);
+         beenHit = true;
+
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King
          // If an asteroid comes in contact with the player, the player gains mass

@@ -66,4 +66,15 @@ public class DynamicObjectPool : MonoBehaviour
       }
       return count;
    }
+
+   public void ClearEnemies(GameObject enemy) {
+      List<GameObject> tmp = GetPoolList (enemy);
+
+      if (tmp == null)
+         return;
+
+      for (int i = 0; i < tmp.Count; i++) {
+         tmp [i].gameObject.SetActive (false);
+      }
+   }
 }
