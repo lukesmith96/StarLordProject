@@ -56,7 +56,9 @@ public class PlayerController : MonoBehaviour {
          transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
       }
       isColliding = false;
-      transform.localScale = new Vector3((scaleValue * (mass + 100)), (scaleValue * (mass + 100)), 1);
+      float s = mass + 100;
+      if (s > 1100.0f) s = 1100.0f;
+      transform.localScale = new Vector3((scaleValue * s), (scaleValue * s), 1);
    }
 
    void FixedUpdate() {
@@ -95,7 +97,9 @@ public class PlayerController : MonoBehaviour {
    }
 
    public void scalePlayer() {
-      newScale = new Vector3(scaleValue * mass, scaleValue * mass, 0);
+      float s = mass;
+      if (s > 1000.0f) s = 1000.0f;
+      newScale = new Vector3(scaleValue * s, scaleValue * s, 0);
    }
 
    public void addMass(int add)

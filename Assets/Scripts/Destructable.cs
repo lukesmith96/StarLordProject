@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//John Bradbury
 public class Destructable : MonoBehaviour {
 
    public bool isInvincible = false;
