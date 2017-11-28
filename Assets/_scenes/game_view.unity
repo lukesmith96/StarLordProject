@@ -226,7 +226,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49930319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -374, z: 0}
+  m_LocalPosition: {x: 0, y: -129, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 846030856}
@@ -1300,8 +1300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3247062cab7d7a747a362704056f87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 60
-  tooltip: {fileID: 0}
+  yOffset: 30
+  tooltip: {fileID: 292960837}
 --- !u!114 &330122161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 355065799}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 342, y: 374, z: 0}
+  m_LocalPosition: {x: 218, y: 129, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1436122956}
@@ -1875,7 +1875,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 475327352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 334, z: 0}
+  m_LocalPosition: {x: 0, y: 89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1893639276}
@@ -2398,7 +2398,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 596199359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -417, y: 329, z: 0}
+  m_LocalPosition: {x: -293, y: 84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160506688}
@@ -2653,23 +2653,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ad996969a474860bf36c9dfcbcbecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledEnemies: []
-  pooledExplosions: []
+  diveBomber: {fileID: 1935026177306656, guid: 4fd429c9f798c40bcb5b61b325070461, type: 2}
+  orbiter: {fileID: 1370501377038410, guid: a762208fdf5d01045956a54a078f130b, type: 2}
+  teleportingBoss: {fileID: 1924963653909100, guid: 7e1594af7da49c94c8b59f7beac9f102,
+    type: 2}
   poolGameObject: {fileID: 741136896}
-  enemyObject: {fileID: 0}
-  explosionObject: {fileID: 0}
-  poolSize: 0
-  radius: 30
-  shopTimerText: {fileID: 0}
-  waveCountText: {fileID: 0}
-  nextSpawn: 0
+  currentWaveType: 0
+  introCount: 0
+  plannedCount: 0
+  scaledCount: 0
+  waveCount: 0
   spawnMode: 0
-  maxShopTime: 15
-  shopTimer: 0
-  totalEnemy: 0
-  numEnemy: 0
-  spawnRate: 0
-  tutorialMode: 0
+  maxEnemies: 0
+  enemiesSpawned: 0
 --- !u!4 &639008623
 Transform:
   m_ObjectHideFlags: 0
@@ -3513,7 +3509,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 877072380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 334, z: 0}
+  m_LocalPosition: {x: 0, y: 89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1136513136}
@@ -3589,7 +3585,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 882553070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 422, y: 374, z: 0}
+  m_LocalPosition: {x: 298, y: 129, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1890887718}
@@ -4822,7 +4818,6 @@ MonoBehaviour:
   upgradeButton: {fileID: 355065799}
   shopButton: {fileID: 882553070}
   pauseButton: {fileID: 1805834028}
-  waveStuff: {fileID: 0}
   scoreText: {fileID: 1732906950}
   massText: {fileID: 596199359}
   pauseMenu: {fileID: 221814665}
@@ -4900,7 +4895,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1160506683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 512, y: 384, z: 0}
+  m_LocalPosition: {x: 388, y: 139, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 221814668}
@@ -5465,8 +5460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3247062cab7d7a747a362704056f87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 60
-  tooltip: {fileID: 0}
+  yOffset: 30
+  tooltip: {fileID: 603260756}
 --- !u!114 &1225972850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5757,8 +5752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3247062cab7d7a747a362704056f87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 60
-  tooltip: {fileID: 0}
+  yOffset: 30
+  tooltip: {fileID: 761180526}
 --- !u!114 &1304947075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7707,7 +7702,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1732906950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -497, y: 369, z: 0}
+  m_LocalPosition: {x: -373, y: 124, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160506688}
@@ -8124,7 +8119,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1805834028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 502, y: 374, z: 0}
+  m_LocalPosition: {x: 378, y: 129, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1865971460}
@@ -8409,8 +8404,8 @@ MonoBehaviour:
   scaleValue: 0.01
   rotationTime: 0.5
   newScale: {x: 0, y: 0, z: 0}
-  isColliding: 0
   mass: 0
+  beenHit: 0
 --- !u!58 &1817282243
 CircleCollider2D:
   m_ObjectHideFlags: 0
