@@ -16,6 +16,10 @@ public class GameUIController : MonoBehaviour {
    //public GameObject waveStuff;
    public GameObject scoreText;
    public GameObject massText;
+   
+   public GameObject gameOverPopup;
+   public Text statScore;
+   public Text statKilled;
 
    public GameObject pauseMenu;
    public GameObject shopMenu;
@@ -231,5 +235,11 @@ public class GameUIController : MonoBehaviour {
    
    public void Sleep(float time) {
       thoughtQueue.Add(new List<string>(new string [] {time.ToString(), "", "", "sleep"}));
+   }
+   
+   public void DisplayGameOver(int finalScore, int enemiesKilled) {
+      gameOverPopup.SetActive(true);
+      statScore.text = "Final Score: " + finalScore.ToString();
+      statKilled.text = "Enemies Killed: " + enemiesKilled.ToString();
    }
 }

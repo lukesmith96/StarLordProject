@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInvincible: 0
+  isEnemy: 1
   collisionDamage: 20
   explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
     type: 2}
