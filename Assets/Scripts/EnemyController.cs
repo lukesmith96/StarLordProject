@@ -12,7 +12,6 @@ using UnityEngine;
 public class EnemyController : Destructable {
    private Rigidbody2D rb2d;
 
-   public int addScoreAmount = 10;
    private Vector3 saveScale;
    
    void Awake() {
@@ -42,22 +41,5 @@ public class EnemyController : Destructable {
    public void Reset() {
       base.Reset();
       transform.localScale = saveScale;
-   }
-   
-   public void InflictDamage(float dmg) {
-      if (isInvincible) return;
-      
-      currentHealth -= dmg;
-      if (currentHealth <= 0f) {
-         //add another type of explosion here?
-         gameObject.SetActive(false);
-
-         // Increment score
-         GameControl.instance.score += addScoreAmount;
-         GameControl.instance.SetScoreText ();
-      } else {
-         transform.localScale = new Vector3(currentHealth / maxHealth,
-            currentHealth / maxHealth, 1);
-      }
    }
 }

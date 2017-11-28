@@ -65,6 +65,7 @@ public class GameControl : MonoBehaviour
          togglePauseGame(true);
          Time.timeScale = 0.0f;
          //display game over popup
+         uiController.DisplayGameOver(score, enemiesKilled);
       }
    }
 
