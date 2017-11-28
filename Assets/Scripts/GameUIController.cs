@@ -78,8 +78,9 @@ public class GameUIController : MonoBehaviour {
       }
    }
    
-   public void LoadStage(string target) {
-      SceneManager.LoadScene(target);
+   public void ExitGame() {
+      GameControl.ExitGame();
+      SceneManager.LoadScene("main_menu");
    }
    
    public void TogglePauseMenu(bool open) {
