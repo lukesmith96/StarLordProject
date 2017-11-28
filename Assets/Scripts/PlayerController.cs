@@ -76,8 +76,7 @@ public class PlayerController : MonoBehaviour {
    void OnTriggerEnter2D(Collider2D other) {
       // Joshua King
       // If an enemy collides with the player, the player loses score
-      if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("Enemy2")
-         || other.gameObject.CompareTag ("Enemy3")) {
+      if (other.gameObject.CompareTag ("Enemy")) {
          other.gameObject.SetActive (false);
          if (isColliding)
             return;

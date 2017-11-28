@@ -46,6 +46,7 @@ public class UpgradeController : MonoBehaviour {
       if (decrementScore (reloadCost)) {
          centerTurret.GetComponent<CenterTurretController> ().reloadTime -= reloadIncrement;
          setReloadText ();
+         Debug.Log ("New reload time: " + centerTurret.GetComponent<CenterTurretController> ().reloadTime);
       }
    }
 
@@ -67,7 +68,7 @@ public class UpgradeController : MonoBehaviour {
    }
 
    public void RefundReload() {
-      if (centerTurret.GetComponent<CenterTurretController> ().reloadTime <= centerTurret.GetComponent<CenterTurretController> ().initReloadMult)
+      if (centerTurret.GetComponent<CenterTurretController> ().reloadTime >= centerTurret.GetComponent<CenterTurretController> ().initReloadMult)
          return;
 
       centerTurret.GetComponent<CenterTurretController> ().reloadTime += reloadIncrement;

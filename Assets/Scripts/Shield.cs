@@ -19,8 +19,7 @@ public class Shield : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-      if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("Enemy2")
-         || other.gameObject.CompareTag ("Enemy3")) {
+		if (other.gameObject.CompareTag ("Enemy")) {
 			other.gameObject.SetActive (false);
 			transform.localScale -= new Vector3 (0.1f, 0.1f, 1);
 			curShieldHealth = curShieldHealth - 10f;

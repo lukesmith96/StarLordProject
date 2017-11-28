@@ -10,7 +10,6 @@ using UnityEngine.EventSystems;
  */
 public class TurretController : Destructable {
    public GameObject player;
-   public GameObject playerRing;
    public GameObject bullet;
    
    public float speed = 100.0f;
@@ -58,13 +57,13 @@ public class TurretController : Destructable {
       }
 
       if (CompareTag ("Turret")) {
-         float newMaxRange = initMaxRange * player.transform.localScale.x;
+         float newMaxRange = initMaxRange * PlayerController.instance.transform.localScale.x;
 
          if (newMaxRange > maxRange) {
             //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
             maxRange = newMaxRange;
 
-            arcScale = initArcScale * player.transform.localScale.x;
+            arcScale = initArcScale * PlayerController.instance.transform.localScale.x;
             firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
          }
 
@@ -111,8 +110,7 @@ public class TurretController : Destructable {
    }
 
    void OnTriggerEnter2D(Collider2D other) {
-      if (other.gameObject.CompareTag("Enemy") && !isInvincible || other.gameObject.CompareTag ("Enemy2") 
-         || other.gameObject.CompareTag ("Enemy3")) {
+      if (other.gameObject.CompareTag("Enemy") && !isInvincible) {
          Destructable otherScript = null;
          GameObject parent = other.gameObject;
          while (true) {
@@ -130,7 +128,7 @@ public class TurretController : Destructable {
       
       if (other.gameObject.CompareTag ("Asteroid")) {
          if (this is AutoTurretController && !(this is OrbitingTurretController) && ((AutoTurretController)this).isAttached) {
-            player.GetComponent<PlayerController>().addMass (10);
+            PlayerController.instance.GetComponent<PlayerController>().addMass (10);
 
             other.gameObject.SetActive (false);
          }
