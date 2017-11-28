@@ -80,20 +80,29 @@ public class GameUIController : MonoBehaviour {
    
    public void TogglePauseMenu(bool open) {
       pauseMenu.SetActive(open);
+      shopMenu.SetActive (false);
+      upgradeMenu.SetActive (false);
+
       Time.timeScale = open ? 0 : 1F;
       GameControl.instance.togglePauseGame(open);
    }
 
    public void ToggleShopMenu(bool open) {
-      if (!EnemySpawner.instance.spawnMode) {
+      if (!EnemySpawner.instance.spawnMode && !pauseMenu.activeInHierarchy) {
          shopMenu.SetActive (open);
+         upgradeMenu.SetActive (false);
       }
       //Time.timeScale = open ? 0 : 1F;
       //GameControl.instance.togglePauseGame(open);
    }
 
    public void ToggleUpgradeMenu(bool open) {
+      if (pauseMenu.activeInHierarchy)
+         return;
+
       upgradeMenu.SetActive (open);
+      shopMenu.SetActive (false);
+
       Time.timeScale = open ? 0 : 1F;
       GameControl.instance.togglePauseGame(open);
    }

@@ -10,10 +10,11 @@ using UnityEngine.EventSystems;
  */
 public class TurretController : Destructable {
    public GameObject player;
+   public GameObject playerRing;
    public GameObject bullet;
    
    public float speed = 100.0f;
-   public float maxRange = 20f;
+   public float maxRange = 10f;
    public float minRange = 0f;
    public float reloadTime = 2.0f; //seconds
    public int numBullets = 1;
@@ -56,17 +57,19 @@ public class TurretController : Destructable {
          timeSinceFiring += Time.deltaTime;
       }
 
-      float newMaxRange = initMaxRange * player.transform.localScale.x;
+      if (CompareTag ("Turret")) {
+         float newMaxRange = initMaxRange * player.transform.localScale.x;
 
-      if (newMaxRange > maxRange) {
-         //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
-         maxRange = newMaxRange;
+         if (newMaxRange > maxRange) {
+            //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
+            maxRange = newMaxRange;
 
-         arcScale = initArcScale * player.transform.localScale.x;
-         firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
+            arcScale = initArcScale * player.transform.localScale.x;
+            firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
+         }
+
+         bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
       }
-
-      bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
    }
       
    protected void FireBullet(Vector2 direction) {
