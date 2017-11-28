@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour 
 {
    public static GameControl instance;
+   
+   //stats, must be global
+   static bool Stat_init = false;
+   public static int Stat_HighScore = 0;
+   public static int Stat_EnemiesKilled = 0;
+   public static int Stat_NumGamesPlayed = 0;
 
    public int score = 0;
+   public int enemiesKilled = 0;
    public Text scoreText;
    public Text massText;
    public bool gameOver = false;
@@ -27,6 +35,7 @@ public class GameControl : MonoBehaviour
       {
          //...set this one to be it...
          instance = this;
+         ReadStats();
       }
       else if (instance != this)
       {
@@ -48,10 +57,14 @@ public class GameControl : MonoBehaviour
       if (Input.GetKeyDown("space")) {
          ActivateGodmode();
       }
-      if (PlayerController.instance.mass <= -100)
+      if (PlayerController.instance.mass <= -100 && !gameOver)
       { // Player is Dead run death sequence
          gameOver = true;
          Debug.Log("Game Over");
+         UpdateStats(GameControl.instance.score, GameControl.instance.enemiesKilled);
+         togglePauseGame(true);
+         Time.timeScale = 0.0f;
+         //display game over popup
       }
    }
 
@@ -116,5 +129,36 @@ public class GameControl : MonoBehaviour
          uiController.TogglePause(true);
          uiController.ShowPopup("ShopInstructions");
       }
+   }
+   
+   //this is for the main menu on start
+   public static void ReadStats() {
+      if (!Stat_init) {
+         if (File.Exists(@"score.txt")) {
+            StreamReader sr = new StreamReader(@"score.txt");
+            Stat_NumGamesPlayed = int.Parse(sr.ReadLine());
+            Stat_HighScore = int.Parse(sr.ReadLine());
+            Stat_EnemiesKilled = int.Parse(sr.ReadLine());
+            sr.Close();
+         }
+         Stat_init = true;
+      }
+   }
+   
+   public void UpdateStats(int currentScore, int currentEnemiesKilled) {
+      if (currentScore > Stat_HighScore) {
+         Stat_HighScore = currentScore;
+      }
+      if (currentEnemiesKilled > Stat_EnemiesKilled) {
+         Stat_EnemiesKilled = currentEnemiesKilled;
+      }
+      Stat_NumGamesPlayed++;
+      
+      //write it to the file
+      StreamWriter sw = new StreamWriter(@"score.txt");
+      sw.WriteLine(Stat_NumGamesPlayed);
+      sw.WriteLine(Stat_HighScore);
+      sw.WriteLine(Stat_EnemiesKilled);
+      sw.Close();
    }
 }
