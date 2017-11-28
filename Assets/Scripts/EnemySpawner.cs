@@ -72,10 +72,11 @@ public class EnemySpawner : MonoBehaviour {
    private float nextSpawn = 0.0f; //time that the next enemy should spawn
 
 
-   private string[] thoughts = {"They've stopped! I must find out where they are from.", 
-      "Let's reload, I don't see anyone...",
+   private string[] waveOverThoughts = {
+      "They've stopped! I must find out where they are from.", 
+      "Reload! I don't see anyone...",
       "I'm not detecting anything on my radar.",
-      "All is silent on the front",
+      "All is silent on the frontline!",
       "Get 'em! They have given up!"
    };
       
@@ -211,7 +212,8 @@ public class EnemySpawner : MonoBehaviour {
                spawnMode = false;
                shopTimer = 0;
 
-               GameControl.instance.uiController.WriteThought("", "I'm ready for a real challenge!", GameUIController.OUR_TEXT_COLOR, false);
+               int thoughtValue = Random.Range(0, waveOverThoughts.Length);
+               GameControl.instance.uiController.WriteThought("", waveOverThoughts[thoughtValue], GameUIController.OUR_TEXT_COLOR, false);
             }
          }
          else {
@@ -246,7 +248,8 @@ public class EnemySpawner : MonoBehaviour {
                spawnMode = false;
                shopTimer = 0;
 
-               GameControl.instance.uiController.WriteThought ("", thoughts [0], GameUIController.OUR_TEXT_COLOR, false);
+               int thoughtValue = Random.Range(0, waveOverThoughts.Length);
+               GameControl.instance.uiController.WriteThought("", waveOverThoughts[thoughtValue], GameUIController.OUR_TEXT_COLOR, false);
             }
          } else {
             //allow player to shop
