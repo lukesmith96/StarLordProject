@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//John Bradbury
 public class BulletController : MonoBehaviour {
    public float maxRange = 20f;
    public float minRange = 0f;

@@ -21,7 +21,7 @@ public class GameControl : MonoBehaviour
    public bool gameOver = false;
    public GameUIController uiController;
    public bool godmode = false;
-
+   private bool endStory = false;
    public bool gameIsPaused = false; //soft pause, not actually pausing time, just waves
    
    public GameObject beamObject;
@@ -52,11 +52,25 @@ public class GameControl : MonoBehaviour
       RunIntroCutscene();
    }
 
+   //John Bradbury
    void Update()
    {
       if (Input.GetKeyDown("space")) {
          ActivateGodmode();
       }
+      if (Input.GetKeyDown("=")) {
+         if (godmode) {
+            Debug.Log("add mass cheat");
+            PlayerController.instance.addMass(100);
+         }
+      }
+      if (Input.GetKeyDown("-")) {
+         if (godmode) {
+            Debug.Log("remove mass cheat");
+            PlayerController.instance.reduceMass(100);
+         }
+      }
+      
       if (PlayerController.instance.mass <= -100 && !gameOver)
       { // Player is Dead run death sequence
          gameOver = true;
@@ -66,6 +80,12 @@ public class GameControl : MonoBehaviour
          Time.timeScale = 0.0f;
          //display game over popup
          uiController.DisplayGameOver(score, enemiesKilled);
+      }
+      if (PlayerController.instance.mass >= 1000 && EnemySpawner.instance.waveCount >= 30 && !gameOver && !endStory) {
+         endStory = true;
+         //end of storyline
+         uiController.WriteThought("", "Well, I'm all grown up and I now know everything!", GameUIController.OUR_TEXT_COLOR, false);
+         uiController.WriteThought("", "Now to just strive to be even better...", GameUIController.OUR_TEXT_COLOR, false);
       }
    }
 
@@ -83,6 +103,7 @@ public class GameControl : MonoBehaviour
       gameIsPaused = paused;
    }
    
+   //John Bradbury
    //probably should have cutscene files or something, but here goes
    void RunIntroCutscene() {
       uiController.TogglePause(true);
@@ -118,6 +139,7 @@ public class GameControl : MonoBehaviour
       centerTurretControl.isInvincible = true;
    }
 
+   //John Bradbury
    public void ShopPopup(string type)
    {
       if (type == "AsteroidsInstructions")
@@ -132,6 +154,7 @@ public class GameControl : MonoBehaviour
       }
    }
    
+   //John Bradbury
    //this is for the main menu on start
    public static void ReadStats() {
       if (!Stat_init) {
@@ -146,6 +169,7 @@ public class GameControl : MonoBehaviour
       }
    }
    
+   //John Bradbury
    public void UpdateStats(int currentScore, int currentEnemiesKilled) {
       if (currentScore > Stat_HighScore) {
          Stat_HighScore = currentScore;
@@ -161,5 +185,14 @@ public class GameControl : MonoBehaviour
       sw.WriteLine(Stat_HighScore);
       sw.WriteLine(Stat_EnemiesKilled);
       sw.Close();
+   }
+   
+   //John Bradbury
+   public static void ExitGame() {
+      if (!GameControl.instance.gameOver) {
+         GameControl.instance.gameOver = true;
+         Debug.Log("Game Exit");
+         GameControl.instance.UpdateStats(GameControl.instance.score, GameControl.instance.enemiesKilled);
+      }
    }
 }
