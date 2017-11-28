@@ -42,7 +42,7 @@ public class BulletController : MonoBehaviour {
    {
       // Player shouldn't score if their bullets hit asteroid, right?
       //if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
-      if (other.gameObject.CompareTag("Asteroid"))
+      /*if (other.gameObject.CompareTag("Asteroid"))
       {
          GameObject exe = dynamicPool.GetPooledObject(explosion);
          exe.transform.position = transform.position;
@@ -56,7 +56,7 @@ public class BulletController : MonoBehaviour {
          //GameControl.instance.SetScoreText();
          //PlayerController.instance.addMass(10);
 
-      }
+      }*/
       if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
@@ -80,4 +80,14 @@ public class BulletController : MonoBehaviour {
          }
       }
    }
+
+   void OnTriggerStay2D (Collider2D other){
+      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+         Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
+         Vector2 current = transform.position;
+         Vector2 vectorToOrigin = Vector2.MoveTowards (-current, target, 3 * Time.deltaTime) * .07f;
+         rb2d.AddForce (vectorToOrigin);
+      }
+   }
+
 }

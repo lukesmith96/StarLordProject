@@ -17,10 +17,13 @@ public class Level2EnemyController : EnemyController {
    public float speed = 25.0f;
    public float reloadTime = 4.0f; //seconds
    private float timeSinceFiring = 4.0f; //seconds
+   private Rigidbody2D rb2d;
+   private bool isBeingPulled;
 
    // Use this for initialization
    void Start () {
       base.Start();
+      rb2d = GetComponent<Rigidbody2D>();
    }
 	
 	// Update is called once per frame
@@ -51,7 +54,7 @@ public class Level2EnemyController : EnemyController {
    }
    protected void FireBullet(Vector2 direction)
    {
-      if (timeSinceFiring >= reloadTime)
+      if (timeSinceFiring >= reloadTime && isBeingPulled == false)
       {
          timeSinceFiring = 0f;
          Vector2 newDir = -Vector2.MoveTowards(transform.position, direction, Time.deltaTime);
@@ -96,4 +99,15 @@ public class Level2EnemyController : EnemyController {
       transform.position = originPoint;
       rotate = false;
    }
+
+   void OnTriggerStay2D (Collider2D other){
+      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+         Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
+         Vector2 current = transform.position;
+         Vector2 vectorToOrigin = Vector2.MoveTowards (-current, target, 3 * Time.deltaTime) * .5f;
+         rb2d.AddForce (vectorToOrigin);
+         isBeingPulled = true;
+      }
+   }
+
 }
