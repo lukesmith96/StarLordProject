@@ -111,7 +111,8 @@ public class TurretController : Destructable {
    }
 
    void OnTriggerEnter2D(Collider2D other) {
-      if (other.gameObject.CompareTag("Enemy") && !isInvincible) {
+      if (other.gameObject.CompareTag("Enemy") && !isInvincible || other.gameObject.CompareTag ("Enemy2") 
+         || other.gameObject.CompareTag ("Enemy3")) {
          Destructable otherScript = null;
          GameObject parent = other.gameObject;
          while (true) {
