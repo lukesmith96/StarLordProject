@@ -10,7 +10,8 @@ public class CenterTurretController : TurretController {
    public float initDmgMult;
    public float initReloadMult;
    public int initNumMult;
-
+   // KNOWN BUG:
+   // Beginning of sequence the max distance ring shutters before becoming smooth. Unknown fix
    // Use this for initialization
    new void Start () {
       base.Start();
@@ -37,7 +38,6 @@ public class CenterTurretController : TurretController {
       {
          //if (EventSystem.current.IsPointerOverGameObject() == false)
          FireBullet(direction);
-
       }
       
       if (timeSinceFiring >= reloadTime) {
@@ -48,7 +48,7 @@ public class CenterTurretController : TurretController {
 
       float newMaxRange = initMaxRange * PlayerController.instance.transform.localScale.x;
 
-      if (newMaxRange != maxRange) {
+      if (newMaxRange != maxRange && newMaxRange > minRange) {
          //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
          maxRange = newMaxRange;
 
@@ -56,6 +56,6 @@ public class CenterTurretController : TurretController {
          firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
       }
 
-      bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
+      bullet.gameObject.GetComponent<BulletController>().maxRange = Mathf.Max(initMaxRange + PlayerController.instance.transform.localScale.x, minRange);
    }
 }

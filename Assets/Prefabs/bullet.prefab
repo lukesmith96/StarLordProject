@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fbc03952e8bec4fbc24461677266b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRange: 40
-  minRange: 0
+  maxRange: 11.2
+  minRange: 11.2
   speed: 500
   damage: 10
   originPoint: {x: 0, y: 0}

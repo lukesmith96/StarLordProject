@@ -25,7 +25,7 @@ public class BulletController : MonoBehaviour {
 
    // Update is called once per frame
    void Update () {
-	  
+      maxRange = Mathf.Max(minRange, maxRange);
       if (Vector2.Distance(originPoint, transform.position) >= maxRange) {
          gameObject.SetActive(false);
       }
@@ -76,7 +76,6 @@ public class BulletController : MonoBehaviour {
          
          if (isEnemyBullet) {
             if (other.GetComponent<Destructable>().isCentralTurret) {
-               Debug.Log("enemy bullet hit");
                PlayerController.instance.reduceMass(5);
             }
          }

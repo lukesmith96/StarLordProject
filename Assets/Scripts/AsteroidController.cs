@@ -28,6 +28,17 @@ public class AsteroidController : MonoBehaviour {
    void FixedUpdate()
    {
    }
+   void OnTriggerExit2D(Collider2D other)
+   {
+      if (other.gameObject.CompareTag("Beam") && other.gameObject.GetComponent<Renderer>().enabled == true)
+      {
+         rb2d.velocity -= new Vector2(2f, 2f);
+         if (rb2d.velocity.x< 0f && rb2d.velocity.y< 0f)
+         {
+            rb2d.velocity = rb2d.velocity.normalized;//Vector2.zero;
+         }
+      }
+   }
 
    void Update()
    {
