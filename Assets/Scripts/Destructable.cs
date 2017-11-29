@@ -7,6 +7,7 @@ public class Destructable : MonoBehaviour {
 
    public bool isInvincible = false;
    public bool isEnemy = false;
+   public bool isCentralTurret = false; //is it the player
    public const float maxHealth = 10f;
    protected float currentHealth = 0f;
    public float collisionDamage = 20f; //how much damage does this inflict when it collides with something
@@ -20,11 +21,6 @@ public class Destructable : MonoBehaviour {
       dynamicPool = (DynamicObjectPool)EnemySpawner.instance.poolGameObject.GetComponent(typeof(DynamicObjectPool));
       
       Reset();
-   }
-   
-   // Update is called once per frame
-   public void Update () {
-      
    }
    
    public void Reset() {
@@ -44,8 +40,8 @@ public class Destructable : MonoBehaviour {
          exe.SetActive(true);
          exe.GetComponent<ParticleSystem>().Play();
 
-         GameControl.instance.score += addScoreAmount;
          if (isEnemy) {
+            GameControl.instance.score += addScoreAmount;
             GameControl.instance.enemiesKilled++;
             Debug.Log("killed: " + GameControl.instance.enemiesKilled.ToString());
          }

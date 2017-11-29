@@ -58,7 +58,7 @@ public class BulletController : MonoBehaviour {
          //PlayerController.instance.addMass(10);
 
       }
-      if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
+      if (((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Enemy2") || other.gameObject.CompareTag("Enemy2")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
          /*
@@ -73,6 +73,14 @@ public class BulletController : MonoBehaviour {
          this.gameObject.SetActive(false);
 
          PlayerController.instance.startRotationPU();
+         
+         if (isEnemyBullet) {
+            if (other.GetComponent<Destructable>().isCentralTurret) {
+               Debug.Log("enemy bullet hit");
+               PlayerController.instance.reduceMass(5);
+            }
+         }
+         
          //inflict damage
          if (other.GetComponent<Destructable>()) {
             other.GetComponent<Destructable>().InflictDamage(damage);

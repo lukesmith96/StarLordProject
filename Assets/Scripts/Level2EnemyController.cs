@@ -1,7 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
+
+/*
+ * @author Luke Smith
+ * @since 9.30.17
+ * 
+ */
 public class Level2EnemyController : EnemyController {
    
    public float radius = 12;
@@ -30,17 +33,19 @@ public class Level2EnemyController : EnemyController {
       Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
       direction.Normalize();
       transform.up = direction;
+      
+      float r = radius + PlayerController.instance.getPlayerRadius();
 
-      if (Vector2.Distance(originPoint, transform.position) <= radius && !rotate)
+      if (Vector2.Distance(originPoint, transform.position) <= r && !rotate)
       {
-         Vector2 startPos = GetRandPoint(PlayerController.instance.transform.position, transform.position, radius, out angle, out dir);
+         Vector2 startPos = GetRandPoint(PlayerController.instance.transform.position, transform.position, r, out angle, out dir);
          rotate = true;
       }
       if (rotate)
       {
          // Orbit around player
          angle += (orbitalSpeed * Time.deltaTime * dir);
-         transform.position = GetPoint(PlayerController.instance.transform.position, radius, angle, dir);
+         transform.position = GetPoint(PlayerController.instance.transform.position, r, angle, dir);
          FireBullet(new Vector2(0, 0));
 
          if (timeSinceFiring < reloadTime)
@@ -73,20 +78,20 @@ public class Level2EnemyController : EnemyController {
       }
    }
 
-   private Vector2 GetRandPoint(Vector2 origin, Vector2 pos, float radius, out float angle, out int dir)
+   private Vector2 GetRandPoint(Vector2 origin, Vector2 pos, float r, out float angle, out int dir)
    {
       System.Random random = new System.Random();
       angle = Mathf.Atan2(pos.y - origin.y, pos.x - origin.x) * Mathf.Rad2Deg;
       dir = random.Next(2);
       if (dir == 0)
          --dir;
-      return GetPoint(origin, radius, angle, dir);
+      return GetPoint(origin, r, angle, dir);
    }
 
-   private Vector2 GetPoint(Vector2 origin, float radius, float angle, int dir)
+   private Vector2 GetPoint(Vector2 origin, float r, float angle, int dir)
    {
-      float x = origin.x + radius * Mathf.Cos(Mathf.Deg2Rad * angle);
-      float y = origin.y + radius * Mathf.Sin(Mathf.Deg2Rad * angle);
+      float x = origin.x + r * Mathf.Cos(Mathf.Deg2Rad * angle);
+      float y = origin.y + r * Mathf.Sin(Mathf.Deg2Rad * angle);
 
       return new Vector2(x, y);
    }

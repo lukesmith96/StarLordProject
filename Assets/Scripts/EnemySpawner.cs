@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour {
    public GameObject diveBomber;
    public GameObject orbiter;
    public GameObject teleportingBoss;
+   public GameObject level3;
 
    private Tuple<float, float, float>[] waveDifficulty = {
       new Tuple<float, float, float>(.8f, .2f, 0),
@@ -106,7 +107,6 @@ public class EnemySpawner : MonoBehaviour {
    }
 
    void Update() {
-     
       switch (waveCount) {
 
       case 1: // intro wave to introduce asteroids
@@ -266,7 +266,6 @@ public class EnemySpawner : MonoBehaviour {
             }
          }
          break;
-
       }
    }
 

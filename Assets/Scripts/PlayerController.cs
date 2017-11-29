@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour {
 
    // Update is called once per frame
    void Update () {
-      
-      //scalePlayer ();
+     
       // Interpolate to newScale
-      //Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
-      //transform.localScale = actualScale;
-      //currScale = actualScale;
+      newScale = scalePlayer ();
+      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
+      transform.localScale = actualScale;
+      currScale = actualScale;
 
       // rotation controls:
       if (rotatePU && currRotation < (Time.time - rotationTime))
@@ -56,9 +56,6 @@ public class PlayerController : MonoBehaviour {
          transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
       }
       isColliding = false;
-      float s = mass + 100;
-      if (s > 1100.0f) s = 1100.0f;
-      transform.localScale = new Vector3((scaleValue * s), (scaleValue * s), 1);
    }
 
    void FixedUpdate() {
@@ -73,6 +70,7 @@ public class PlayerController : MonoBehaviour {
             return;
          isColliding = true;
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+         Debug.Log("enemy collided with player");
          reduceMass(10);
          beenHit = true;
 
@@ -90,15 +88,22 @@ public class PlayerController : MonoBehaviour {
       }
    }
 
+   public float getPlayerRadius() {
+      float s = mass + 100;
+      if (s > 1100.0f) s = 1100.0f;
+      return scaleValue * s;
+   }
+   
    public void invokeGodMode()
    {
       
    }
 
-   public void scalePlayer() {
-      float s = mass;
-      if (s > 1000.0f) s = 1000.0f;
-      newScale = new Vector3(scaleValue * s, scaleValue * s, 0);
+   public Vector3 scalePlayer() {
+      float s = mass + 100;
+      if (s > 1100.0f) s = 1100.0f;
+
+      return new Vector3((scaleValue * s), (scaleValue * s), 1);
    }
 
    public void addMass(int add)
