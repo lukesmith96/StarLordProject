@@ -20,6 +20,7 @@ public class Level2EnemyController : EnemyController {
    public float speed = 25.0f;
    public float reloadTime = 4.0f; //seconds
    private float timeSinceFiring = 4.0f; //seconds
+   private bool inBeam;
 
    // Use this for initialization
    void Start () {
@@ -46,7 +47,9 @@ public class Level2EnemyController : EnemyController {
          // Orbit around player
          angle += (orbitalSpeed * Time.deltaTime * dir);
          transform.position = GetPoint(PlayerController.instance.transform.position, r, angle, dir);
-         FireBullet(new Vector2(0, 0));
+         if (inBeam == false) {
+            FireBullet (new Vector2 (0, 0));
+         }
 
          if (timeSinceFiring < reloadTime)
          {
@@ -100,5 +103,13 @@ public class Level2EnemyController : EnemyController {
       base.Reset();
       transform.position = originPoint;
       rotate = false;
+   }
+
+   void OnTriggerStay2D (Collider2D other){
+      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+         inBeam = true;
+      } else {
+         inBeam = false;
+      }
    }
 }

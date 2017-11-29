@@ -37,6 +37,7 @@ public class CenterTurretController : TurretController {
       {
          //if (EventSystem.current.IsPointerOverGameObject() == false)
          FireBullet(direction);
+
       }
       
       if (timeSinceFiring >= reloadTime) {

@@ -94,7 +94,7 @@ public class BulletController : MonoBehaviour {
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
          Vector2 current = transform.position;
-         Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * 0.7f;
+         Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * 0.07f;
          rb2d.AddForce(vectorToOrigin);
       }
    }

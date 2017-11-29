@@ -32,10 +32,13 @@ public class EnemyController : Destructable {
       transform.up = (-transform.position).normalized;
 	}
    
-   void OnTriggerEnter2D(Collider2D other) {
-      /*if (other.gameObject.CompareTag ("Enemy")) {
-         other.gameObject.SetActive (false);
-      }*/
+   void OnTriggerStay2D (Collider2D other){
+      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+         Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
+         Vector2 current = transform.position;
+         Vector2 vectorAwayFromOrigin = Vector2.MoveTowards(current, -target, 3 * Time.deltaTime) * 0.05f;
+         rb2d.AddForce(vectorAwayFromOrigin);
+      }
    }
    
    public void Reset() {

@@ -91,6 +91,7 @@ public class TurretController : Destructable {
             cloneRb2d.velocity = Vector2.zero;
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
+            GetComponent<AudioSource> ().Play ();
          }
       }
    }
