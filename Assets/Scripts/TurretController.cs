@@ -37,8 +37,6 @@ public class TurretController : Destructable {
       collider = GetComponent<CircleCollider2D> ();
       firingArc = transform.Find("TurretFiringArc").gameObject;
 
-      initMaxRange = maxRange;
-      maxRange = maxRange * PlayerController.instance.transform.localScale.x;
       bullet.gameObject.GetComponent<BulletController>().maxRange = maxRange;
       bullet.gameObject.GetComponent<BulletController>().minRange = minRange;
 
@@ -84,7 +82,7 @@ public class TurretController : Destructable {
 
             //clone.GetComponent<BulletController> ().originPoint = transform.position;
             //cloneRb2d.transform.position = transform.position;
-            clone.GetComponent<BulletController>().maxRange = Mathf.Max(initMaxRange * PlayerController.instance.transform.localScale.x, minRange);
+            clone.GetComponent<BulletController>().maxRange = maxRange;
 
             bulletC = clone.GetComponent<BulletController>();
             

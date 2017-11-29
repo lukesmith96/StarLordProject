@@ -15,7 +15,8 @@ public class CenterTurretController : TurretController {
    // Use this for initialization
    new void Start () {
       base.Start();
-
+      initMaxRange = maxRange;
+      maxRange = maxRange * PlayerController.instance.transform.localScale.x;
       initDmgMult = collisionDamage;
       initReloadMult = reloadTime;
       initNumMult = numBullets;
@@ -46,15 +47,16 @@ public class CenterTurretController : TurretController {
          reloadIcon.SetActive(true);
       }
 
-      float newMaxRange = initMaxRange * PlayerController.instance.transform.localScale.x;
+      //float newMaxRange = initMaxRange * PlayerController.instance.transform.localScale.x;
+      maxRange = Mathf.Max(initMaxRange * PlayerController.instance.transform.localScale.x, minRange);
+      arcScale = Mathf.Max(initArcScale, initArcScale * PlayerController.instance.transform.localScale.x);
+      firingArc.transform.localScale = new Vector3(arcScale, arcScale, 1);
 
-      if (newMaxRange != maxRange && newMaxRange > minRange) {
+      //if (newMaxRange != maxRange && newMaxRange > minRange) {
          //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
-         maxRange = newMaxRange;
+      //   maxRange = newMaxRange;
 
-         arcScale = initArcScale * PlayerController.instance.transform.localScale.x;
-         firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
-      }
+      //   }
 
       bullet.gameObject.GetComponent<BulletController>().maxRange = Mathf.Max(initMaxRange + PlayerController.instance.transform.localScale.x, minRange);
    }
