@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour {
             return;
          isColliding = true;
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+         Debug.Log("enemy collided with player");
          reduceMass(10);
          beenHit = true;
 
@@ -90,6 +91,12 @@ public class PlayerController : MonoBehaviour {
       }
    }
 
+   public float getPlayerRadius() {
+      float s = mass + 100;
+      if (s > 1100.0f) s = 1100.0f;
+      return scaleValue * s;
+   }
+   
    public void invokeGodMode()
    {
       
