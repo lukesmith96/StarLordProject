@@ -36,8 +36,19 @@ public class AsteroidController : MonoBehaviour {
          gameObject.SetActive(false);
       }
    }
+ 	void OnTriggerExit2D(Collider2D other)
+   {
+      if (other.gameObject.CompareTag("Beam") && other.gameObject.GetComponent<Renderer>().enabled == true)
+      {
+         rb2d.velocity -= new Vector2(2f, 2f);
+         if (rb2d.velocity.x < 0f && rb2d.velocity.y < 0f)
+         {
+            rb2d.velocity = rb2d.velocity.normalized;//Vector2.zero;
+         }
+      }
+   }
 
-	void OnTriggerStay2D (Collider2D other){
+   void OnTriggerStay2D (Collider2D other){
 		if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
 			Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
 			Vector2 current = transform.position;

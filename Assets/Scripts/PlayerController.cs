@@ -88,11 +88,12 @@ public class PlayerController : MonoBehaviour {
          if (isColliding)
             return;
          isColliding = true;
-         grow.Play ();
 
          GameControl.instance.score += 10;
          GameControl.instance.SetScoreText();
          addMass(10);
+
+         grow.Play();
       }
    }
 
