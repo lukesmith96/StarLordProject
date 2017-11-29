@@ -38,7 +38,7 @@ public class AsteroidController : MonoBehaviour {
    }
 
 	void OnTriggerStay2D (Collider2D other){
-      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+	   if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
 			Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
 			Vector2 current = transform.position;
 			Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * pullForce;
