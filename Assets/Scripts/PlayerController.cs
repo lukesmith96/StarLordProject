@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour {
    public int mass;// -100 is min value at that point die
    private bool god = false;
    public bool beenHit = false;
+   private AudioSource grow;
+   private AudioSource hit;
 
    // Use this for initialization
    void Start () {
@@ -31,6 +33,9 @@ public class PlayerController : MonoBehaviour {
       currScale = newScale = transform.localScale;
       mass = 0;
       GameControl.instance.SetMassText();
+      AudioSource[] audios = GetComponents<AudioSource> ();
+      grow = audios [0];
+      hit = audios [1];
    }
 
    // Update is called once per frame
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour {
          transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
       }
       isColliding = false;
+
    }
 
    void FixedUpdate() {
@@ -73,6 +79,7 @@ public class PlayerController : MonoBehaviour {
          Debug.Log("enemy collided with player");
          reduceMass(10);
          beenHit = true;
+         hit.Play ();
 
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King
@@ -81,6 +88,7 @@ public class PlayerController : MonoBehaviour {
          if (isColliding)
             return;
          isColliding = true;
+         grow.Play ();
 
          GameControl.instance.score += 10;
          GameControl.instance.SetScoreText();
