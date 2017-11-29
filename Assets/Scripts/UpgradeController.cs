@@ -58,10 +58,9 @@ public class UpgradeController : MonoBehaviour {
    }
 
    public void UpgradeReload() {
-      if (decrementScore (reloadCost)) {
+      if (decrementScore (reloadCost) && centerTurret.GetComponent<CenterTurretController> ().reloadTime > 0f) {
          centerTurret.GetComponent<CenterTurretController> ().reloadTime -= reloadIncrement;
          setReloadText ();
-         //Debug.Log ("New reload time: " + centerTurret.GetComponent<CenterTurretController> ().reloadTime);
       }
    }
 
@@ -131,10 +130,8 @@ public class UpgradeController : MonoBehaviour {
 
    private void setReloadText() {
       float curReload =  centerTurret.GetComponent<CenterTurretController> ().reloadTime;
-      if (curReload == Mathf.Infinity)
-         curReload = 1;
 
-      reloadText.text = "x" + Mathf.Abs(curReload);
+      reloadText.text = Mathf.Abs(curReload).ToString("0.0") + " sec";
    }
 
    private void setBulletText() {
