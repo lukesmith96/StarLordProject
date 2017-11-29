@@ -33,4 +33,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Assets/Sprites/level1enemy.png
+score.txt

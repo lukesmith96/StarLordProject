@@ -13,20 +13,20 @@ public class TurretController : Destructable {
    public GameObject bullet;
    
    public float speed = 100.0f;
-   public float maxRange = 20f;
+   public float maxRange = 10f;
    public float minRange = 0f;
    public float reloadTime = 2.0f; //seconds
    public int numBullets = 1;
    public float spread = 0.0f; //inaccuracy
 
    protected CircleCollider2D collider;
-
-   private float arcScale;
-   private GameObject firingArc;
+   protected float initMaxRange;
+   protected float initArcScale;
+   protected float arcScale;
+   protected GameObject firingArc;
 
    protected float timeSinceFiring = 2.0f; //seconds
-   private float initMaxRange;
-   private float initArcScale;
+
 
    private bool selected = false;
 
@@ -55,18 +55,6 @@ public class TurretController : Destructable {
       if (timeSinceFiring < reloadTime) {
          timeSinceFiring += Time.deltaTime;
       }
-
-      float newMaxRange = initMaxRange * player.transform.localScale.x;
-
-      if (newMaxRange > maxRange) {
-         //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
-         maxRange = newMaxRange;
-
-         arcScale = initArcScale * player.transform.localScale.x;
-         firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
-      }
-
-      bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
    }
       
    protected void FireBullet(Vector2 direction) {
@@ -103,6 +91,7 @@ public class TurretController : Destructable {
             cloneRb2d.velocity = Vector2.zero;
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
+            GetComponent<AudioSource> ().Play ();
          }
       }
    }
@@ -126,7 +115,7 @@ public class TurretController : Destructable {
       
       if (other.gameObject.CompareTag ("Asteroid")) {
          if (this is AutoTurretController && !(this is OrbitingTurretController) && ((AutoTurretController)this).isAttached) {
-            player.GetComponent<PlayerController>().addMass (10);
+            PlayerController.instance.GetComponent<PlayerController>().addMass (10);
 
             other.gameObject.SetActive (false);
          }

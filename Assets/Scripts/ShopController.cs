@@ -8,12 +8,17 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
    public GameObject poolGameObject;
    public GameObject turretType;
+   public GameObject notEnoughMassText;
+
    public int turretCost = 50;
 
    private DynamicObjectPool dynamicPool;
    private GameObject turretToSpawn;
    private bool isDragged = false;
    private bool onImage = false;
+
+   private readonly float MaxTimer = 1f;
+   private float timer = 0; 
 
 	// Use this for initialization
 	void Start () { 
@@ -22,9 +27,19 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    }
 	
 	// Update is called once per frame
-	void Update () {  }
+	void Update () {
+      if (onImage && PlayerController.instance.mass - turretCost < 0) {
+         notEnoughMassText.SetActive (true);
+         //Debug.Log ("Not enough: " + PlayerController.instance.mass);
+      } else {
+         notEnoughMassText.SetActive (false);
+         //Debug.Log ("Enough: " + PlayerController.instance.mass);
+      }
+   }
+
 
    void FixedUpdate() {
+
       if (turretToSpawn != null && isDragged) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane(Input.mousePosition, 0f);
 
@@ -66,7 +81,7 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    }
 
    public void OnPointerDown(PointerEventData eventData) {
-      if (GameControl.instance.score - turretCost < 0) {
+      if (PlayerController.instance.mass - turretCost < 0) {
          return;
       }
 

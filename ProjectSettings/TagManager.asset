@@ -22,6 +22,7 @@ TagManager:
   - MultiTurret
   - Enemy2
   - TeleportingEnemy
+  - Enemy3
   layers:
   - Default
   - TransparentFX

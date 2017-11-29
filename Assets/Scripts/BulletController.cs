@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//John Bradbury
 public class BulletController : MonoBehaviour {
    public float maxRange = 20f;
    public float minRange = 0f;
@@ -57,7 +58,7 @@ public class BulletController : MonoBehaviour {
          //PlayerController.instance.addMass(10);
 
       }*/
-      if (((other.gameObject.CompareTag("Enemy")) && !isEnemyBullet)
+      if (((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Enemy2") || other.gameObject.CompareTag("Enemy2")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
          /*
@@ -72,6 +73,14 @@ public class BulletController : MonoBehaviour {
          this.gameObject.SetActive(false);
 
          PlayerController.instance.startRotationPU();
+         
+         if (isEnemyBullet) {
+            if (other.GetComponent<Destructable>().isCentralTurret) {
+               Debug.Log("enemy bullet hit");
+               PlayerController.instance.reduceMass(5);
+            }
+         }
+         
          //inflict damage
          if (other.GetComponent<Destructable>()) {
             other.GetComponent<Destructable>().InflictDamage(damage);
@@ -83,11 +92,10 @@ public class BulletController : MonoBehaviour {
 
    void OnTriggerStay2D (Collider2D other){
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
-         Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
+         Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
          Vector2 current = transform.position;
-         Vector2 vectorToOrigin = Vector2.MoveTowards (-current, target, 3 * Time.deltaTime) * .07f;
-         rb2d.AddForce (vectorToOrigin);
+         Vector2 vectorToOrigin = Vector2.MoveTowards(-current, target, 3 * Time.deltaTime) * 0.07f;
+         rb2d.AddForce(vectorToOrigin);
       }
    }
-
 }

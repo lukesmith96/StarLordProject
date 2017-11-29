@@ -1,7 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
+
+/*
+ * @author Luke Smith
+ * @since 9.30.17
+ * 
+ */
 public class Level2EnemyController : EnemyController {
    
    public float radius = 12;
@@ -17,15 +20,12 @@ public class Level2EnemyController : EnemyController {
    public float speed = 25.0f;
    public float reloadTime = 4.0f; //seconds
    private float timeSinceFiring = 4.0f; //seconds
-   private Rigidbody2D rb2d;
-   private bool isBeingPulled;
+   private bool inBeam;
 
    // Use this for initialization
    void Start () {
       base.Start();
-      rb2d = GetComponent<Rigidbody2D>();
    }
-      
 	
 	// Update is called once per frame
 	void Update () {
@@ -34,28 +34,27 @@ public class Level2EnemyController : EnemyController {
       Vector2 direction = new Vector2(target.x - turret.x, target.y - turret.y);
       direction.Normalize();
       transform.up = direction;
+      
+      float r = radius + PlayerController.instance.getPlayerRadius();
 
-      if (Vector2.Distance(originPoint, transform.position) <= radius && !rotate)
+      if (Vector2.Distance(originPoint, transform.position) <= r && !rotate)
       {
-         Vector2 startPos = GetRandPoint(PlayerController.instance.transform.position, transform.position, radius, out angle, out dir);
+         Vector2 startPos = GetRandPoint(PlayerController.instance.transform.position, transform.position, r, out angle, out dir);
          rotate = true;
       }
       if (rotate)
       {
          // Orbit around player
          angle += (orbitalSpeed * Time.deltaTime * dir);
-         transform.position = GetPoint(PlayerController.instance.transform.position, radius, angle, dir);
-         if (isBeingPulled == false) {
+         transform.position = GetPoint(PlayerController.instance.transform.position, r, angle, dir);
+         if (inBeam == false) {
             FireBullet (new Vector2 (0, 0));
          }
+
          if (timeSinceFiring < reloadTime)
          {
             timeSinceFiring += Time.deltaTime;
          }
-      }
-
-      if (isBeingPulled) {
-         radius -= 0.5f;
       }
    }
    protected void FireBullet(Vector2 direction)
@@ -82,20 +81,20 @@ public class Level2EnemyController : EnemyController {
       }
    }
 
-   private Vector2 GetRandPoint(Vector2 origin, Vector2 pos, float radius, out float angle, out int dir)
+   private Vector2 GetRandPoint(Vector2 origin, Vector2 pos, float r, out float angle, out int dir)
    {
       System.Random random = new System.Random();
       angle = Mathf.Atan2(pos.y - origin.y, pos.x - origin.x) * Mathf.Rad2Deg;
       dir = random.Next(2);
       if (dir == 0)
          --dir;
-      return GetPoint(origin, radius, angle, dir);
+      return GetPoint(origin, r, angle, dir);
    }
 
-   private Vector2 GetPoint(Vector2 origin, float radius, float angle, int dir)
+   private Vector2 GetPoint(Vector2 origin, float r, float angle, int dir)
    {
-      float x = origin.x + radius * Mathf.Cos(Mathf.Deg2Rad * angle);
-      float y = origin.y + radius * Mathf.Sin(Mathf.Deg2Rad * angle);
+      float x = origin.x + r * Mathf.Cos(Mathf.Deg2Rad * angle);
+      float y = origin.y + r * Mathf.Sin(Mathf.Deg2Rad * angle);
 
       return new Vector2(x, y);
    }
@@ -104,15 +103,13 @@ public class Level2EnemyController : EnemyController {
       base.Reset();
       transform.position = originPoint;
       rotate = false;
-      radius = 12;
    }
 
    void OnTriggerStay2D (Collider2D other){
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
-         isBeingPulled = true;
+         inBeam = true;
       } else {
-         isBeingPulled = false;
+         inBeam = false;
       }
    }
-
 }

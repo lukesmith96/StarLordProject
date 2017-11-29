@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
    public int mass;// -100 is min value at that point die
    private bool god = false;
    public bool beenHit = false;
-
+   private AudioSource grow;
+   private AudioSource hit;
 
    // Use this for initialization
    void Start () {
@@ -32,27 +33,19 @@ public class PlayerController : MonoBehaviour {
       currScale = newScale = transform.localScale;
       mass = 0;
       GameControl.instance.SetMassText();
+      AudioSource[] audios = GetComponents<AudioSource> ();
+      grow = audios [0];
+      hit = audios [1];
    }
 
    // Update is called once per frame
    void Update () {
-      // Pressing '=' increases the scale of the player
-      if (Input.GetKeyDown("="))
-      {
-         // add to total mass and mass based on that
-         addMass(10);
-      }
-      // Pressing '-' decreases the mass of the player
-      if (Input.GetKeyDown("-"))
-      {
-         reduceMass(10);
-      }
-      
-      //scalePlayer ();
+     
       // Interpolate to newScale
-      //Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
-      //transform.localScale = actualScale;
-      //currScale = actualScale;
+      newScale = scalePlayer ();
+      Vector3 actualScale = Vector3.Lerp (currScale, newScale, 1.0f * Time.deltaTime);
+      transform.localScale = actualScale;
+      currScale = actualScale;
 
       // rotation controls:
       if (rotatePU && currRotation < (Time.time - rotationTime))
@@ -68,7 +61,7 @@ public class PlayerController : MonoBehaviour {
          transform.Rotate(new Vector3(0, 0, -45) * (Time.deltaTime * transform.localScale.x));
       }
       isColliding = false;
-      transform.localScale = new Vector3((scaleValue * (mass + 100)), (scaleValue * (mass + 100)), 1);
+
    }
 
    void FixedUpdate() {
@@ -83,9 +76,10 @@ public class PlayerController : MonoBehaviour {
             return;
          isColliding = true;
          //transform.localScale -= (new Vector3 (scaleValue, scaleValue, 0) * Time.deltaTime);
+         Debug.Log("enemy collided with player");
          reduceMass(10);
          beenHit = true;
-
+         hit.Play ();
 
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King
@@ -94,6 +88,7 @@ public class PlayerController : MonoBehaviour {
          if (isColliding)
             return;
          isColliding = true;
+         grow.Play ();
 
          GameControl.instance.score += 10;
          GameControl.instance.SetScoreText();
@@ -101,14 +96,22 @@ public class PlayerController : MonoBehaviour {
       }
    }
 
-
+   public float getPlayerRadius() {
+      float s = mass + 100;
+      if (s > 1100.0f) s = 1100.0f;
+      return scaleValue * s;
+   }
+   
    public void invokeGodMode()
    {
       
    }
 
-   public void scalePlayer() {
-      newScale = new Vector3(scaleValue * mass, scaleValue * mass, 0);
+   public Vector3 scalePlayer() {
+      float s = mass + 100;
+      if (s > 1100.0f) s = 1100.0f;
+
+      return new Vector3((scaleValue * s), (scaleValue * s), 1);
    }
 
    public void addMass(int add)

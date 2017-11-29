@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 96889593311961028}
   m_Layer: 0
   m_Name: OrbitingTurret
-  m_TagString: Turret
+  m_TagString: OrbitalTurret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,13 +214,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInvincible: 0
+  isEnemy: 0
+  isCentralTurret: 0
   collisionDamage: 20
   explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
     type: 2}
+  addScoreAmount: 10
   player: {fileID: 0}
   bullet: {fileID: 1921240523314220, guid: 8726332ab83053e4791653dfb9f96e45, type: 2}
   speed: 200
-  maxRange: 40
+  maxRange: 10
   minRange: 0
   reloadTime: 0.5
   numBullets: 3

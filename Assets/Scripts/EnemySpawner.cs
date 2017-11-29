@@ -17,6 +17,24 @@ public class EnemySpawner : MonoBehaviour {
    public GameObject diveBomber;
    public GameObject orbiter;
    public GameObject teleportingBoss;
+   public GameObject level3;
+
+   private Tuple<float, float, float>[] waveDifficulty = {
+      new Tuple<float, float, float>(.8f, .2f, 0),
+      new Tuple<float, float, float>(.75f, .25f, 0),
+      new Tuple<float, float, float>(.70f, .30f, 0),
+      new Tuple<float, float, float>(.65f, .35f, 0),
+      new Tuple<float, float, float>(.60f, .40f, 0),
+      new Tuple<float, float, float>(.55f, .45f, 0),
+      new Tuple<float, float, float>(.50f, .50f, 0),
+      new Tuple<float, float, float>(.45f, .55f, 0),
+      new Tuple<float, float, float>(.40f, .60f, 0),
+      new Tuple<float, float, float>(.35f, .65f, 0),
+      new Tuple<float, float, float>(.30f, .70f, 0),
+      new Tuple<float, float, float>(.25f, .75f, 0),
+      new Tuple<float, float, float>(.2f, .8f, 0),
+      new Tuple<float, float, float>(.5f, .5f, 1)
+   };
 
    //dynamic pool stuff
    public GameObject poolGameObject;
@@ -41,22 +59,11 @@ public class EnemySpawner : MonoBehaviour {
    private int maxEasyEnemies = 2;
    private int orbitersSpawned = 0;
    private int maxOrbiters = 2;
+   private int maxWaveCount = 6;
+   private int wavespawncount = 0;
+   private bool bossSpawned = false;
 
    public int waveCount;
-
-   //wave 5 - 
-
-   //wave 6 -
-
-   //wave 7 -
-
-   //wave 8 -
-
-   //wave 9 -
-
-   //wave 10 - last planned wave. spawn a teleporting enemy
-
-
 
    //scaled stuff
    public bool spawnMode;
@@ -66,15 +73,15 @@ public class EnemySpawner : MonoBehaviour {
    private float nextSpawn = 0.0f; //time that the next enemy should spawn
 
 
-   private string[] thoughts = {"They've stopped! I must find out where they are from.", 
-      "Let's reload, I don't see anyone...",
+   private string[] waveOverThoughts = {
+      "They've stopped! I must find out where they are from.", 
+      "Reload! I don't see anyone...",
       "I'm not detecting anything on my radar.",
-      "All is silent on the front",
+      "All is silent on the frontline!",
       "Get 'em! They have given up!"
    };
       
    private float radius = 50f;
-  
 
    void Awake() 
    {
@@ -100,7 +107,6 @@ public class EnemySpawner : MonoBehaviour {
    }
 
    void Update() {
-     
       switch (waveCount) {
 
       case 1: // intro wave to introduce asteroids
@@ -144,8 +150,8 @@ public class EnemySpawner : MonoBehaviour {
             dynamicPool.ClearEnemies(diveBomber);
 
             //Shop Introduction popup
-            GameControl.instance.ShopPopup ();
-
+            GameControl.instance.ShopPopup ("ShopInstructions");
+            
             GameControl.instance.uiController.WriteThought("", "What's this? A new enemy?", GameUIController.OUR_TEXT_COLOR, false);
          }
 
@@ -165,19 +171,65 @@ public class EnemySpawner : MonoBehaviour {
          } else if (dynamicPool.ActiveCount (orbiter) == 0) {
             //next wave
             waveCount++;
+            spawnMode = true;
             GameControl.instance.uiController.WriteThought("", "I'm ready for a real challenge!", GameUIController.OUR_TEXT_COLOR, false);
          }
          break;  
 
-      case 5: //planned wave
-         waveCount++;
-         spawnMode = true;
-         maxEnemies = waveCount * 2;
-         spawnRate = 0.5f;
-         enemiesSpawned = 0;
-         nextSpawn = Time.time;
+      case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
+         case 13: case 14: case 15: case 16: case 17: case 18://planned wave
+         if (spawnMode)
+         {
+            if (wavespawncount < maxWaveCount && Time.time > nextSpawn)
+            {
+               float percentBomber = waveDifficulty[waveCount - 5].Get(0);
+               float percentOrbital = waveDifficulty[waveCount - 5].Get(1);
+               float percentBoss = waveDifficulty[waveCount - 5].Get(2);
+               float value = Random.value;
+               if (percentBoss == 1 && bossSpawned == false)
+               {
+                  SpawnEnemy(teleportingBoss);
+                  bossSpawned = true;
+               }
+               if (value < percentBomber)
+               {
+                  SpawnEnemy(diveBomber);
+               }
+               else if (value - percentBomber < percentOrbital)
+               {
+                  SpawnEnemy(orbiter);
+               }
+               else if (value - percentBomber - percentOrbital < percentBoss)
+               {
+                  SpawnEnemy(teleportingBoss);
+               }
+               spawnRate = 0.5f;
+               nextSpawn = Time.time + spawnRate;
+               wavespawncount++;
+            }
+            else if (dynamicPool.ActiveCount(orbiter) == 0 && dynamicPool.ActiveCount(diveBomber) == 0)
+            {
+               spawnMode = false;
+               shopTimer = 0;
 
-         break;
+               int thoughtValue = Random.Range(0, waveOverThoughts.Length);
+               GameControl.instance.uiController.WriteThought("", waveOverThoughts[thoughtValue], GameUIController.OUR_TEXT_COLOR, false);
+            }
+         }
+         else {
+            //allow player to shop
+            shopTimer += Time.deltaTime;
+            if (shopTimer > maxShopTimer)
+            {
+               spawnMode = true;
+               //next wave
+               waveCount++;
+               maxWaveCount += 2;
+               wavespawncount = 0;
+               nextSpawn = Time.time;
+            }
+         }
+      break;
 
       default: //normal scaled mode
          if (spawnMode) {
@@ -196,9 +248,8 @@ public class EnemySpawner : MonoBehaviour {
                spawnMode = false;
                shopTimer = 0;
 
-               GameControl.instance.uiController.WriteThought ("", thoughts [0], GameUIController.OUR_TEXT_COLOR, false);
-
-
+               int thoughtValue = Random.Range(0, waveOverThoughts.Length);
+               GameControl.instance.uiController.WriteThought("", waveOverThoughts[thoughtValue], GameUIController.OUR_TEXT_COLOR, false);
             }
          } else {
             //allow player to shop
@@ -215,7 +266,6 @@ public class EnemySpawner : MonoBehaviour {
             }
          }
          break;
-
       }
    }
 
@@ -248,5 +298,26 @@ public class EnemySpawner : MonoBehaviour {
       tmp.GetComponent<Rigidbody2D> ().AddForce (direction.normalized * 300f);
    }
 
-  
+   private class Tuple<T1, T2, T3>
+   {
+      private float v1;
+      private float v2;
+      private float v3;
+
+      public Tuple(float v1, float v2, float v3)
+      {
+         this.v1 = v1;
+         this.v2 = v2;
+         this.v3 = v3;
+      }
+      public float Get(int i)
+      {
+         if (i == 0)
+            return v1;
+         else if (i == 1)
+            return v2;
+         else
+            return v3;
+      }
+   }
 }

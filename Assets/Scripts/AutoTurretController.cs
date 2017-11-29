@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AutoTurretController : TurretController {
    public GameObject enemy;
+
    public bool isTouching;
    public bool isAttached;
 
@@ -44,7 +45,7 @@ public class AutoTurretController : TurretController {
 
          // Reset position according to scaling player
          if (!CompareTag ("OrbitalTurret")) {
-            float newRadius = GetComponent<CircleCollider2D> ().radius + player.GetComponent<CircleCollider2D> ().radius * player.transform.localScale.x;
+            float newRadius = GetComponent<CircleCollider2D> ().radius + PlayerController.instance.GetComponent<CircleCollider2D> ().radius * PlayerController.instance.transform.localScale.x;
             Vector2 newPos = GetPoint (Vector2.zero, newRadius, angle);
             transform.position = newPos;
          }
@@ -90,14 +91,18 @@ public class AutoTurretController : TurretController {
 
    protected void AutoFire() {
       //target is closest enemy with line of sight
-      RaycastHit2D closestEnemy = new RaycastHit2D ();
+      RaycastHit2D closestEnemy = new RaycastHit2D();
 
       bool gotTarget = false;
+      float minDistance = Mathf.Infinity;
+         
       Vector3 startRay = transform.position;
       List<GameObject> enemyList = dynamicPool.GetPoolList (enemy);
+
       if (enemyList == null) {
          return;
       }
+
       //http://answers.unity3d.com/questions/1042247/how-to-make-a-simple-line-of-sight-in-a-2d-top-dow.html
       foreach (GameObject childPos in enemyList) {
          if (!childPos.activeInHierarchy)
@@ -119,18 +124,16 @@ public class AutoTurretController : TurretController {
             RaycastHit2D sightTest = sightTestResults [i];
 
             //check if this is the closest, but also check if the player is in the way
-            //sightTest.transform.tag != "Player" && 
-            if (sightTest.transform.tag != "Enemy")
-            //if (sightTest.transform.tag != "Player" && sightTest.transform.tag != "Enemy")
+            if (sightTest.transform.CompareTag ("Player"))
                continue;
 
-            if (!gotTarget) {
+            if (sightTest.transform.CompareTag ("Enemy") ||
+               //sightTest.transform.CompareTag ("Boss") ||
+               //sightTest.transform.CompareTag ("Enemy3") ||
+               sightTest.transform.CompareTag ("Enemy2")) {
                closestEnemy = sightTest;
                gotTarget = true;
-            } else {
-               if (sightTest.distance < closestEnemy.distance) {
-                  closestEnemy = sightTest;
-               }
+               break;
             }
          }
       }
@@ -140,7 +143,7 @@ public class AutoTurretController : TurretController {
             gotTarget = false;
          }
       }
-
+         
       if (gotTarget) {
          Vector2 target = closestEnemy.transform.position;
          Vector2 turret = transform.position;

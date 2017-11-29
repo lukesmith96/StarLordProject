@@ -6,16 +6,37 @@ using UnityEngine.UI;
 public class UpgradeController : MonoBehaviour {
 
    public GameObject centerTurret;
+   public GameObject notEnoughMassText;
    public Text dmgText;
    public Text reloadText;
    public Text bulletText;
 
-   public int refundAmt = 10;
-   public int upgradeCost = 50;
+   public int dmgCost = 50;
+   public int dmgRefund = 5;
+
+   public int reloadCost = 100;
+   public int reloadRefund = 10;
+
+   public int bulletCost = 200;
+   public int bulletRefund = 20;
 
    public float dmgIncrement = 1f;
-   public float reloadIncrement = 1f;
+   public float reloadIncrement = 0.2f;
    public int bulletIncrement = 1;
+
+   public float timer = 0.0f;
+   public float MaxTime = 1.0f;
+
+   void Update() {
+      if (timer > 0.0f) {
+         timer -= Time.deltaTime;
+         Debug.Log ("Timer: " + timer);
+      }
+
+      if (timer <= 0.0f) {
+         notEnoughMassText.SetActive (false);
+      }
+   }
 
    void Start() {
       setDmgText ();
@@ -30,24 +51,24 @@ public class UpgradeController : MonoBehaviour {
    }
 
    public void UpgradeDamage() {
-      centerTurret.GetComponent<CenterTurretController> ().collisionDamage += dmgIncrement;
-      decrementScore ();
-
-      setDmgText ();
+      if (decrementScore (dmgCost)) {
+         centerTurret.GetComponent<CenterTurretController> ().collisionDamage += dmgIncrement;
+         setDmgText ();
+      } 
    }
 
    public void UpgradeReload() {
-      centerTurret.GetComponent<CenterTurretController> ().reloadTime -= reloadIncrement;
-      decrementScore ();
-
-      setReloadText ();
+      if (decrementScore (reloadCost) && centerTurret.GetComponent<CenterTurretController> ().reloadTime > 0f) {
+         centerTurret.GetComponent<CenterTurretController> ().reloadTime -= reloadIncrement;
+         setReloadText ();
+      }
    }
 
    public void UpgradeBullet() {
-      centerTurret.GetComponent<CenterTurretController> ().numBullets += bulletIncrement;
-      decrementScore ();
-
-      setBulletText ();
+      if (decrementScore (bulletCost)) {
+         centerTurret.GetComponent<CenterTurretController> ().numBullets += bulletIncrement;
+         setBulletText ();
+      }
    }
 
    public void RefundDamage() {
@@ -55,17 +76,17 @@ public class UpgradeController : MonoBehaviour {
          return;
       
       centerTurret.GetComponent<CenterTurretController> ().collisionDamage -= dmgIncrement;
-      incrementScore ();
+      incrementScore (dmgRefund);
 
       setDmgText ();
    }
 
    public void RefundReload() {
-      if (centerTurret.GetComponent<CenterTurretController> ().reloadTime <= centerTurret.GetComponent<CenterTurretController> ().initReloadMult)
+      if (centerTurret.GetComponent<CenterTurretController> ().reloadTime >= centerTurret.GetComponent<CenterTurretController> ().initReloadMult)
          return;
 
       centerTurret.GetComponent<CenterTurretController> ().reloadTime += reloadIncrement;
-      incrementScore ();
+      incrementScore (reloadRefund);
 
       setReloadText ();
    }
@@ -75,23 +96,28 @@ public class UpgradeController : MonoBehaviour {
          return;
 
       centerTurret.GetComponent<CenterTurretController> ().numBullets -= bulletIncrement;
-      incrementScore ();
+      incrementScore (bulletRefund);
 
       setBulletText ();
    }
 
-   private void decrementScore() {
-      if (GameControl.instance.score - upgradeCost < 0) {
-         return;
+   private bool decrementScore(int cost) {
+      if (PlayerController.instance.mass - cost < 0) {
+         notEnoughMassText.SetActive (true);
+         timer = MaxTime;
+
+         return false;
       }
 
-      GameControl.instance.score -= upgradeCost;
-      GameControl.instance.SetScoreText ();
+      PlayerController.instance.mass -= cost;
+      GameControl.instance.SetMassText ();
+
+      return true;
    }
 
-   private void incrementScore() {
-      GameControl.instance.score += refundAmt;
-      GameControl.instance.SetScoreText ();
+   private void incrementScore(int refund) {
+      PlayerController.instance.mass += refund;
+      GameControl.instance.SetMassText ();
    }
 
    private void setDmgText() {
@@ -103,11 +129,9 @@ public class UpgradeController : MonoBehaviour {
    }
 
    private void setReloadText() {
-      float curReload = centerTurret.GetComponent<CenterTurretController> ().reloadTime / centerTurret.GetComponent<CenterTurretController> ().initReloadMult;
-      if (curReload == Mathf.Infinity)
-         curReload = 1;
+      float curReload =  centerTurret.GetComponent<CenterTurretController> ().reloadTime;
 
-      reloadText.text = "x" + Mathf.Abs(curReload);
+      reloadText.text = Mathf.Abs(curReload).ToString("0.0") + " sec";
    }
 
    private void setBulletText() {

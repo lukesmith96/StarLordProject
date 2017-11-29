@@ -12,7 +12,6 @@ using UnityEngine;
 public class EnemyController : Destructable {
    private Rigidbody2D rb2d;
 
-   public int addScoreAmount = 10;
    private Vector3 saveScale;
    
    void Awake() {
@@ -21,7 +20,7 @@ public class EnemyController : Destructable {
    
    void Start() {
       base.Start();
-      
+
       rb2d = GetComponent<Rigidbody2D>();
    }
 	
@@ -29,44 +28,21 @@ public class EnemyController : Destructable {
 
 	}
 
-	void Update() {
+	public virtual void Update() {
       transform.up = (-transform.position).normalized;
 	}
    
-   void OnTriggerEnter2D(Collider2D other) {
-      /*if (other.gameObject.CompareTag ("Enemy")) {
-         other.gameObject.SetActive (false);
-      }*/
+   void OnTriggerStay2D (Collider2D other){
+      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+         Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);
+         Vector2 current = transform.position;
+         Vector2 vectorAwayFromOrigin = Vector2.MoveTowards(current, -target, 3 * Time.deltaTime) * 0.05f;
+         rb2d.AddForce(vectorAwayFromOrigin);
+      }
    }
    
    public void Reset() {
       base.Reset();
       transform.localScale = saveScale;
-   }
-   
-   public void InflictDamage(float dmg) {
-      if (isInvincible) return;
-      
-      currentHealth -= dmg;
-      if (currentHealth <= 0f) {
-         //add another type of explosion here?
-         gameObject.SetActive(false);
-
-         // Increment score
-         GameControl.instance.score += addScoreAmount;
-         GameControl.instance.SetScoreText ();
-      } else {
-         transform.localScale = new Vector3(currentHealth / maxHealth,
-            currentHealth / maxHealth, 1);
-      }
-   }
-
-   void OnTriggerStay2D (Collider2D other){
-      if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
-         Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
-         Vector2 current = transform.position;
-         Vector2 vectorToOrigin = Vector2.MoveTowards (current, -target, 3 * Time.deltaTime) * .05f;
-         rb2d.AddForce (vectorToOrigin);
-      }
    }
 }

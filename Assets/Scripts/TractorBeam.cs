@@ -26,9 +26,12 @@ public class TractorBeam : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown (1)) {
          sprite.enabled = true;
+         GetComponent<AudioSource> ().Play ();
+         GetComponent<AudioSource> ().loop = true;
 		} 
 		else if (Input.GetMouseButtonUp (1)){
          sprite.enabled = false;
+         GetComponent<AudioSource> ().loop = false;
 		}
 
 	}

@@ -120,17 +120,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInvincible: 0
+  isEnemy: 0
+  isCentralTurret: 0
   collisionDamage: 20
-  explosionObject: {fileID: 0}
+  explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
+    type: 2}
+  addScoreAmount: 10
   player: {fileID: 0}
   bullet: {fileID: 1901099290422640, guid: 55d59031f202d794d955c93ef42e9854, type: 2}
   speed: 500
-  maxRange: 40
+  maxRange: 15
   minRange: 0
   reloadTime: 0.1
   numBullets: 1
   spread: 0
-  enemy: {fileID: 0}
+  enemy: {fileID: 1935026177306656, guid: 4fd429c9f798c40bcb5b61b325070461, type: 2}
   isTouching: 0
   isAttached: 0
 --- !u!212 &212417925121190890
