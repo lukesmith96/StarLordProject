@@ -25,15 +25,16 @@ public class EnemySpawner : MonoBehaviour {
       new Tuple<float, float, float>(.70f, .30f, 0),
       new Tuple<float, float, float>(.65f, .35f, 0),
       new Tuple<float, float, float>(.60f, .40f, 0),
-      new Tuple<float, float, float>(.55f, .45f, 0),
-      new Tuple<float, float, float>(.50f, .50f, 0),
-      new Tuple<float, float, float>(.45f, .55f, 0),
-      new Tuple<float, float, float>(.40f, .60f, 0),
-      new Tuple<float, float, float>(.35f, .65f, 0),
-      new Tuple<float, float, float>(.30f, .70f, 0),
-      new Tuple<float, float, float>(.25f, .75f, 0),
-      new Tuple<float, float, float>(.2f, .8f, 0),
-      new Tuple<float, float, float>(.5f, .5f, 1)
+      new Tuple<float, float, float>(.55f, .35f, .1f),
+      new Tuple<float, float, float>(.50f, .35f, .15f),
+      new Tuple<float, float, float>(.50f, .30f, .2f),
+      new Tuple<float, float, float>(.40f, .30f, .3f),
+      new Tuple<float, float, float>(.45f, .35f, .2f),
+      new Tuple<float, float, float>(.60f, .1f, .3f),
+      new Tuple<float, float, float>(.60f, 0f, .4f),
+      new Tuple<float, float, float>(.2f, .4f, .4f),
+      new Tuple<float, float, float>(0f, .5f, .5f),
+      new Tuple<float, float, float>(.33f, .33f, .33f)
    };
 
    //dynamic pool stuff
@@ -59,7 +60,7 @@ public class EnemySpawner : MonoBehaviour {
    private int maxEasyEnemies = 2;
    private int orbitersSpawned = 0;
    private int maxOrbiters = 2;
-   private int maxWaveCount = 6;
+   private int maxWaveCount = 4;
    private int wavespawncount = 0;
    private bool bossSpawned = false;
 
@@ -174,8 +175,14 @@ public class EnemySpawner : MonoBehaviour {
             spawnMode = true;
             GameControl.instance.uiController.WriteThought("", "I'm ready for a real challenge!", GameUIController.OUR_TEXT_COLOR, false);
          }
-         break;  
+         break;
 
+      case 19:
+         if (spawnMode)
+         {
+            SpawnEnemy(teleportingBoss);
+         }
+         goto case 18;
       case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
          case 13: case 14: case 15: case 16: case 17: case 18://planned wave
          if (spawnMode)
@@ -184,13 +191,8 @@ public class EnemySpawner : MonoBehaviour {
             {
                float percentBomber = waveDifficulty[waveCount - 5].Get(0);
                float percentOrbital = waveDifficulty[waveCount - 5].Get(1);
-               float percentBoss = waveDifficulty[waveCount - 5].Get(2);
+               float percentLevel3 = waveDifficulty[waveCount - 5].Get(2);
                float value = Random.value;
-               if (percentBoss == 1 && bossSpawned == false)
-               {
-                  SpawnEnemy(teleportingBoss);
-                  bossSpawned = true;
-               }
                if (value < percentBomber)
                {
                   SpawnEnemy(diveBomber);
@@ -199,9 +201,9 @@ public class EnemySpawner : MonoBehaviour {
                {
                   SpawnEnemy(orbiter);
                }
-               else if (value - percentBomber - percentOrbital < percentBoss)
+               else if (value - percentBomber - percentOrbital < percentLevel3)
                {
-                  SpawnEnemy(teleportingBoss);
+                  SpawnEnemy(level3);
                }
                spawnRate = 0.5f;
                nextSpawn = Time.time + spawnRate;
