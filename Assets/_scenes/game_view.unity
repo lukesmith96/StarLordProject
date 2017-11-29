@@ -2844,6 +2844,7 @@ MonoBehaviour:
   orbiter: {fileID: 1370501377038410, guid: a762208fdf5d01045956a54a078f130b, type: 2}
   teleportingBoss: {fileID: 1924963653909100, guid: 7e1594af7da49c94c8b59f7beac9f102,
     type: 2}
+  level3: {fileID: 1850684161653214, guid: 6df62b3df99002f469eba89ef583492b, type: 2}
   poolGameObject: {fileID: 741136896}
   currentWaveType: 0
   introCount: 0

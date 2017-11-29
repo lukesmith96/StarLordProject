@@ -1,7 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
+
+/*
+ * @author Luke Smith
+ * @since 9.30.17
+ * 
+ */
 public class Level2EnemyController : EnemyController {
    
    public float radius = 12;

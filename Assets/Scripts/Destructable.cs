@@ -23,11 +23,6 @@ public class Destructable : MonoBehaviour {
       Reset();
    }
    
-   // Update is called once per frame
-   public void Update () {
-      
-   }
-   
    public void Reset() {
       currentHealth = maxHealth;
    }

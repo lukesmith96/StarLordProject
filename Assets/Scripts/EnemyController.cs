@@ -20,7 +20,7 @@ public class EnemyController : Destructable {
    
    void Start() {
       base.Start();
-      
+
       rb2d = GetComponent<Rigidbody2D>();
    }
 	
@@ -28,7 +28,7 @@ public class EnemyController : Destructable {
 
 	}
 
-	void Update() {
+	public virtual void Update() {
       transform.up = (-transform.position).normalized;
 	}
    
