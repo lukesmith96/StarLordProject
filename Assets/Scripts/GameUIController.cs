@@ -109,8 +109,8 @@ public class GameUIController : MonoBehaviour {
       upgradeMenu.SetActive (open);
       shopMenu.SetActive (false);
 
-      Time.timeScale = open ? 0 : 1F;
-      GameControl.instance.togglePauseGame(open);
+      //Time.timeScale = open ? 0 : 1F;
+      //GameControl.instance.togglePauseGame(open);
    }
 
    //John Bradbury
