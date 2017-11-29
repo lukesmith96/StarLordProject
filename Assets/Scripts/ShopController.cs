@@ -8,6 +8,7 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
    public GameObject poolGameObject;
    public GameObject turretType;
+   public GameObject notEnoughMassText;
 
    public int turretCost = 50;
 
@@ -27,6 +28,13 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 	
 	// Update is called once per frame
 	void Update () {
+      if (onImage && PlayerController.instance.mass - turretCost < 0) {
+         notEnoughMassText.SetActive (true);
+         //Debug.Log ("Not enough: " + PlayerController.instance.mass);
+      } else {
+         notEnoughMassText.SetActive (false);
+         //Debug.Log ("Enough: " + PlayerController.instance.mass);
+      }
    }
 
 

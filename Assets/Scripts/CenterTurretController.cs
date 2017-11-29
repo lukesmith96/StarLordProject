@@ -44,5 +44,17 @@ public class CenterTurretController : TurretController {
       } else {
          reloadIcon.SetActive(true);
       }
+
+      float newMaxRange = initMaxRange * PlayerController.instance.transform.localScale.x;
+
+      if (newMaxRange != maxRange) {
+         //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
+         maxRange = newMaxRange;
+
+         arcScale = initArcScale * PlayerController.instance.transform.localScale.x;
+         firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
+      }
+
+      bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
    }
 }

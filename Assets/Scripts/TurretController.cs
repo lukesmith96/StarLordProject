@@ -20,13 +20,13 @@ public class TurretController : Destructable {
    public float spread = 0.0f; //inaccuracy
 
    protected CircleCollider2D collider;
-
-   private float arcScale;
-   private GameObject firingArc;
+   protected float initMaxRange;
+   protected float initArcScale;
+   protected float arcScale;
+   protected GameObject firingArc;
 
    protected float timeSinceFiring = 2.0f; //seconds
-   private float initMaxRange;
-   private float initArcScale;
+
 
    private bool selected = false;
 
@@ -54,20 +54,6 @@ public class TurretController : Destructable {
    public virtual void Update () {
       if (timeSinceFiring < reloadTime) {
          timeSinceFiring += Time.deltaTime;
-      }
-
-      if (CompareTag ("Turret")) {
-         float newMaxRange = initMaxRange * PlayerController.instance.transform.localScale.x;
-
-         if (newMaxRange > maxRange) {
-            //Debug.Log("Cur max: " + maxRange + "new max: " + newMaxRange);
-            maxRange = newMaxRange;
-
-            arcScale = initArcScale * PlayerController.instance.transform.localScale.x;
-            firingArc.transform.localScale = new Vector3 (arcScale, arcScale, 1);
-         }
-
-         bullet.gameObject.GetComponent<BulletController> ().maxRange = maxRange;
       }
    }
       
