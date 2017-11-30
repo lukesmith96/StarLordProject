@@ -133,6 +133,8 @@ public class GameUIController : MonoBehaviour {
       if (thoughtQueue[0][3] == "intro" || thoughtQueue[0][3] == "thought") {
          
          if (completeMsg) {
+			//if (isIntro) introText.SetActive(true);
+			
             if (thoughtQueue[0][1] == thoughtQueue[0][2]) {
                thoughtQueue.RemoveAt(0); //remove the first msg (all done)
                thoughtText.GetComponent<Text>().text = "";
@@ -142,6 +144,8 @@ public class GameUIController : MonoBehaviour {
                thoughtQueue[0][2] = thoughtQueue[0][1]; //display whole msg
             }
          } else {
+				if (thoughtQueue[0][3] == "intro") introText.SetActive(true);
+
             if (thoughtQueue[0][1] == thoughtQueue[0][2]) return; //already displayed
             if (timeUntilNextThoughtChar <= 0.0) {
                timeUntilNextThoughtChar = thoughtTextSpeed;
@@ -153,7 +157,7 @@ public class GameUIController : MonoBehaviour {
          
          if (thoughtQueue.Count == 0) {
             thoughtText.GetComponent<Text>().text = "";
-            introText.SetActive(false);//GetComponent<TextMesh>().text = "";
+            //introText.SetActive(false);//GetComponent<TextMesh>().text = "";
             return;
          };
          if (thoughtQueue[0][3] == "intro") {

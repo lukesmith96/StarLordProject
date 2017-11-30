@@ -107,6 +107,7 @@ public class GameControl : MonoBehaviour
    //probably should have cutscene files or something, but here goes
    void RunIntroCutscene() {
       uiController.TogglePause(true);
+		/*
       uiController.WriteThought("", "Lorem ipsum dolor sit amet,\n"
          + "consectetur adipiscing\n"
          + "elit. Integer interdum varius\n"
@@ -119,7 +120,25 @@ public class GameControl : MonoBehaviour
          + "Morbi mattis lacus felis, non iaculis\n"
          + "lorem dictum sed. Morbi mi nisi, placerat at\n"
          + "commodo ac, varius et odio. Nulla a magna odio.\n"
-         + "Nam in justo nec nulla bibendum auctor at ac sapien.", GameUIController.OUR_TEXT_COLOR, true);
+         + "Nam in justo nec nulla bibendum auctor at ac sapien.", GameUIController.OUR_TEXT_COLOR, true);*/
+		uiController.WriteThought ("", 
+			"A long time ago\n" +
+			"in a copyrighted galaxy\n" +
+			"far, far away...\n",
+			GameUIController.OUR_TEXT_COLOR, true
+		);
+		uiController.WriteThought("", 
+			"Somewhere in the far depths of space..\n" +
+			"A group of higher beings, pressed for time,\n" +
+			"have created a sentient celestial object\n" +
+			"in a grand experiment to appease\n" +
+			"the Great Pinecone...\n" +
+			"\n" + 
+			"Why are you here?\n" +
+			"What is your purpose?\n" +
+			"What is a pinecone?", 
+			GameUIController.OUR_TEXT_COLOR, true
+		);
       uiController.WriteThought("", "Hello?", GameUIController.OUR_TEXT_COLOR, false);
       uiController.WriteThought("", "World?", GameUIController.OUR_TEXT_COLOR, false);
       uiController.TogglePause(false);
