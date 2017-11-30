@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour {
    public bool beenHit = false;
    private AudioSource grow;
    private AudioSource hit;
+   public int hitCount;
 
    // Use this for initialization
    void Start () {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour {
       AudioSource[] audios = GetComponents<AudioSource> ();
       grow = audios [0];
       hit = audios [1];
+      hitCount = 0;
    }
 
    // Update is called once per frame
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour {
          reduceMass(10);
          beenHit = true;
          hit.Play ();
+         hitCount++;
 
       } else if (other.gameObject.CompareTag ("Asteroid")) {
          // Joshua King

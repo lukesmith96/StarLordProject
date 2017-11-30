@@ -27,6 +27,7 @@ public class GameControl : MonoBehaviour
    public GameObject beamObject;
    public GameObject centerTurretObject;
    public CenterTurretController centerTurretControl;
+
    
    void Awake()
    {
@@ -170,6 +171,10 @@ public class GameControl : MonoBehaviour
       {
          uiController.TogglePause(true);
          uiController.ShowPopup("ShopInstructions");
+      }
+      if (type == "EnemyInstructions") {
+         uiController.TogglePause(true);
+         uiController.ShowPopup("EnemyInstructions");
       }
    }
    

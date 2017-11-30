@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour {
    public int plannedCount = 0;
    public int scaledCount = 0;
 
-   private float maxShopTimer = 15.0f;
+   private float maxShopTimer = 30.0f;
    private float shopTimer = 0.0f;
 
    //intro stuff
@@ -83,6 +83,8 @@ public class EnemySpawner : MonoBehaviour {
    };
       
    private float radius = 50f;
+   public Text shopText;
+   public Text waveText;
 
    void Awake() 
    {
@@ -103,7 +105,8 @@ public class EnemySpawner : MonoBehaviour {
       currentWaveType = WaveType.Intro;
 
       dynamicPool = (DynamicObjectPool)poolGameObject.GetComponent(typeof(DynamicObjectPool));
-
+      shopText.text = "";
+      waveText.text = "Wave: 1";
       waveCount = 1;
    }
 
@@ -112,6 +115,7 @@ public class EnemySpawner : MonoBehaviour {
       if (GameControl.instance.godmode == true) {
          if (Input.GetKeyDown (KeyCode.UpArrow)) {
             waveCount++;
+            waveText.text = "Wave: " + waveCount;
          }
       }
 
@@ -123,6 +127,9 @@ public class EnemySpawner : MonoBehaviour {
          //move to the next wave when player has absorbed 5 asteroids
          if (PlayerController.instance.mass > 50) {
             waveCount++;
+            waveText.text = "Wave: " + waveCount;
+            //Enemy popup
+            GameControl.instance.ShopPopup("EnemyInstructions");
 
             //show text to show player is learning
             GameControl.instance.uiController.WriteThought("", "I'm growing stronger!", GameUIController.OUR_TEXT_COLOR, false);
@@ -138,7 +145,8 @@ public class EnemySpawner : MonoBehaviour {
          } else if (dynamicPool.ActiveCount (diveBomber) == 0) {
             //both enemies have been destroyed
             waveCount++;
-
+            waveText.text = "Wave: " + waveCount;
+            GameControl.instance.ShopPopup ("ShopInstructions");
             //show text to show player is learning
             GameControl.instance.uiController.WriteThought("", "That was too easy! Send more!", GameUIController.OUR_TEXT_COLOR, false);
 
@@ -150,55 +158,34 @@ public class EnemySpawner : MonoBehaviour {
          }
          break;
 
-      case 3: //Hard wave - player gets hit, introduce the shop system
-         //move to next wave when player gets hit
-         if (PlayerController.instance.beenHit) {
-            waveCount++;
-            //clear the enemies to be nice
-            dynamicPool.ClearEnemies(diveBomber);
-
-            //Shop Introduction popup
-            GameControl.instance.ShopPopup ("ShopInstructions");
-            
-            GameControl.instance.uiController.WriteThought("", "What's this? A new enemy?", GameUIController.OUR_TEXT_COLOR, false);
-         }
-
-         //keep spawning enemies
-         if (Time.time > nextSpawn) {
-            SpawnEnemy (diveBomber);
-            nextSpawn = Time.time + spawnRate;
-
-         }
-        
-         break;
-
-      case 4: // introduce the orbiter
+      case 3: // introduce the orbiter
          if (orbitersSpawned < maxOrbiters) {
             SpawnEnemy (orbiter);
             orbitersSpawned++;
          } else if (dynamicPool.ActiveCount (orbiter) == 0) {
             //next wave
             waveCount++;
+            waveText.text = "Wave: " + waveCount;
             spawnMode = true;
             GameControl.instance.uiController.WriteThought("", "I'm ready for a real challenge!", GameUIController.OUR_TEXT_COLOR, false);
          }
          break;
 
-      case 19:
+      case 18:
          if (spawnMode)
          {
             SpawnEnemy(teleportingBoss);
          }
-         goto case 18;
-      case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
-         case 13: case 14: case 15: case 16: case 17: case 18://planned wave
+         goto case 17;
+      case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
+         case 13: case 14: case 15: case 16: case 17: //planned wave
          if (spawnMode)
          {
             if (wavespawncount < maxWaveCount && Time.time > nextSpawn)
             {
-               float percentBomber = waveDifficulty[waveCount - 5].Get(0);
-               float percentOrbital = waveDifficulty[waveCount - 5].Get(1);
-               float percentLevel3 = waveDifficulty[waveCount - 5].Get(2);
+               float percentBomber = waveDifficulty[waveCount - 4].Get(0);
+               float percentOrbital = waveDifficulty[waveCount - 4].Get(1);
+               float percentLevel3 = waveDifficulty[waveCount - 4].Get(2);
                float value = Random.value;
                if (value < percentBomber)
                {
@@ -220,6 +207,7 @@ public class EnemySpawner : MonoBehaviour {
             {
                spawnMode = false;
                shopTimer = 0;
+               shopText.text = "Shop closing in: " + (int)(maxShopTimer - shopTimer);
 
                int thoughtValue = Random.Range(0, waveOverThoughts.Length);
                GameControl.instance.uiController.WriteThought("", waveOverThoughts[thoughtValue], GameUIController.OUR_TEXT_COLOR, false);
@@ -228,14 +216,22 @@ public class EnemySpawner : MonoBehaviour {
          else {
             //allow player to shop
             shopTimer += Time.deltaTime;
+            shopText.text = "Shop closing in: " + (int)(maxShopTimer - shopTimer);
             if (shopTimer > maxShopTimer)
             {
                spawnMode = true;
                //next wave
                waveCount++;
+               waveText.text = "Wave: " + waveCount;
                maxWaveCount += 2;
                wavespawncount = 0;
                nextSpawn = Time.time;
+               shopText.text = "";
+
+               if (waveCount > 17) {
+                  PlayerController.instance.hitCount = 0;
+                  maxEnemies = Random.Range (waveCount, (2 * waveCount) - (PlayerController.instance.hitCount/2));
+               }
             }
          }
       break;
@@ -246,8 +242,24 @@ public class EnemySpawner : MonoBehaviour {
             if (enemiesSpawned < maxEnemies && Time.time > nextSpawn) {
 
                //decide what type of enemy to spawn
-               
-               SpawnEnemy (diveBomber);
+               float percentBomber = waveDifficulty[8].Get(0);
+               float percentOrbital = waveDifficulty[8].Get(1);
+               float percentLevel3 = waveDifficulty[8].Get(2);
+               float value = Random.value;
+
+               if (value < percentBomber)
+               {
+                  SpawnEnemy(diveBomber);
+               }
+               else if (value - percentBomber < percentOrbital)
+               {
+                  SpawnEnemy(orbiter);
+               }
+               else if (value - percentBomber - percentOrbital < percentLevel3)
+               {
+                  SpawnEnemy(level3);
+               }
+                  
                nextSpawn = Time.time + spawnRate;
                enemiesSpawned++;
             } else if (dynamicPool.ActiveCount (diveBomber) == 0 && dynamicPool.ActiveCount (orbiter) == 0
@@ -255,22 +267,26 @@ public class EnemySpawner : MonoBehaviour {
 
                spawnMode = false;
                shopTimer = 0;
-
+               shopText.text = "Shop closing in: " + (int)(maxShopTimer - shopTimer);
                int thoughtValue = Random.Range(0, waveOverThoughts.Length);
                GameControl.instance.uiController.WriteThought("", waveOverThoughts[thoughtValue], GameUIController.OUR_TEXT_COLOR, false);
             }
          } else {
             //allow player to shop
             shopTimer += Time.deltaTime;
+            shopText.text = "Shop closing in: " + (int)(maxShopTimer - shopTimer);
 
             if (shopTimer > maxShopTimer) {
                spawnMode = true;
                waveCount++;
+               waveText.text = "Wave: " + waveCount;
+               maxEnemies = Random.Range (waveCount, (2 * waveCount) - (PlayerController.instance.hitCount/2));
+               PlayerController.instance.hitCount = 0;
 
-               maxEnemies = waveCount * 2;
                spawnRate = 0.5f;
                enemiesSpawned = 0;
                nextSpawn = Time.time;
+               shopText.text = "";
             }
          }
          break;
