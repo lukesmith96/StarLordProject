@@ -71,11 +71,10 @@ public class TurretController : Destructable {
          GameObject clone;
          Rigidbody2D cloneRb2d;
          BulletController bulletC;
-         for (int i = 0; i < numBullets; ++i, theta += incTheta) {
+         for (int i = 0; i < numBullets; ++i) {
             //Get instance of Bullet
             clone = dynamicPool.GetPooledObject(bullet);
             //if (clone == null) continue; //for graceful error
-            clone.SetActive(false);
             clone.SetActive(true);
 
             cloneRb2d = clone.GetComponent<Rigidbody2D>();
@@ -87,11 +86,15 @@ public class TurretController : Destructable {
             bulletC = clone.GetComponent<BulletController>();
             
             bulletC.ResetBullet(transform.position, transform.up, theta, false);
-
+            cloneRb2d.transform.position = transform.position;
             cloneRb2d.velocity = Vector2.zero;
+            cloneRb2d.transform.up = transform.up;
+            cloneRb2d.transform.Rotate(0, 0, theta);
+            //cloneRb2d.velocity = Vector2.zero;
             // Send bullet on its errand of destruction
             cloneRb2d.AddForce(clone.transform.up * speed);
-            GetComponent<AudioSource> ().Play ();
+            //GetComponent<AudioSource> ().Play ();
+            theta += incTheta;
          }
       }
    }

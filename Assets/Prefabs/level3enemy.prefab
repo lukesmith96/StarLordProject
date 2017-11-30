@@ -91,14 +91,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInvincible: 0
+  isEnemy: 0
+  isCentralTurret: 0
   collisionDamage: 20
   explosionObject: {fileID: 1068696489738168, guid: 351d12c13793cdd4b8327b17ff62d046,
     type: 2}
   addScoreAmount: 10
   gravityConstant: 35
   radius: 25
-  reloadTime: 0.3
-  bullet: {fileID: 1901099290422640, guid: 55d59031f202d794d955c93ef42e9854, type: 2}
+  reloadTime: 1
+  bullet: {fileID: 1006152285675640, guid: f0deb4c9e892b28489cc3deaa6454b23, type: 2}
   speed: 25
 --- !u!114 &114930557738214006
 MonoBehaviour:
@@ -112,10 +114,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInvincible: 0
+  isEnemy: 0
+  isCentralTurret: 0
+  currentHealth: 0
   collisionDamage: 20
   explosionObject: {fileID: 1068696489738168, guid: 351d12c13793cdd4b8327b17ff62d046,
     type: 2}
   addScoreAmount: 10
+  dynamicPool: {fileID: 0}
+  rb2d: {fileID: 0}
+  saveScale: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  dir: {x: 0, y: 0}
+  forward: {x: 0, y: 0}
+  side: {x: 0, y: 0}
+  cross: {x: 0, y: 0}
+  rigidbody: {fileID: 0}
   x: 0
   y: 0
   alpha: 0

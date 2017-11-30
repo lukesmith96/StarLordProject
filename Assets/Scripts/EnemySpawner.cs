@@ -115,6 +115,7 @@ public class EnemySpawner : MonoBehaviour {
       if (GameControl.instance.godmode == true) {
          if (Input.GetKeyDown (KeyCode.UpArrow)) {
             waveCount++;
+            maxWaveCount += 3;
             waveText.text = "Wave: " + waveCount;
          }
       }
@@ -171,14 +172,15 @@ public class EnemySpawner : MonoBehaviour {
          }
          break;
 
-      case 18:
-         if (spawnMode)
+      case 19:
+         if (spawnMode && !bossSpawned)
          {
             SpawnEnemy(teleportingBoss);
+            bossSpawned = true;
          }
          goto case 17;
       case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
-         case 13: case 14: case 15: case 16: case 17: //planned wave
+         case 13: case 14: case 15: case 16: case 17: case 18: //planned wave
          if (spawnMode)
          {
             if (wavespawncount < maxWaveCount && Time.time > nextSpawn)

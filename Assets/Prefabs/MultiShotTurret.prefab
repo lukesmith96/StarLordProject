@@ -128,12 +128,12 @@ MonoBehaviour:
   addScoreAmount: 10
   player: {fileID: 0}
   bullet: {fileID: 1006152285675640, guid: f0deb4c9e892b28489cc3deaa6454b23, type: 2}
-  speed: 500
-  maxRange: 10
+  speed: 750
+  maxRange: 65
   minRange: 0
   reloadTime: 1
   numBullets: 3
-  spread: 15
+  spread: 12
   diveBomber: {fileID: 1935026177306656, guid: 4fd429c9f798c40bcb5b61b325070461, type: 2}
   orbiter: {fileID: 1370501377038410, guid: a762208fdf5d01045956a54a078f130b, type: 2}
   diveOrbital: {fileID: 1850684161653214, guid: 6df62b3df99002f469eba89ef583492b,

@@ -49,11 +49,11 @@ public class Level2EnemyController : EnemyController {
          transform.position = GetPoint(PlayerController.instance.transform.position, r, angle, dir);
          if (inBeam == false) {
             FireBullet (new Vector2 (0, 0));
-         }
 
-         if (timeSinceFiring < reloadTime)
-         {
-            timeSinceFiring += Time.deltaTime;
+            if (timeSinceFiring < reloadTime)
+            {
+               timeSinceFiring += Time.deltaTime;
+            }
          }
       }
    }

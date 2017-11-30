@@ -139,6 +139,9 @@ MonoBehaviour:
   diveOrbital: {fileID: 1850684161653214, guid: 6df62b3df99002f469eba89ef583492b,
     type: 2}
   boss: {fileID: 1924963653909100, guid: 7e1594af7da49c94c8b59f7beac9f102, type: 2}
+  canShootL1: 1
+  canShootL2: 1
+  canShootL3: 1
   isTouching: 0
   isAttached: 0
 --- !u!212 &212417925121190890
