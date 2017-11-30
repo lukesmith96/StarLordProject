@@ -46,7 +46,7 @@ public class TeleportingEnemy : EnemyController {
          float randX, randY;
          
          float theta = Random.Range(0f, 360f);
-         float r = closeToRange;
+         float r = closeToRange + PlayerController.instance.getPlayerRadius();
          float radians = theta * Mathf.Deg2Rad; 
          telePos = new Vector2(r * Mathf.Sin(radians), r * Mathf.Cos(radians));
          
