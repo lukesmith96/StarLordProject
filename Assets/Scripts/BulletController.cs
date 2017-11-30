@@ -11,7 +11,10 @@ public class BulletController : MonoBehaviour {
    public Vector2 originPoint = Vector2.zero;
    public GameObject explosion;
    public bool isEnemyBullet = false;
-   
+   public bool canShootL1;
+   public bool canShootL2;
+   public bool canShootL3;
+
    private Rigidbody2D rb2d;
    private DynamicObjectPool dynamicPool;
    
@@ -42,13 +45,13 @@ public class BulletController : MonoBehaviour {
    private void OnTriggerEnter2D(Collider2D other)
    {
       // Player shouldn't score if their bullets hit asteroid, right?
-      //if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
-      /*if (other.gameObject.CompareTag("Asteroid"))
+      if (other.gameObject.CompareTag("Asteroid") && !isEnemyBullet)
+      //if (other.gameObject.CompareTag("Asteroid"))
       {
-         GameObject exe = dynamicPool.GetPooledObject(explosion);
-         exe.transform.position = transform.position;
-         exe.SetActive(true);
-         exe.GetComponent<ParticleSystem>().Play();
+         //GameObject exe = dynamicPool.GetPooledObject(explosion);
+         //exe.transform.position = transform.position;
+         //exe.SetActive(true);
+         //exe.GetComponent<ParticleSystem>().Play();
 
          other.gameObject.SetActive(false);
          this.gameObject.SetActive(false);
@@ -57,8 +60,10 @@ public class BulletController : MonoBehaviour {
          //GameControl.instance.SetScoreText();
          //PlayerController.instance.addMass(10);
 
-      }*/
-      if (((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Enemy2") || other.gameObject.CompareTag("Enemy2")) && !isEnemyBullet)
+      }
+      if (((other.gameObject.CompareTag("Enemy") && canShootL1) || 
+         (canShootL2 && other.gameObject.CompareTag("Enemy2")) || 
+         (canShootL3 && other.gameObject.CompareTag("Enemy2")) && !isEnemyBullet)
          || (other.gameObject.CompareTag("Turret") && isEnemyBullet))
       {
          /*

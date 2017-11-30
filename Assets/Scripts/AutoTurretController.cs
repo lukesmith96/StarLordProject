@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoTurretController : TurretController {
-   public GameObject enemy;
+   public GameObject diveBomber;
+   public GameObject orbiter;
+   public GameObject diveOrbital;
+   public GameObject boss;
 
+   public bool canShootL1;
+   public bool canShootL2;
+   public bool canShootL3;
    public bool isTouching;
    public bool isAttached;
 
@@ -97,11 +103,19 @@ public class AutoTurretController : TurretController {
       float minDistance = Mathf.Infinity;
          
       Vector3 startRay = transform.position;
-      List<GameObject> enemyList = dynamicPool.GetPoolList (enemy);
-
-      if (enemyList == null) {
-         return;
-      }
+      List<GameObject> bomberList = dynamicPool.GetPoolList(diveBomber);
+      List<GameObject> orbiterList = dynamicPool.GetPoolList(orbiter);
+      List<GameObject> level3List = dynamicPool.GetPoolList(diveOrbital);
+      List<GameObject> bossList = dynamicPool.GetPoolList(boss);
+      List<GameObject> enemyList = new List<GameObject>();
+      if (bomberList != null)
+         enemyList.AddRange(bomberList);
+      if (orbiterList != null)
+         enemyList.AddRange(orbiterList);
+      if (level3List != null)
+         enemyList.AddRange(level3List);
+      if (bossList != null)
+         enemyList.AddRange(bossList);
 
       //http://answers.unity3d.com/questions/1042247/how-to-make-a-simple-line-of-sight-in-a-2d-top-dow.html
       foreach (GameObject childPos in enemyList) {
@@ -127,10 +141,10 @@ public class AutoTurretController : TurretController {
             if (sightTest.transform.CompareTag ("Player"))
                continue;
 
-            if (sightTest.transform.CompareTag ("Enemy") ||
-               //sightTest.transform.CompareTag ("Boss") ||
-               //sightTest.transform.CompareTag ("Enemy3") ||
-               sightTest.transform.CompareTag ("Enemy2")) {
+            if ((canShootL1 && sightTest.transform.CompareTag ("Enemy")) ||
+               sightTest.transform.CompareTag ("Enemy4") ||
+               (canShootL3 && sightTest.transform.CompareTag ("Enemy3")) ||
+               (canShootL2 && sightTest.transform.CompareTag ("Enemy2"))) {
                closestEnemy = sightTest;
                gotTarget = true;
                break;

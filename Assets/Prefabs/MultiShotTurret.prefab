@@ -134,7 +134,11 @@ MonoBehaviour:
   reloadTime: 1
   numBullets: 3
   spread: 15
-  enemy: {fileID: 1935026177306656, guid: 4fd429c9f798c40bcb5b61b325070461, type: 2}
+  diveBomber: {fileID: 1935026177306656, guid: 4fd429c9f798c40bcb5b61b325070461, type: 2}
+  orbiter: {fileID: 1370501377038410, guid: a762208fdf5d01045956a54a078f130b, type: 2}
+  diveOrbital: {fileID: 1850684161653214, guid: 6df62b3df99002f469eba89ef583492b,
+    type: 2}
+  boss: {fileID: 1924963653909100, guid: 7e1594af7da49c94c8b59f7beac9f102, type: 2}
   isTouching: 0
   isAttached: 0
 --- !u!212 &212256564218055540

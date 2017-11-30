@@ -246,8 +246,7 @@ public class EnemySpawner : MonoBehaviour {
             if (enemiesSpawned < maxEnemies && Time.time > nextSpawn) {
 
                //decide what type of enemy to spawn
-
-
+               
                SpawnEnemy (diveBomber);
                nextSpawn = Time.time + spawnRate;
                enemiesSpawned++;
