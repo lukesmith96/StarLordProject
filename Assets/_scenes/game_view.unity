@@ -2555,7 +2555,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2894,7 +2894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1217396037280630, guid: c151b428721f205459b4bcd1bb9b1396, type: 2}
-  notEnoughMassText: {fileID: 0}
+  notEnoughMassText: {fileID: 594865819}
   turretCost: 75
 --- !u!1 &639008621
 GameObject:
@@ -3151,7 +3151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1613204749817050, guid: aa5bf3f52be892c45bbd3e7ff5aa1cc8, type: 2}
-  notEnoughMassText: {fileID: 0}
+  notEnoughMassText: {fileID: 2056585171}
   turretCost: 100
 --- !u!114 &683098783
 MonoBehaviour:
@@ -7592,7 +7592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1824250361902316, guid: 50d8cb8189c710e408879acfc663b819, type: 2}
-  notEnoughMassText: {fileID: 0}
+  notEnoughMassText: {fileID: 1256777635}
   turretCost: 25
 --- !u!1 &1544817569
 GameObject:
@@ -8561,7 +8561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1151081500716798, guid: 217dbccbfbeed6641bd6339e66c133f1, type: 2}
-  notEnoughMassText: {fileID: 0}
+  notEnoughMassText: {fileID: 594865819}
   turretCost: 50
 --- !u!1 &1761100509
 GameObject:

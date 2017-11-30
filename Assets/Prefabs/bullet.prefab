@@ -120,13 +120,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fbc03952e8bec4fbc24461677266b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRange: 11.2
-  minRange: 11.2
+  maxRange: 14
+  minRange: 13
   speed: 500
   damage: 10
   originPoint: {x: 0, y: 0}
   explosion: {fileID: 1068696489738168, guid: 351d12c13793cdd4b8327b17ff62d046, type: 2}
   isEnemyBullet: 0
+  canShootL1: 1
+  canShootL2: 1
+  canShootL3: 1
 --- !u!198 &198474381344087624
 ParticleSystem:
   m_ObjectHideFlags: 1

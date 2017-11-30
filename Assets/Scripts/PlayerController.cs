@@ -122,9 +122,11 @@ public class PlayerController : MonoBehaviour {
 
    public bool reduceMass(int reduce)
    {
-      if (mass - reduce < -100)
-         return false;
       mass -= reduce;
+      if (mass < -100) {
+         mass = -100;
+         return false;
+      }
       GameControl.instance.SetMassText();
       return true;
    }

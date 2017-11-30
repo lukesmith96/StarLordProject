@@ -119,9 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da56ea5833e2e0b4289d702337e0a0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInvincible: 0
+  isInvincible: 1
   isEnemy: 0
-  isCentralTurret: 0
+  isCentralTurret: 1
   collisionDamage: 20
   explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
     type: 2}
