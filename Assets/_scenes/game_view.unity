@@ -226,7 +226,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49930319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -435, z: 0}
+  m_LocalPosition: {x: 0, y: -297.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 846030856}
@@ -1582,7 +1582,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 355065799}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 613, y: 435, z: 0}
+  m_LocalPosition: {x: 120, y: 297.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1436122956}
@@ -2096,7 +2096,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 475327352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 395, z: 0}
+  m_LocalPosition: {x: 0, y: 257.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1893639276}
@@ -2667,7 +2667,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 596199359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -688, y: 390, z: 0}
+  m_LocalPosition: {x: -195, y: 252.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160506688}
@@ -2894,7 +2894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1217396037280630, guid: c151b428721f205459b4bcd1bb9b1396, type: 2}
-  notEnoughMassText: {fileID: 594865819}
+  notEnoughMassText: {fileID: 0}
   turretCost: 75
 --- !u!1 &639008621
 GameObject:
@@ -3151,7 +3151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1613204749817050, guid: aa5bf3f52be892c45bbd3e7ff5aa1cc8, type: 2}
-  notEnoughMassText: {fileID: 2056585171}
+  notEnoughMassText: {fileID: 0}
   turretCost: 100
 --- !u!114 &683098783
 MonoBehaviour:
@@ -3782,7 +3782,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 877072380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 395, z: 0}
+  m_LocalPosition: {x: 0, y: 257.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1136513136}
@@ -3858,7 +3858,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 882553070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 693, y: 435, z: 0}
+  m_LocalPosition: {x: 200, y: 297.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1890887718}
@@ -5397,7 +5397,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1160506683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 783, y: 445, z: 0}
+  m_LocalPosition: {x: 290, y: 307.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 221814668}
@@ -7592,7 +7592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1824250361902316, guid: 50d8cb8189c710e408879acfc663b819, type: 2}
-  notEnoughMassText: {fileID: 1256777635}
+  notEnoughMassText: {fileID: 0}
   turretCost: 25
 --- !u!1 &1544817569
 GameObject:
@@ -8368,7 +8368,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1732906950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -768, y: 430, z: 0}
+  m_LocalPosition: {x: -275, y: 292.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1160506688}
@@ -8561,7 +8561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolGameObject: {fileID: 741136896}
   turretType: {fileID: 1151081500716798, guid: 217dbccbfbeed6641bd6339e66c133f1, type: 2}
-  notEnoughMassText: {fileID: 161333774}
+  notEnoughMassText: {fileID: 0}
   turretCost: 50
 --- !u!1 &1761100509
 GameObject:
@@ -8908,7 +8908,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1805834028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 773, y: 435, z: 0}
+  m_LocalPosition: {x: 280, y: 297.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1865971460}
@@ -9335,7 +9335,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -9416,7 +9416,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:

@@ -50,8 +50,11 @@ public class DynamicObjectPool : MonoBehaviour
          }
       }
       GameObject obj = (GameObject)Instantiate(objectToGet, transform);
-      obj.SetActive(false);
+      obj.SetActive(true);
       pool[listIndex].Add(obj);
+      //reset obj
+      obj.transform.position = Vector3.zero;
+      
       return obj;
    }
 

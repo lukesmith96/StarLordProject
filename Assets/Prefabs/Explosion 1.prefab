@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198759588320355378}
   - component: {fileID: 199162309501796244}
   - component: {fileID: 114290813558983566}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Explosion 1
   m_TagString: Explosion1
   m_Icon: {fileID: 0}
@@ -3403,8 +3403,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1901082069
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
