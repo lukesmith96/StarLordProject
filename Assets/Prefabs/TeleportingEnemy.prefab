@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 50726729722138420}
   m_Layer: 0
   m_Name: TeleportingEnemy
-  m_TagString: Enemy3
+  m_TagString: Enemy4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -635,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInvincible: 0
   isEnemy: 1
+  isCentralTurret: 0
   collisionDamage: 20
   explosionObject: {fileID: 1187200518004192, guid: d11b8e7967b2f4a4c8fd2c5bd1d29f33,
     type: 2}
