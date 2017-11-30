@@ -108,6 +108,13 @@ public class EnemySpawner : MonoBehaviour {
    }
 
    void Update() {
+
+      if (GameControl.instance.godmode == true) {
+         if (Input.GetKeyDown (KeyCode.UpArrow)) {
+            waveCount++;
+         }
+      }
+
       switch (waveCount) {
 
       case 1: // intro wave to introduce asteroids

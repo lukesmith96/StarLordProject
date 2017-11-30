@@ -19,6 +19,7 @@ public class OrbiterScript : EnemyController
    private float timeSinceFiring = .1f; //seconds
    public GameObject bullet;
    public float speed = 25.0f;
+   private bool inBeam = false;
 
    // Use this for initialization
    void Start()
@@ -71,6 +72,13 @@ public class OrbiterScript : EnemyController
             timeSinceFiring += Time.deltaTime;
          }
       }
+
+      if (inBeam) {
+         Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
+         Vector2 current = transform.position;
+         Vector2 vectorToOrigin = Vector2.MoveTowards (3f * -current, 3f * target, 3 * Time.deltaTime);
+         rb.AddForce (vectorToOrigin);
+      }
    }
    void OnEnable()
    {
@@ -80,14 +88,19 @@ public class OrbiterScript : EnemyController
       orbit = false;
       radius = 25 + (PlayerController.instance.mass / 150);
    }
+
    void OnTriggerEnter2D(Collider2D other)
    {
       // If an enemy collides with the player, the player loses score
-      if (other.gameObject.CompareTag("Player"))
-      {
-         this.gameObject.SetActive(false);
+      if (other.gameObject.CompareTag ("Player")) {
+         this.gameObject.SetActive (false);
+      } else if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
+         inBeam = true;
+      } else {
+         inBeam = false;
       }
    }
+
    //https://answers.unity.com/questions/503934/chow-to-check-if-an-object-is-facing-another.html
    bool IsLookingAtObject(Transform looker, Vector3 targetPos, float FOVAngle)
    {
