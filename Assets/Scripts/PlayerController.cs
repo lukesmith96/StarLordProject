@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
    public static PlayerController instance;
    public float rotationTime = .5f;
    public Vector3 newScale;
+   public Vector3 origScale;
 
    private bool isColliding;
    private bool rotatePU;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour {
    void Start () {
       rotatePU = false;
       instance = this;
-      currScale = newScale = transform.localScale;
+      origScale = currScale = newScale = transform.localScale;
       mass = 0;
       GameControl.instance.SetMassText();
       AudioSource[] audios = GetComponents<AudioSource> ();

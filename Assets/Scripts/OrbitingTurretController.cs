@@ -33,13 +33,16 @@ public class OrbitingTurretController : AutoTurretController {
 
       PlayerController player = PlayerController.instance;
 
+
       // Add to local scale if player scale changes
-      if (lastPlayerScale != player.GetComponent<PlayerController>().newScale.x) {
-         localScale += 
-            player.GetComponent<PlayerController> ().scaleValue * 
-            player.GetComponent<PlayerController>().mass * 
-            Time.deltaTime;
-         lastPlayerScale = player.GetComponent<PlayerController> ().newScale.x;
+      if (lastPlayerScale != player.newScale.x) {
+         float newScale = player.scaleValue * player.mass * Time.deltaTime;
+         localScale += (player.newScale.x < lastPlayerScale) ? -newScale : newScale;
+ 
+         if (localScale < 1.0f)
+            localScale = 1.0f;
+
+         lastPlayerScale = player.newScale.x;
       }
 
       if (isAttached) {
