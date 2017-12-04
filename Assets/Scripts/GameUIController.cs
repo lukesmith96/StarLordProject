@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/*
+ * @author: John Bradbury, Ken Oshima
+ * 
+ */
+
 public class GameUIController : MonoBehaviour {
    
    public const string OUR_TEXT_COLOR = "#ff8f8fff";
@@ -93,6 +98,7 @@ public class GameUIController : MonoBehaviour {
       GameControl.instance.togglePauseGame(open);
    }
 
+   // Ken Oshima
    public void ToggleShopMenu(bool open) {
       if (!EnemySpawner.instance.spawnMode && !pauseMenu.activeInHierarchy) {
          shopMenu.SetActive (open);
@@ -102,6 +108,7 @@ public class GameUIController : MonoBehaviour {
       //GameControl.instance.togglePauseGame(open);
    }
 
+   // Ken Oshima
    public void ToggleUpgradeMenu(bool open) {
       if (pauseMenu.activeInHierarchy)
          return;

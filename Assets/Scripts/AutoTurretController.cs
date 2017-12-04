@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * @author: John Bradbury, Ken Oshima
+ * @since: 9.26.17
+ * 
+ */
+
 public class AutoTurretController : TurretController {
    public GameObject diveBomber;
    public GameObject orbiter;

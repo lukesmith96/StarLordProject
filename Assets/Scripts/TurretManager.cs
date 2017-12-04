@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/* 
+ * @author: Luke Smith, Ken Oshima
+ */
+
 public class TurretManager : MonoBehaviour {
 
    public static TurretManager instance;

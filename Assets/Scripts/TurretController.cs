@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 /*
  * @author: Luke Smith, Ken Oshima
  * @since: 9.26.17
  * 
  * This class is the parent class to all Types of turrets.
  */
+ 
 public class TurretController : Destructable {
    public GameObject player;
    public GameObject bullet;

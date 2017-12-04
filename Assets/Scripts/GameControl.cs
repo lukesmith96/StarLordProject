@@ -4,6 +4,11 @@ using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/*
+ * @author: John Bradbury, Ken Oshima
+ * 
+ */
+
 public class GameControl : MonoBehaviour 
 {
    public static GameControl instance;
@@ -90,16 +95,19 @@ public class GameControl : MonoBehaviour
       }
    }
 
+   // Ken Oshima
    public void SetScoreText()
    {
       scoreText.text = "Score: " + GameControl.instance.score.ToString ();
    }
+   
+   // Ken Oshima
    public void SetMassText()
    {
       massText.text = "Mass: " + PlayerController.instance.mass.ToString();
    }
      
-
+    // Ken Oshima
    public void togglePauseGame(bool paused) {
       gameIsPaused = paused;
    }

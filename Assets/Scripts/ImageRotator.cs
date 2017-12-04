@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * @author: Ken Oshima
+ * 
+ */
+
 public class ImageRotator : MonoBehaviour {
 
 	// Use this for initialization

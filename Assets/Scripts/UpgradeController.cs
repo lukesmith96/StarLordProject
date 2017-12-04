@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* 
+ * @author: Ken Oshima
+ */
+
 public class UpgradeController : MonoBehaviour {
 
    public GameObject centerTurret;
