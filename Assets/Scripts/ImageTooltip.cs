@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// From http://answers.unity3d.com/questions/1095047/detect-mouse-events-for-ui-canvas.html
+/* @author: Ken Oshima
+ * From http://answers.unity3d.com/questions/1095047/detect-mouse-events-for-ui-canvas.html
+ */
 
 public class ImageTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
   

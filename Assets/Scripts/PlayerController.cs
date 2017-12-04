@@ -9,6 +9,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+/*
+ * @author: Ken Oshima, Luke Smith, 
+ * 
+ */
+
 public class PlayerController : MonoBehaviour {
 
    public float scaleValue = .01F;
