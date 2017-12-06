@@ -179,6 +179,7 @@ public class EnemySpawner : MonoBehaviour {
          {
             SpawnEnemy(teleportingBoss);
             bossSpawned = true;
+            wavespawncount = maxWaveCount;
          }
          goto case 17;
       case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12:
