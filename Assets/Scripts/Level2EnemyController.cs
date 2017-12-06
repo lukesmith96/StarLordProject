@@ -27,6 +27,7 @@ public class Level2EnemyController : EnemyController {
       base.Start();
    }
 	
+   //Luke Smith
 	// Update is called once per frame
 	void Update () {
       Vector2 target = new Vector2(0,0);
@@ -57,6 +58,7 @@ public class Level2EnemyController : EnemyController {
          }
       }
    }
+   //Luke Smith
    protected void FireBullet(Vector2 direction)
    {
       if (timeSinceFiring >= reloadTime)
@@ -80,7 +82,7 @@ public class Level2EnemyController : EnemyController {
          cloneRb2d.AddForce(newDir * speed);
       }
    }
-
+   // Luke smith
    private Vector2 GetRandPoint(Vector2 origin, Vector2 pos, float r, out float angle, out int dir)
    {
       System.Random random = new System.Random();
@@ -90,7 +92,7 @@ public class Level2EnemyController : EnemyController {
          --dir;
       return GetPoint(origin, r, angle, dir);
    }
-
+   //Luke Smith
    private Vector2 GetPoint(Vector2 origin, float r, float angle, int dir)
    {
       float x = origin.x + r * Mathf.Cos(Mathf.Deg2Rad * angle);
@@ -98,7 +100,7 @@ public class Level2EnemyController : EnemyController {
 
       return new Vector2(x, y);
    }
-   
+   //Luke Smith
    void OnEnable() {
       base.Reset();
       transform.position = originPoint;

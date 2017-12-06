@@ -1,16 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
 
 /*
- * @author: Ken Oshima, Luke Smith, 
+ * @author: Ken Oshima, Luke Smith
  * 
  */
 
@@ -109,11 +102,6 @@ public class PlayerController : MonoBehaviour {
       float s = mass + 100;
       if (s > 1100.0f) s = 1100.0f;
       return scaleValue * s;
-   }
-   
-   public void invokeGodMode()
-   {
-      
    }
 
    public Vector3 scalePlayer() {

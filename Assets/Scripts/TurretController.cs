@@ -59,6 +59,7 @@ public class TurretController : Destructable {
       }
    }
       
+   // Luke Smith, John Bradbury
    protected void FireBullet(Vector2 direction) {
       if (timeSinceFiring >= reloadTime) {
          timeSinceFiring = 0f;

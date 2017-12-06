@@ -25,7 +25,7 @@ public class TurretManager : MonoBehaviour {
       else if (instance != this)
          Destroy(gameObject);
    }
-
+   //Luke Smith
 	// Use this for initialization
 	void Start () {
       //pooledTurrets = new List<TurretController> ();
@@ -51,6 +51,7 @@ public class TurretManager : MonoBehaviour {
    public void SpawnTurret(GameObject turret) {
 
    }
+   // Luke Smith
    public bool canPlaceTurret(GameObject turretToAdd)
    {
       if (GameControl.instance.godmode)

@@ -162,12 +162,10 @@ public class GameControl : MonoBehaviour
    
    public void ActivateGodmode() {
       godmode = true;
-      PlayerController.instance.invokeGodMode();
-
       centerTurretControl.isInvincible = true;
    }
 
-   //John Bradbury
+   //John Bradbury, Luke Smith
    public void ShopPopup(string type)
    {
       if (type == "AsteroidsInstructions")

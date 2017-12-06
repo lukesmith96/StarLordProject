@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour {
    public GameObject teleportingBoss;
    public GameObject level3;
 
+   // Luke Smith
    private Tuple<float, float, float>[] waveDifficulty = {
       new Tuple<float, float, float>(.8f, .2f, 0),
       new Tuple<float, float, float>(.75f, .25f, 0),
@@ -172,7 +173,7 @@ public class EnemySpawner : MonoBehaviour {
             GameControl.instance.uiController.WriteThought("", "I'm ready for a real challenge!", GameUIController.OUR_TEXT_COLOR, false);
          }
          break;
-
+      // Case 4-19 Luke Smith
       case 19:
          if (spawnMode && !bossSpawned)
          {
@@ -297,15 +298,6 @@ public class EnemySpawner : MonoBehaviour {
       }
    }
 
-   public static GameObject GetPooledObject(List<GameObject> collection) {
-      for (int i = 0; i < collection.Count; i++) {
-         if (!collection[i].activeInHierarchy) {
-            return collection[i];
-         }
-      }
-      return null;
-   }
-
    //Nicholas Berriochoa
    public void SpawnEnemy (GameObject enemyObject)
    {
@@ -327,6 +319,7 @@ public class EnemySpawner : MonoBehaviour {
       tmp.GetComponent<Rigidbody2D> ().AddForce (direction.normalized * 300f);
    }
 
+   // Luke Smith
    private class Tuple<T1, T2, T3>
    {
       private float v1;

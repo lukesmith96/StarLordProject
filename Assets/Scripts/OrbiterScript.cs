@@ -2,7 +2,7 @@
 
 /*
  * @author Luke Smith
- * @since 9.30.17
+ * @since 10.25.17
  * 
  */
 public class OrbiterScript : EnemyController
@@ -29,7 +29,7 @@ public class OrbiterScript : EnemyController
    }
 
    public override void Update(){}
-
+   // Luke Smith
    // FixedUpdate is called once per physics update
    void FixedUpdate()
    {
@@ -80,6 +80,7 @@ public class OrbiterScript : EnemyController
          rb.AddForce (vectorToOrigin);
       }
    }
+   //Luke Smith
    void OnEnable()
    {
       attracter = GameObject.FindGameObjectWithTag("Player");
@@ -88,7 +89,7 @@ public class OrbiterScript : EnemyController
       orbit = false;
       radius = 25 + (PlayerController.instance.mass / 150);
    }
-
+   // Luke Smith
    void OnTriggerEnter2D(Collider2D other)
    {
       // If an enemy collides with the player, the player loses score
@@ -100,7 +101,7 @@ public class OrbiterScript : EnemyController
          inBeam = false;
       }
    }
-
+   // Luke Smith
    //https://answers.unity.com/questions/503934/chow-to-check-if-an-object-is-facing-another.html
    bool IsLookingAtObject(Transform looker, Vector3 targetPos, float FOVAngle)
    {
@@ -116,7 +117,7 @@ public class OrbiterScript : EnemyController
       else
          return false;
    }
-
+   // Luke Smith
    protected void FireBullet(Vector2 direction)
    {
       if (timeSinceFiring >= reloadTime)

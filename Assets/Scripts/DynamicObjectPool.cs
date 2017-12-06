@@ -5,7 +5,10 @@ using System.Text;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+/*
+ * @author Luke Smith
+ * @date 10.9.17
+ */
 public class DynamicObjectPool : MonoBehaviour
 {
    private List<List<GameObject>> pool;
@@ -14,7 +17,7 @@ public class DynamicObjectPool : MonoBehaviour
    {
       pool = new List<List<GameObject>>();
    }
-
+   // Luke Smith
    public List<GameObject> GetPoolList(GameObject listObjectType)
    {
       for (int index = 0; index < pool.Count; index++)
@@ -26,7 +29,7 @@ public class DynamicObjectPool : MonoBehaviour
       }
       return null;
    }
-
+   // Luke Smith
    public GameObject GetPooledObject(GameObject objectToGet)
    {
       int listIndex = -1;

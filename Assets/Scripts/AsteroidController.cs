@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 /*
  * @author: Luke Smith
+ * @methods: OnEnable, OnTriggerExit2D, Update
  * @since: 10.1.17 
  */
 public class AsteroidController : MonoBehaviour {
@@ -25,9 +26,6 @@ public class AsteroidController : MonoBehaviour {
       rb2d.AddForce(vectorToOrigin);
    }
 
-   void FixedUpdate()
-   {
-   }
    void OnTriggerExit2D(Collider2D other)
    {
       if (other.gameObject.CompareTag("Beam") && other.gameObject.GetComponent<Renderer>().enabled == true)

@@ -13,14 +13,11 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    public GameObject poolGameObject;
    public GameObject turretType;
    public GameObject notEnoughMassText;
-
    public int turretCost = 50;
-
    private DynamicObjectPool dynamicPool;
    private GameObject turretToSpawn;
    private bool isDragged = false;
    private bool onImage = false;
-
    private readonly float MaxTimer = 1f;
    private float timer = 0; 
 
@@ -61,7 +58,7 @@ public class ShopController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
    {
       onImage = false;
    }
-
+   // Luke Smith, Kenny
    public void OnPointerUp(PointerEventData eventData) {
       // Calc the amount of turrents relative to mass of 
       // Place turret if touching player

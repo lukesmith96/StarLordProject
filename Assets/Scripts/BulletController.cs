@@ -41,7 +41,9 @@ public class BulletController : MonoBehaviour {
       gameObject.transform.Rotate(0, 0, theta);
       isEnemyBullet = isEnemy;
    }
-   
+   /*
+    * @author Luke Smith, John Bradbury 
+    */
    private void OnTriggerEnter2D(Collider2D other)
    {
       // Player shouldn't score if their bullets hit asteroid, right?

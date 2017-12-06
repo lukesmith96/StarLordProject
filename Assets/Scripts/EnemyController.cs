@@ -27,7 +27,7 @@ public class EnemyController : Destructable {
 	void FixedUpdate () {
 
 	}
-
+   // Luke Smith
 	public virtual void Update() {
       transform.up = (-transform.position).normalized;
 	}
