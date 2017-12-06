@@ -73,7 +73,6 @@ public class EnemySpawner : MonoBehaviour {
    private float spawnRate = 0.0f; //adjusted every wave depending on how many enemies
    private float nextSpawn = 0.0f; //time that the next enemy should spawn
 
-
    private string[] waveOverThoughts = {
       "They've stopped! I must find out where they are from.", 
       "Reload! I don't see anyone...",
@@ -110,6 +109,8 @@ public class EnemySpawner : MonoBehaviour {
       waveCount = 1;
    }
 
+   //Nicholas Berriochoa
+   //main game state control functionality
    void Update() {
 
       if (GameControl.instance.godmode == true) {
@@ -205,7 +206,8 @@ public class EnemySpawner : MonoBehaviour {
                nextSpawn = Time.time + spawnRate;
                wavespawncount++;
             }
-            else if (dynamicPool.ActiveCount(orbiter) == 0 && dynamicPool.ActiveCount(diveBomber) == 0)
+            else if (dynamicPool.ActiveCount(orbiter) == 0 && dynamicPool.ActiveCount(diveBomber) == 0
+                && dynamicPool.ActiveCount(level3) == 0 && dynamicPool.ActiveCount(teleportingBoss) == 0)
             {
                spawnMode = false;
                shopTimer = 0;
@@ -265,7 +267,7 @@ public class EnemySpawner : MonoBehaviour {
                nextSpawn = Time.time + spawnRate;
                enemiesSpawned++;
             } else if (dynamicPool.ActiveCount (diveBomber) == 0 && dynamicPool.ActiveCount (orbiter) == 0
-                       && dynamicPool.ActiveCount (teleportingBoss) == 0) {
+               && dynamicPool.ActiveCount (teleportingBoss) == 0 && dynamicPool.ActiveCount(level3) == 0) {
 
                spawnMode = false;
                shopTimer = 0;
@@ -304,6 +306,7 @@ public class EnemySpawner : MonoBehaviour {
       return null;
    }
 
+   //Nicholas Berriochoa
    public void SpawnEnemy (GameObject enemyObject)
    {
       // spawn an enemy

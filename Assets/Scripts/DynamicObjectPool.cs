@@ -58,6 +58,8 @@ public class DynamicObjectPool : MonoBehaviour
       return obj;
    }
 
+   //Nicholas Berriochoa
+   //used to check if any enemies are in the scene
    public int ActiveCount(GameObject objectToGet) {
       List<GameObject> tmp = GetPoolList (objectToGet);
       if (tmp == null) return 0;
@@ -70,6 +72,8 @@ public class DynamicObjectPool : MonoBehaviour
       return count;
    }
 
+   //Nicholas Berriochoa
+   //clears all enemies of a certain type
    public void ClearEnemies(GameObject enemy) {
       List<GameObject> tmp = GetPoolList (enemy);
 
