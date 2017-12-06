@@ -87,7 +87,7 @@ public class GameControl : MonoBehaviour
          //display game over popup
          uiController.DisplayGameOver(score, enemiesKilled);
       }
-      if (PlayerController.instance.mass >= 1000 && EnemySpawner.instance.waveCount >= 30 && !gameOver && !endStory) {
+      if (PlayerController.instance.mass >= 1000 && EnemySpawner.instance.waveCount >= 25 && !gameOver && !endStory) {
          endStory = true;
          //end of storyline
          uiController.WriteThought("", "Well, I'm all grown up and I now know everything!", GameUIController.OUR_TEXT_COLOR, false);

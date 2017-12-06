@@ -246,27 +246,29 @@ public class EnemySpawner : MonoBehaviour {
             //spawn enemies or check if all have been destroyed
             if (enemiesSpawned < maxEnemies && Time.time > nextSpawn) {
 
-               //decide what type of enemy to spawn
-               float percentBomber = waveDifficulty[8].Get(0);
-               float percentOrbital = waveDifficulty[8].Get(1);
-               float percentLevel3 = waveDifficulty[8].Get(2);
-               float value = Random.value;
+               //boss spawns every 5 waves
+               if (waveCount % 5 == 0) {
+                  SpawnEnemy (teleportingBoss);
+                  enemiesSpawned = maxEnemies;
+               } else {
+                  //not a boss wave
+                  //decide what type of enemy to spawn
+                  float percentBomber = waveDifficulty [8].Get (0);
+                  float percentOrbital = waveDifficulty [8].Get (1);
+                  float percentLevel3 = waveDifficulty [8].Get (2);
+                  float value = Random.value;
 
-               if (value < percentBomber)
-               {
-                  SpawnEnemy(diveBomber);
-               }
-               else if (value - percentBomber < percentOrbital)
-               {
-                  SpawnEnemy(orbiter);
-               }
-               else if (value - percentBomber - percentOrbital < percentLevel3)
-               {
-                  SpawnEnemy(level3);
-               }
+                  if (value < percentBomber) {
+                     SpawnEnemy (diveBomber);
+                  } else if (value - percentBomber < percentOrbital) {
+                     SpawnEnemy (orbiter);
+                  } else if (value - percentBomber - percentOrbital < percentLevel3) {
+                     SpawnEnemy (level3);
+                  }
                   
-               nextSpawn = Time.time + spawnRate;
-               enemiesSpawned++;
+                  nextSpawn = Time.time + spawnRate;
+                  enemiesSpawned++;
+               }
             } else if (dynamicPool.ActiveCount (diveBomber) == 0 && dynamicPool.ActiveCount (orbiter) == 0
                && dynamicPool.ActiveCount (teleportingBoss) == 0 && dynamicPool.ActiveCount(level3) == 0) {
 
