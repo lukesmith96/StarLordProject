@@ -38,6 +38,7 @@ public class CenterTurretController : TurretController {
       {
          //if (EventSystem.current.IsPointerOverGameObject() == false)
          FireBullet(direction);
+         GetComponent<AudioSource> ().Play ();
       }
       
       if (timeSinceFiring >= reloadTime) {
