@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Joshua King
+
+//Unused but functional
 public class ShieldPickup : MonoBehaviour {
 
 	public GameObject Shield;

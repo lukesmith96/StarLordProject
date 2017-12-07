@@ -107,6 +107,8 @@ public class Level2EnemyController : EnemyController {
       rotate = false;
    }
 
+   //Joshua King
+   //Lvl2 enemies will not shoot if in beam
    void OnTriggerStay2D (Collider2D other){
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
          inBeam = true;

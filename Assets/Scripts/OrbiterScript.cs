@@ -73,6 +73,7 @@ public class OrbiterScript : EnemyController
          }
       }
 
+      //Joshua King
       if (inBeam) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane (new Vector2 (0, 0), 0f);
          Vector2 current = transform.position;
@@ -89,7 +90,7 @@ public class OrbiterScript : EnemyController
       orbit = false;
       radius = 25 + (PlayerController.instance.mass / 150);
    }
-   // Luke Smith
+   // Joshua King
    void OnTriggerEnter2D(Collider2D other)
    {
       // If an enemy collides with the player, the player loses score

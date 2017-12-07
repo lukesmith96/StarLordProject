@@ -62,7 +62,10 @@ public class GameControl : MonoBehaviour
    void Update()
    {
       if (Input.GetKeyDown("space")) {
-         ActivateGodmode();
+         if (godmode == false)
+            ActivateGodmode ();
+         else
+            godmode = false;
       }
       if (Input.GetKeyDown("=")) {
          if (godmode) {

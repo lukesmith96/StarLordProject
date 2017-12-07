@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Joshua King
+
 public class TractorBeam : MonoBehaviour {
 	private Rigidbody2D rb2d;
    private Renderer sprite;

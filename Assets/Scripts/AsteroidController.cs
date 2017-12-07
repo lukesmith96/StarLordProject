@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 /*
- * @author: Luke Smith
+ * @author: Luke Smith, Joshua King
  * @methods: OnEnable, OnTriggerExit2D, Update
  * @since: 10.1.17 
  */
@@ -26,6 +26,7 @@ public class AsteroidController : MonoBehaviour {
       rb2d.AddForce(vectorToOrigin);
    }
 
+   //Joshua King
    void OnTriggerExit2D(Collider2D other)
    {
       if (other.gameObject.CompareTag("Beam") && other.gameObject.GetComponent<Renderer>().enabled == true)
@@ -46,6 +47,7 @@ public class AsteroidController : MonoBehaviour {
       }
    }
 
+   //Joshua King
 	void OnTriggerStay2D (Collider2D other){
 	   if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
 			Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);

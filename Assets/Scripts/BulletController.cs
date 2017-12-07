@@ -86,6 +86,8 @@ public class BulletController : MonoBehaviour {
       }
    }
 
+   //Joshua King
+   //Bullets are slowed by beam
    void OnTriggerStay2D (Collider2D other){
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);

@@ -31,7 +31,8 @@ public class EnemyController : Destructable {
 	public virtual void Update() {
       transform.up = (-transform.position).normalized;
 	}
-   
+
+   //Joshua King
    void OnTriggerStay2D (Collider2D other){
       if (other.gameObject.CompareTag ("Beam") && other.gameObject.GetComponent<Renderer> ().enabled == true) {
          Vector2 target = MouseControl.GetWorldPositionOnPlane(new Vector2(0, 0), 0f);

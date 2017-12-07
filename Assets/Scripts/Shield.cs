@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Joshua King
+
+//Unused but functional
+
 public class Shield : MonoBehaviour {
 	public const float shieldHealth = 50f;
 	public float curShieldHealth = 50f;
